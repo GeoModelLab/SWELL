@@ -124,20 +124,23 @@ Each day, _PU<sub>DI</sub>_ and _TU<sub>DI</sub>_ are multiplied to give the dai
 After dormancy induction is completed, the endodormancy proceeds along with chilling units’ accumulation, computed according to the following equations 7 and 8. The chilling units are computed hourly, therefore the daily dynamic of air temperature is simulated from daily maximum and minimum air temperature. For more details, you can refer to [Soil Physics with BASIC](https://shop.elsevier.com/books/soil-physics-with-basic/campbell/978-0-444-42557-7).
 
 $$
-CU_{\text{mid}} = \begin{cases}
-  0.5 \cdot (T_{\text{EN\_l}\downarrow} + T_{\text{EN\_nl}\downarrow}) & \text{if } T_{h} \leq T_{\text{EN\_nl}\downarrow} \leq T_{\text{EN\_l}\downarrow} \\
-  0.5 \cdot (T_{\text{EN\_l}\uparrow} + T_{\text{EN\_nl}\uparrow}) & \text{if } T_{\text{EN\_nl}\uparrow} \leq T_{h} \leq T_{\text{EN\_l}\uparrow}
-\end{cases}\tag{7}
+CU_{\text{mid}} = 
+\begin{cases}
+  0.5 \cdot (T_{\text{EN\_l}\downarrow} + T_{\text{EN\_nl}\downarrow}) & \text{if } T_h \leq T_{\text{EN\_nl}\downarrow} \leq T_{\text{EN\_l}\downarrow}, \\
+  0.5 \cdot (T_{\text{EN\_l}\uparrow} + T_{\text{EN\_nl}\uparrow}) & \text{if } T_{\text{EN\_nl}\uparrow} \leq T_h \leq T_{\text{EN\_l}\uparrow}.
+\end{cases} \tag{7}
 $$
 
 $$
-CU_{\text{EN}} = \begin{cases}
-  0 & \text{if } T_h \leq T_{\text{EN\_l}\downarrow} \text{ or } T_h \geq T_{\text{EN\_l}\uparrow} \\
-  1 & \text{if } T_{\text{EN\_nl}\downarrow} \leq T_h \leq T_{\text{EN\_nl}\uparrow} \\
-  \frac{1}{1 + e^{-10/(T_{\text{EN\_l}\downarrow} - T_{\text{EN\_nl}\downarrow}) \cdot (T_h - CU_{\text{mid}})}} & \text{if } T_{\text{EN\_l}\downarrow} < T_h < T_{\text{EN\_nl}\downarrow} \\
-  \frac{1}{1 + e^{10/(T_{\text{EN\_l}\uparrow} - T_{\text{EN\_nl}\uparrow}) \cdot (T_h - CU_{\text{mid}})}} & \text{if } T_{\text{EN\_nl}\uparrow} < T_h < T_{\text{EN\_l}\uparrow}
-\end{cases}\tag{8}
+CU_{\text{EN}} = 
+\begin{cases}
+  0 & \text{if } T_h \leq T_{\text{EN\_l}\downarrow} \text{ or } T_h \geq T_{\text{EN\_l}\uparrow}, \\
+  1 & \text{if } T_{\text{EN\_nl}\downarrow} \leq T_h \leq T_{\text{EN\_nl}\uparrow}, \\
+  \frac{1}{1 + e^{-10/(T_{\text{EN\_l}\downarrow} - T_{\text{EN\_nl}\downarrow}) \cdot (T_h - CU_{\text{mid}})}} & \text{if } T_{\text{EN\_l}\downarrow} < T_h < T_{\text{EN\_nl}\downarrow}, \\
+  \frac{1}{1 + e^{10/(T_{\text{EN\_l}\uparrow} - T_{\text{EN\_nl}\uparrow}) \cdot (T_h - CU_{\text{mid}})}} & \text{if } T_{\text{EN\_nl}\uparrow} < T_h < T_{\text{EN\_l}\uparrow}.
+\end{cases} \tag{8}
 $$
+
 
 where _T<sub>EN\_l↓</sub>_ (°C) and _T<sub>EN\_l↑</sub>_ (°C) are the lower and upper limiting temperature for chilling units accumulation, and _T<sub>EN\_nl↓</sub>_ (°C) and _T<sub>EN\_nl↑</sub>_ (°C) are the lower and upper not-limiting thresholds for chilling units accumulation. Daily chilling units (_CU<sub>EN\_d</sub>_, day<sup>-1</sup>) are computed summing _CU<sub>EN</sub>_ (hour<sup>-1</sup>), and the endodormancy completion (_PC<sub>EN</sub>_, %) is derived as for dormancy induction. 
 The resulting function is displayed below.
@@ -154,13 +157,15 @@ The resulting function is displayed below.
 High _PC<sub>EN</sub>_ values accelerates the progress of the [ecodormancy](#ecodormancy) (_PTU<sub>EC_</sub>, day<sup>-1</sup>), whose completion is stimulated by long days and warm temperatures. The following equations 8-10 are used to estimate photothermal units during the ecodormancy phase.
 
 $$
-P_r = \frac{D_l}{P_{\text{EC\_nl}}}\tag{9}
+P_r = \frac{D_l}{P_{\text{EC\_nl}}} \tag{9}
 $$
+
 $$
-T_{\text{EC\_mid}} = 0.5 \cdot T_{\text{EC\_nl}} + (1 - P_r) \cdot T_{\text{EC\_nl}}\tag{10}
+T_{\text{EC\_mid}} = 0.5 \cdot T_{\text{EC\_nl}} + (1 - P_r) \cdot T_{\text{EC\_nl}} \tag{10}
 $$
+
 $$
-PTU_{\text{EC}} = \frac{PC_{\text{EN}} + (1 - PC_{\text{EN}}) \cdot P_r}{1 + e^{-10/(T_{\text{EC\_nl}} \cdot P_r \cdot (T - T_{\text{EC\_mid}}))}} / 100\tag{11}
+PTU_{\text{EC}} = \frac{PC_{\text{EN}} + (1 - PC_{\text{EN}}) \cdot P_r}{1 + e^{-10/(T_{\text{EC\_nl}} \cdot P_r \cdot (T - T_{\text{EC\_mid}}))}} \cdot \frac{1}{100} \tag{11}
 $$
 
 where _Pr_ is the ratio between _Dl_ and the not-limiting photoperiod for ecodormancy (_P<sub>EC\_nl</sub>_, hour); _T<sub>EC\_mid</sub>_ (°C) is the midpoint of the logistic function reproducing the temperature effect. The function asymptote depends both on _PC<sub>EN</sub>_ and _Pr_. The figures below show the behaviour of these equations at two levels of endodormancy completion and different day lengths.
