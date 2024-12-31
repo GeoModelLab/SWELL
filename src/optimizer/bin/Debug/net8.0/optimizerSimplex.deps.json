@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "optimizerSimplex/1.0.0": {
+        "runtime": {
+          "optimizerSimplex.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "optimizerSimplex/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

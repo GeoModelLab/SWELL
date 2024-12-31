@@ -1,0 +1,337 @@
+"param","class","ECO_NAME","value","cv"
+"maximumNDVI","parVegetationIndex","Alps conifer and mixed forests",0.857638020611517,0.0396630972997092
+"maximumNDVI","parVegetationIndex","Appenine deciduous montane forests",0.860134266104517,0.0366680036681722
+"maximumNDVI","parVegetationIndex","Balkan mixed forests",0.867970080829788,0.0312833184780362
+"maximumNDVI","parVegetationIndex","Baltic mixed forests",0.83350342812028,0.0427559606007953
+"maximumNDVI","parVegetationIndex","Cantabrian mixed forests",0.854635928770686,0.0427734976917466
+"maximumNDVI","parVegetationIndex","Carpathian montane forests",0.871975121911113,0.0306276823181671
+"maximumNDVI","parVegetationIndex","Celtic broadleaf forests",0.836814369756354,NA
+"maximumNDVI","parVegetationIndex","Central European mixed forests",0.871497486575578,0.0419910706660618
+"maximumNDVI","parVegetationIndex","Corsican montane broadleaf and mixed forests",0.7629369720489,0.0583800164396941
+"maximumNDVI","parVegetationIndex","Dinaric Mountains mixed forests",0.839342742509166,0.0658928904409336
+"maximumNDVI","parVegetationIndex","East European forest steppe",0.894980164275606,NA
+"maximumNDVI","parVegetationIndex","English Lowlands beech forests",0.790485987424972,0.0449013081707343
+"maximumNDVI","parVegetationIndex","European Atlantic mixed forests",0.832386226946376,0.0508470794844586
+"maximumNDVI","parVegetationIndex","Italian sclerophyllous and semi-deciduous forests",0.870167742691994,0.0334101666684635
+"maximumNDVI","parVegetationIndex","Northeast Spain and Southern France Mediterranean forests",0.830124634062056,0.0435804428246567
+"maximumNDVI","parVegetationIndex","Northwest Iberian montane forests",0.825890333676674,0.0457065497794544
+"maximumNDVI","parVegetationIndex","Pannonian mixed forests",0.885732503263887,0.0267907170078382
+"maximumNDVI","parVegetationIndex","Po Basin mixed forests",0.844357204948412,NA
+"maximumNDVI","parVegetationIndex","Pyrenees conifer and mixed forests",0.852563097015705,0.0416208285741924
+"maximumNDVI","parVegetationIndex","Rodope montane mixed forests",0.866189022818474,0.0376764517601624
+"maximumNDVI","parVegetationIndex","Sarmatic mixed forests",0.809518650201374,0.0287499899358402
+"maximumNDVI","parVegetationIndex","South Apennine mixed montane forests",0.845761227463599,0.0480737469729675
+"maximumNDVI","parVegetationIndex","Tyrrhenian-Adriatic sclerophyllous and mixed forests",0.83780242748731,0.0505569689681103
+"maximumNDVI","parVegetationIndex","Western European broadleaf forests",0.845192073304146,0.0438682283027504
+"criticalThresholdSenescence","parSenescence","Alps conifer and mixed forests",67.8216313182498,10.0534671682148
+"criticalThresholdSenescence","parSenescence","Appenine deciduous montane forests",67.5470477138725,10.1915747375884
+"criticalThresholdSenescence","parSenescence","Balkan mixed forests",66.9089428272659,7.33962524232608
+"criticalThresholdSenescence","parSenescence","Baltic mixed forests",66.7313518151404,10.1818040194465
+"criticalThresholdSenescence","parSenescence","Cantabrian mixed forests",67.1661212674607,11.0000982546339
+"criticalThresholdSenescence","parSenescence","Carpathian montane forests",67.9952676074907,10.1369639147713
+"criticalThresholdSenescence","parSenescence","Celtic broadleaf forests",53.1684036820107,NA
+"criticalThresholdSenescence","parSenescence","Central European mixed forests",66.0864948600356,10.1304734303901
+"criticalThresholdSenescence","parSenescence","Corsican montane broadleaf and mixed forests",71.659886521442,12.2186991539348
+"criticalThresholdSenescence","parSenescence","Dinaric Mountains mixed forests",68.3866364300549,6.88978774383928
+"criticalThresholdSenescence","parSenescence","East European forest steppe",56.4554808295456,NA
+"criticalThresholdSenescence","parSenescence","English Lowlands beech forests",66.3399744790268,11.5553771022127
+"criticalThresholdSenescence","parSenescence","European Atlantic mixed forests",68.3450360737385,9.97519652033255
+"criticalThresholdSenescence","parSenescence","Italian sclerophyllous and semi-deciduous forests",66.7702014116264,11.3154657467726
+"criticalThresholdSenescence","parSenescence","Northeast Spain and Southern France Mediterranean forests",66.4761544603659,11.5272511795331
+"criticalThresholdSenescence","parSenescence","Northwest Iberian montane forests",65.8088878724656,10.7575872446434
+"criticalThresholdSenescence","parSenescence","Pannonian mixed forests",67.5494907680905,9.92516845986943
+"criticalThresholdSenescence","parSenescence","Po Basin mixed forests",74.6484631169069,NA
+"criticalThresholdSenescence","parSenescence","Pyrenees conifer and mixed forests",67.9018392146017,11.2553551904408
+"criticalThresholdSenescence","parSenescence","Rodope montane mixed forests",65.0400199502037,10.6096564458064
+"criticalThresholdSenescence","parSenescence","Sarmatic mixed forests",59.8416913204028,4.88504947524384
+"criticalThresholdSenescence","parSenescence","South Apennine mixed montane forests",69.639811899098,9.94357881664537
+"criticalThresholdSenescence","parSenescence","Tyrrhenian-Adriatic sclerophyllous and mixed forests",66.1883451651862,8.65156252329408
+"criticalThresholdSenescence","parSenescence","Western European broadleaf forests",65.6564303414665,10.4041252175373
+"criticalThresholdDormancyInduction","parDormancy","Alps conifer and mixed forests",30.4979790715338,10.0907738267579
+"criticalThresholdDormancyInduction","parDormancy","Appenine deciduous montane forests",32.3888752696823,10.2464257605378
+"criticalThresholdDormancyInduction","parDormancy","Balkan mixed forests",29.1210354841666,7.77243340088902
+"criticalThresholdDormancyInduction","parDormancy","Baltic mixed forests",29.9444145803522,9.82896712195171
+"criticalThresholdDormancyInduction","parDormancy","Cantabrian mixed forests",34.3242750741741,10.9324874272053
+"criticalThresholdDormancyInduction","parDormancy","Carpathian montane forests",29.45647814434,10.2294599078898
+"criticalThresholdDormancyInduction","parDormancy","Celtic broadleaf forests",13.5579215239931,NA
+"criticalThresholdDormancyInduction","parDormancy","Central European mixed forests",30.4033482627698,9.535088784918
+"criticalThresholdDormancyInduction","parDormancy","Corsican montane broadleaf and mixed forests",28.7386082775813,10.536938500942
+"criticalThresholdDormancyInduction","parDormancy","Dinaric Mountains mixed forests",27.921113978487,4.52778015904508
+"criticalThresholdDormancyInduction","parDormancy","East European forest steppe",33.8112190431828,NA
+"criticalThresholdDormancyInduction","parDormancy","English Lowlands beech forests",31.7056500880452,11.2915607182164
+"criticalThresholdDormancyInduction","parDormancy","European Atlantic mixed forests",32.3948293336717,10.5616139545726
+"criticalThresholdDormancyInduction","parDormancy","Italian sclerophyllous and semi-deciduous forests",28.7913748082097,10.3595933348401
+"criticalThresholdDormancyInduction","parDormancy","Northeast Spain and Southern France Mediterranean forests",33.7741679298829,11.692618264885
+"criticalThresholdDormancyInduction","parDormancy","Northwest Iberian montane forests",32.2993221996989,10.650412969064
+"criticalThresholdDormancyInduction","parDormancy","Pannonian mixed forests",29.6692889073654,10.483421973093
+"criticalThresholdDormancyInduction","parDormancy","Po Basin mixed forests",32.9736041890139,NA
+"criticalThresholdDormancyInduction","parDormancy","Pyrenees conifer and mixed forests",32.9020655485794,10.1760197273507
+"criticalThresholdDormancyInduction","parDormancy","Rodope montane mixed forests",22.1794812032364,8.94198639237942
+"criticalThresholdDormancyInduction","parDormancy","Sarmatic mixed forests",32.2254645948808,12.1915897159382
+"criticalThresholdDormancyInduction","parDormancy","South Apennine mixed montane forests",30.0803406436975,10.5974184715987
+"criticalThresholdDormancyInduction","parDormancy","Tyrrhenian-Adriatic sclerophyllous and mixed forests",45.4072073741044,7.05003076919513
+"criticalThresholdDormancyInduction","parDormancy","Western European broadleaf forests",31.3614539257597,10.8380419686509
+"criticalThresholdEcodormancyCompletion","parEcodormancy","Alps conifer and mixed forests",10.4643155597777,2.55069786452437
+"criticalThresholdEcodormancyCompletion","parEcodormancy","Appenine deciduous montane forests",10.4939798396927,2.57210389948908
+"criticalThresholdEcodormancyCompletion","parEcodormancy","Balkan mixed forests",10.1346776509743,2.14660001600828
+"criticalThresholdEcodormancyCompletion","parEcodormancy","Baltic mixed forests",10.7885950176974,2.43055664301027
+"criticalThresholdEcodormancyCompletion","parEcodormancy","Cantabrian mixed forests",11.9805394328297,2.34437759348689
+"criticalThresholdEcodormancyCompletion","parEcodormancy","Carpathian montane forests",9.98043727127697,2.50332863093835
+"criticalThresholdEcodormancyCompletion","parEcodormancy","Celtic broadleaf forests",14.2706117664114,NA
+"criticalThresholdEcodormancyCompletion","parEcodormancy","Central European mixed forests",9.79053341043885,2.76919597346775
+"criticalThresholdEcodormancyCompletion","parEcodormancy","Corsican montane broadleaf and mixed forests",8.96440010528857,3.12264413844672
+"criticalThresholdEcodormancyCompletion","parEcodormancy","Dinaric Mountains mixed forests",8.44194057202219,2.9552173256881
+"criticalThresholdEcodormancyCompletion","parEcodormancy","East European forest steppe",10.6380298650742,NA
+"criticalThresholdEcodormancyCompletion","parEcodormancy","English Lowlands beech forests",11.0141677013213,2.77824103200855
+"criticalThresholdEcodormancyCompletion","parEcodormancy","European Atlantic mixed forests",11.3184414184048,2.62029470397457
+"criticalThresholdEcodormancyCompletion","parEcodormancy","Italian sclerophyllous and semi-deciduous forests",12.0096699931573,2.15183651482148
+"criticalThresholdEcodormancyCompletion","parEcodormancy","Northeast Spain and Southern France Mediterranean forests",12.2572353023045,2.32559305045989
+"criticalThresholdEcodormancyCompletion","parEcodormancy","Northwest Iberian montane forests",11.454292675436,2.64702503443643
+"criticalThresholdEcodormancyCompletion","parEcodormancy","Pannonian mixed forests",10.2767549773786,2.45335115041769
+"criticalThresholdEcodormancyCompletion","parEcodormancy","Po Basin mixed forests",9.47096090466858,NA
+"criticalThresholdEcodormancyCompletion","parEcodormancy","Pyrenees conifer and mixed forests",11.4469996073569,2.31844964322213
+"criticalThresholdEcodormancyCompletion","parEcodormancy","Rodope montane mixed forests",10.4478276430736,2.31913307382923
+"criticalThresholdEcodormancyCompletion","parEcodormancy","Sarmatic mixed forests",12.7626108799348,1.3938572648402
+"criticalThresholdEcodormancyCompletion","parEcodormancy","South Apennine mixed montane forests",10.2273414881545,3.16328950606917
+"criticalThresholdEcodormancyCompletion","parEcodormancy","Tyrrhenian-Adriatic sclerophyllous and mixed forests",13.3945757719818,2.24042956671676
+"criticalThresholdEcodormancyCompletion","parEcodormancy","Western European broadleaf forests",10.8769614439143,2.48709348616812
+"criticalThresholdEndodormancyCompletion","parEndodormancy","Alps conifer and mixed forests",107.57638998906,18.7905903545477
+"criticalThresholdEndodormancyCompletion","parEndodormancy","Appenine deciduous montane forests",103.053296264654,19.5724767991183
+"criticalThresholdEndodormancyCompletion","parEndodormancy","Balkan mixed forests",99.4673071561039,15.6133824246648
+"criticalThresholdEndodormancyCompletion","parEndodormancy","Baltic mixed forests",105.179514429104,20.2601600129409
+"criticalThresholdEndodormancyCompletion","parEndodormancy","Cantabrian mixed forests",112.763640360312,19.1203775773748
+"criticalThresholdEndodormancyCompletion","parEndodormancy","Carpathian montane forests",104.660654678835,19.5549883641227
+"criticalThresholdEndodormancyCompletion","parEndodormancy","Celtic broadleaf forests",78.8115350134491,NA
+"criticalThresholdEndodormancyCompletion","parEndodormancy","Central European mixed forests",103.029822572605,18.6823931358252
+"criticalThresholdEndodormancyCompletion","parEndodormancy","Corsican montane broadleaf and mixed forests",117.086218350942,16.8835963673259
+"criticalThresholdEndodormancyCompletion","parEndodormancy","Dinaric Mountains mixed forests",114.73145392584,9.81472787289953
+"criticalThresholdEndodormancyCompletion","parEndodormancy","East European forest steppe",85.5591189142715,NA
+"criticalThresholdEndodormancyCompletion","parEndodormancy","English Lowlands beech forests",112.59047236552,19.371310596213
+"criticalThresholdEndodormancyCompletion","parEndodormancy","European Atlantic mixed forests",110.229867430846,18.8173621681268
+"criticalThresholdEndodormancyCompletion","parEndodormancy","Italian sclerophyllous and semi-deciduous forests",111.161891123797,15.2512264910588
+"criticalThresholdEndodormancyCompletion","parEndodormancy","Northeast Spain and Southern France Mediterranean forests",114.883340269827,19.1532909729439
+"criticalThresholdEndodormancyCompletion","parEndodormancy","Northwest Iberian montane forests",107.911001028944,17.9813999530225
+"criticalThresholdEndodormancyCompletion","parEndodormancy","Pannonian mixed forests",106.822875915302,19.2419136192735
+"criticalThresholdEndodormancyCompletion","parEndodormancy","Po Basin mixed forests",108.162210536143,NA
+"criticalThresholdEndodormancyCompletion","parEndodormancy","Pyrenees conifer and mixed forests",111.404333804876,17.9282899166559
+"criticalThresholdEndodormancyCompletion","parEndodormancy","Rodope montane mixed forests",114.372752780023,17.0222508871282
+"criticalThresholdEndodormancyCompletion","parEndodormancy","Sarmatic mixed forests",116.981145541346,13.364745244961
+"criticalThresholdEndodormancyCompletion","parEndodormancy","South Apennine mixed montane forests",105.901011261564,21.0914849320099
+"criticalThresholdEndodormancyCompletion","parEndodormancy","Tyrrhenian-Adriatic sclerophyllous and mixed forests",101.690390201244,19.1009991075671
+"criticalThresholdEndodormancyCompletion","parEndodormancy","Western European broadleaf forests",107.194643136659,19.0195558860129
+"criticalThresholdGreendown","parGreendown","Alps conifer and mixed forests",76.595161751277,14.2727200197322
+"criticalThresholdGreendown","parGreendown","Appenine deciduous montane forests",78.7272384620187,13.4428621609779
+"criticalThresholdGreendown","parGreendown","Balkan mixed forests",81.2928548746354,5.36426913733231
+"criticalThresholdGreendown","parGreendown","Baltic mixed forests",81.7690726765564,12.271677003536
+"criticalThresholdGreendown","parGreendown","Cantabrian mixed forests",82.0890220915976,15.7766062401221
+"criticalThresholdGreendown","parGreendown","Carpathian montane forests",72.7226506044076,10.9044086212166
+"criticalThresholdGreendown","parGreendown","Celtic broadleaf forests",116.380976063985,NA
+"criticalThresholdGreendown","parGreendown","Central European mixed forests",77.8084454539521,10.9841543980583
+"criticalThresholdGreendown","parGreendown","Corsican montane broadleaf and mixed forests",82.6787061840182,20.6423489725995
+"criticalThresholdGreendown","parGreendown","Dinaric Mountains mixed forests",76.4016113704463,22.9415107368185
+"criticalThresholdGreendown","parGreendown","East European forest steppe",75.954632110785,NA
+"criticalThresholdGreendown","parGreendown","English Lowlands beech forests",91.3482273717896,13.1734048512345
+"criticalThresholdGreendown","parGreendown","European Atlantic mixed forests",87.9992346851305,14.2624256003033
+"criticalThresholdGreendown","parGreendown","Italian sclerophyllous and semi-deciduous forests",85.640619950009,14.7600252042728
+"criticalThresholdGreendown","parGreendown","Northeast Spain and Southern France Mediterranean forests",87.4714054175371,17.5885282299377
+"criticalThresholdGreendown","parGreendown","Northwest Iberian montane forests",77.4178775874981,14.4145475433942
+"criticalThresholdGreendown","parGreendown","Pannonian mixed forests",78.5533411509171,10.648713895115
+"criticalThresholdGreendown","parGreendown","Po Basin mixed forests",82.0060783784764,NA
+"criticalThresholdGreendown","parGreendown","Pyrenees conifer and mixed forests",79.5224918454561,17.1116106275591
+"criticalThresholdGreendown","parGreendown","Rodope montane mixed forests",81.0683068144513,9.94013541082603
+"criticalThresholdGreendown","parGreendown","Sarmatic mixed forests",74.9102767828124,11.2519443336869
+"criticalThresholdGreendown","parGreendown","South Apennine mixed montane forests",93.2805204514589,19.4339075379478
+"criticalThresholdGreendown","parGreendown","Tyrrhenian-Adriatic sclerophyllous and mixed forests",80.3463093576898,16.142663242274
+"criticalThresholdGreendown","parGreendown","Western European broadleaf forests",79.7519449011794,13.8481214511419
+"criticalThresholdGrowth","parGrowth","Alps conifer and mixed forests",50.2694559423416,7.75144020101045
+"criticalThresholdGrowth","parGrowth","Appenine deciduous montane forests",51.2614917475614,7.81604540467443
+"criticalThresholdGrowth","parGrowth","Balkan mixed forests",51.1987880419867,6.94139121215489
+"criticalThresholdGrowth","parGrowth","Baltic mixed forests",49.9233026033489,8.46876169872406
+"criticalThresholdGrowth","parGrowth","Cantabrian mixed forests",52.2520700841823,8.11181968841887
+"criticalThresholdGrowth","parGrowth","Carpathian montane forests",48.7357981919289,7.94981053425095
+"criticalThresholdGrowth","parGrowth","Celtic broadleaf forests",45.6947750304318,NA
+"criticalThresholdGrowth","parGrowth","Central European mixed forests",50.1057526033997,8.77454488832566
+"criticalThresholdGrowth","parGrowth","Corsican montane broadleaf and mixed forests",55.0571750911258,6.10261935994701
+"criticalThresholdGrowth","parGrowth","Dinaric Mountains mixed forests",50.8794918949175,4.56678767849127
+"criticalThresholdGrowth","parGrowth","East European forest steppe",51.6383429425581,NA
+"criticalThresholdGrowth","parGrowth","English Lowlands beech forests",51.6643082725638,8.81904857727837
+"criticalThresholdGrowth","parGrowth","European Atlantic mixed forests",52.6964398337154,7.76679432617852
+"criticalThresholdGrowth","parGrowth","Italian sclerophyllous and semi-deciduous forests",51.6963882179053,8.47165712345537
+"criticalThresholdGrowth","parGrowth","Northeast Spain and Southern France Mediterranean forests",53.989514980357,8.04760695518405
+"criticalThresholdGrowth","parGrowth","Northwest Iberian montane forests",50.4945316110149,8.71576883806959
+"criticalThresholdGrowth","parGrowth","Pannonian mixed forests",49.0116113275951,8.33650541195093
+"criticalThresholdGrowth","parGrowth","Po Basin mixed forests",47.1531762321329,NA
+"criticalThresholdGrowth","parGrowth","Pyrenees conifer and mixed forests",51.5478694013945,8.40455526724237
+"criticalThresholdGrowth","parGrowth","Rodope montane mixed forests",44.9648978998401,5.39780518136758
+"criticalThresholdGrowth","parGrowth","Sarmatic mixed forests",51.7442645309659,8.15719289927795
+"criticalThresholdGrowth","parGrowth","South Apennine mixed montane forests",55.3191484310869,9.00232502596598
+"criticalThresholdGrowth","parGrowth","Tyrrhenian-Adriatic sclerophyllous and mixed forests",54.7727180397752,8.99755358697696
+"criticalThresholdGrowth","parGrowth","Western European broadleaf forests",51.0936456112573,8.27377394153317
+"minimumNDVI","parVegetationIndex","Alps conifer and mixed forests",0.126722987170307,0.0237530312582814
+"minimumNDVI","parVegetationIndex","Appenine deciduous montane forests",0.121102998009952,0.0252491216458777
+"minimumNDVI","parVegetationIndex","Balkan mixed forests",0.0945103048689425,0.0389465040212576
+"minimumNDVI","parVegetationIndex","Baltic mixed forests",0.129133145396029,0.02432526411728
+"minimumNDVI","parVegetationIndex","Cantabrian mixed forests",0.117849061971096,0.0322451493634031
+"minimumNDVI","parVegetationIndex","Carpathian montane forests",0.128306419520623,0.023955926717377
+"minimumNDVI","parVegetationIndex","Celtic broadleaf forests",0.149684896450653,NA
+"minimumNDVI","parVegetationIndex","Central European mixed forests",0.114823963342665,0.0332470305789272
+"minimumNDVI","parVegetationIndex","Corsican montane broadleaf and mixed forests",0.137642271958163,0.0183365791626506
+"minimumNDVI","parVegetationIndex","Dinaric Mountains mixed forests",0.0933686431165795,0.0529565378545962
+"minimumNDVI","parVegetationIndex","East European forest steppe",0.141119418566045,NA
+"minimumNDVI","parVegetationIndex","English Lowlands beech forests",0.121721901573307,0.0319681843707637
+"minimumNDVI","parVegetationIndex","European Atlantic mixed forests",0.121122361479421,0.031113025245511
+"minimumNDVI","parVegetationIndex","Italian sclerophyllous and semi-deciduous forests",0.125377058375866,0.0295174837119852
+"minimumNDVI","parVegetationIndex","Northeast Spain and Southern France Mediterranean forests",0.104140216720132,0.0374088917514701
+"minimumNDVI","parVegetationIndex","Northwest Iberian montane forests",0.12687484692487,0.0251694365560017
+"minimumNDVI","parVegetationIndex","Pannonian mixed forests",0.12244925537023,0.0247765102891061
+"minimumNDVI","parVegetationIndex","Po Basin mixed forests",0.146546053558819,NA
+"minimumNDVI","parVegetationIndex","Pyrenees conifer and mixed forests",0.125253947364522,0.0274626813812136
+"minimumNDVI","parVegetationIndex","Rodope montane mixed forests",0.128001656387167,0.0263885212830209
+"minimumNDVI","parVegetationIndex","Sarmatic mixed forests",0.135016688262885,0.0227580201572424
+"minimumNDVI","parVegetationIndex","South Apennine mixed montane forests",0.129719304681765,0.0274429771746492
+"minimumNDVI","parVegetationIndex","Tyrrhenian-Adriatic sclerophyllous and mixed forests",0.139609704284215,0.0155214982097947
+"minimumNDVI","parVegetationIndex","Western European broadleaf forests",0.127138203575288,0.0258724391111878
+"nNDVISenescence","parVegetationIndex","Alps conifer and mixed forests",0.485359879567274,0.187268009892294
+"nNDVISenescence","parVegetationIndex","Appenine deciduous montane forests",0.459801136257426,0.143338853174609
+"nNDVISenescence","parVegetationIndex","Balkan mixed forests",0.566541975445419,0.0966863479792202
+"nNDVISenescence","parVegetationIndex","Baltic mixed forests",0.416425933481311,0.149214858064415
+"nNDVISenescence","parVegetationIndex","Cantabrian mixed forests",0.366446322021486,0.164592884325802
+"nNDVISenescence","parVegetationIndex","Carpathian montane forests",0.470862632804523,0.167905563951356
+"nNDVISenescence","parVegetationIndex","Celtic broadleaf forests",0.158085307312589,NA
+"nNDVISenescence","parVegetationIndex","Central European mixed forests",0.560397733381498,0.177701982829677
+"nNDVISenescence","parVegetationIndex","Corsican montane broadleaf and mixed forests",0.311566131302944,0.099324815673727
+"nNDVISenescence","parVegetationIndex","Dinaric Mountains mixed forests",0.753927397877405,0.74229197243907
+"nNDVISenescence","parVegetationIndex","East European forest steppe",0.840844246623415,NA
+"nNDVISenescence","parVegetationIndex","English Lowlands beech forests",0.220390429527361,0.0855530441029217
+"nNDVISenescence","parVegetationIndex","European Atlantic mixed forests",0.296964361483403,0.120001696272907
+"nNDVISenescence","parVegetationIndex","Italian sclerophyllous and semi-deciduous forests",0.418327168055844,0.148591597897542
+"nNDVISenescence","parVegetationIndex","Northeast Spain and Southern France Mediterranean forests",0.295810383050283,0.136877050832185
+"nNDVISenescence","parVegetationIndex","Northwest Iberian montane forests",0.375688796849679,0.264347806481039
+"nNDVISenescence","parVegetationIndex","Pannonian mixed forests",0.503159773938258,0.124159211335456
+"nNDVISenescence","parVegetationIndex","Po Basin mixed forests",0.586506708091707,NA
+"nNDVISenescence","parVegetationIndex","Pyrenees conifer and mixed forests",0.391139741083361,0.279989968077063
+"nNDVISenescence","parVegetationIndex","Rodope montane mixed forests",0.507431268242572,0.138839935885089
+"nNDVISenescence","parVegetationIndex","Sarmatic mixed forests",0.343343470141846,0.119887843046333
+"nNDVISenescence","parVegetationIndex","South Apennine mixed montane forests",0.350705939939685,0.153348483177613
+"nNDVISenescence","parVegetationIndex","Tyrrhenian-Adriatic sclerophyllous and mixed forests",0.359689337510897,0.0956240913613209
+"nNDVISenescence","parVegetationIndex","Western European broadleaf forests",0.341342368221595,0.141052062554959
+"nNDVIEcodormancy","parVegetationIndex","Alps conifer and mixed forests",1.43234683598259,1.07367134340001
+"nNDVIEcodormancy","parVegetationIndex","Appenine deciduous montane forests",1.0028692655722,0.949488420726313
+"nNDVIEcodormancy","parVegetationIndex","Balkan mixed forests",1.24759103268954,0.858563492376341
+"nNDVIEcodormancy","parVegetationIndex","Baltic mixed forests",1.1909215850947,1.12928139086793
+"nNDVIEcodormancy","parVegetationIndex","Cantabrian mixed forests",1.44045542585996,1.30220817718459
+"nNDVIEcodormancy","parVegetationIndex","Carpathian montane forests",1.88213259352549,1.12912059206735
+"nNDVIEcodormancy","parVegetationIndex","Celtic broadleaf forests",0.229854200888699,NA
+"nNDVIEcodormancy","parVegetationIndex","Central European mixed forests",1.2799029802362,1.05303346894374
+"nNDVIEcodormancy","parVegetationIndex","Corsican montane broadleaf and mixed forests",0.830049968916342,0.902254244769935
+"nNDVIEcodormancy","parVegetationIndex","Dinaric Mountains mixed forests",1.66901519753152,1.22803012098133
+"nNDVIEcodormancy","parVegetationIndex","East European forest steppe",0.499802060151535,NA
+"nNDVIEcodormancy","parVegetationIndex","English Lowlands beech forests",1.35145988574391,1.28176272301183
+"nNDVIEcodormancy","parVegetationIndex","European Atlantic mixed forests",1.13366758138813,1.25875223401558
+"nNDVIEcodormancy","parVegetationIndex","Italian sclerophyllous and semi-deciduous forests",0.859046421171456,0.970273802316326
+"nNDVIEcodormancy","parVegetationIndex","Northeast Spain and Southern France Mediterranean forests",1.37949830073828,1.48409225896854
+"nNDVIEcodormancy","parVegetationIndex","Northwest Iberian montane forests",1.73586908698029,1.38068047892751
+"nNDVIEcodormancy","parVegetationIndex","Pannonian mixed forests",1.72469625941979,1.17235393819382
+"nNDVIEcodormancy","parVegetationIndex","Po Basin mixed forests",1.90716736695296,NA
+"nNDVIEcodormancy","parVegetationIndex","Pyrenees conifer and mixed forests",1.2104244036348,1.23743099479445
+"nNDVIEcodormancy","parVegetationIndex","Rodope montane mixed forests",2.1163510101144,1.00634892988086
+"nNDVIEcodormancy","parVegetationIndex","Sarmatic mixed forests",0.604842181423502,0.514359864191285
+"nNDVIEcodormancy","parVegetationIndex","South Apennine mixed montane forests",0.817820954518481,1.35301074878747
+"nNDVIEcodormancy","parVegetationIndex","Tyrrhenian-Adriatic sclerophyllous and mixed forests",0.601900710670548,0.792424027192132
+"nNDVIEcodormancy","parVegetationIndex","Western European broadleaf forests",1.11146339601357,1.17548765634566
+"nNDVIEndodormancy","parVegetationIndex","Alps conifer and mixed forests",0.339343653606189,0.244269522687831
+"nNDVIEndodormancy","parVegetationIndex","Appenine deciduous montane forests",0.321606219780323,0.236273734671308
+"nNDVIEndodormancy","parVegetationIndex","Balkan mixed forests",0.186983752477888,0.192622890183475
+"nNDVIEndodormancy","parVegetationIndex","Baltic mixed forests",0.26866399225469,0.247538539047117
+"nNDVIEndodormancy","parVegetationIndex","Cantabrian mixed forests",0.348621027460311,0.246945312375294
+"nNDVIEndodormancy","parVegetationIndex","Carpathian montane forests",0.220390866010501,0.213925605545173
+"nNDVIEndodormancy","parVegetationIndex","Celtic broadleaf forests",0.0394422193240391,NA
+"nNDVIEndodormancy","parVegetationIndex","Central European mixed forests",0.207727780445155,0.182171795802069
+"nNDVIEndodormancy","parVegetationIndex","Corsican montane broadleaf and mixed forests",0.435796946896622,0.290898909570804
+"nNDVIEndodormancy","parVegetationIndex","Dinaric Mountains mixed forests",0.279149286264822,0.0856324634486244
+"nNDVIEndodormancy","parVegetationIndex","East European forest steppe",0.167706516728161,NA
+"nNDVIEndodormancy","parVegetationIndex","English Lowlands beech forests",0.383612532601906,0.266249083208783
+"nNDVIEndodormancy","parVegetationIndex","European Atlantic mixed forests",0.359230842693006,0.260937144521317
+"nNDVIEndodormancy","parVegetationIndex","Italian sclerophyllous and semi-deciduous forests",0.372807078190777,0.259436624893287
+"nNDVIEndodormancy","parVegetationIndex","Northeast Spain and Southern France Mediterranean forests",0.316616977000629,0.280051147383689
+"nNDVIEndodormancy","parVegetationIndex","Northwest Iberian montane forests",0.339649605283391,0.270910300032842
+"nNDVIEndodormancy","parVegetationIndex","Pannonian mixed forests",0.191322550871594,0.172093704494325
+"nNDVIEndodormancy","parVegetationIndex","Po Basin mixed forests",0.0795995932283817,NA
+"nNDVIEndodormancy","parVegetationIndex","Pyrenees conifer and mixed forests",0.350461635854407,0.260504012425247
+"nNDVIEndodormancy","parVegetationIndex","Rodope montane mixed forests",0.140860572094172,0.065955034505536
+"nNDVIEndodormancy","parVegetationIndex","Sarmatic mixed forests",0.179231435863153,0.0852018071467485
+"nNDVIEndodormancy","parVegetationIndex","South Apennine mixed montane forests",0.537495474570463,0.303608115548725
+"nNDVIEndodormancy","parVegetationIndex","Tyrrhenian-Adriatic sclerophyllous and mixed forests",0.55235582277207,0.355803304514896
+"nNDVIEndodormancy","parVegetationIndex","Western European broadleaf forests",0.31275492742566,0.245063194693818
+"nNDVIGreendown","parVegetationIndex","Alps conifer and mixed forests",0.0820791892316045,0.0536943334054072
+"nNDVIGreendown","parVegetationIndex","Appenine deciduous montane forests",0.0760281137168645,0.0471883870835989
+"nNDVIGreendown","parVegetationIndex","Balkan mixed forests",0.0790541949787819,0.037523413268053
+"nNDVIGreendown","parVegetationIndex","Baltic mixed forests",0.0750613132224718,0.0441749025851015
+"nNDVIGreendown","parVegetationIndex","Cantabrian mixed forests",0.0710884864293017,0.0475907771853213
+"nNDVIGreendown","parVegetationIndex","Carpathian montane forests",0.087716201892456,0.0446294505297015
+"nNDVIGreendown","parVegetationIndex","Celtic broadleaf forests",0.176926879261896,NA
+"nNDVIGreendown","parVegetationIndex","Central European mixed forests",0.0835909403273902,0.0503199770109989
+"nNDVIGreendown","parVegetationIndex","Corsican montane broadleaf and mixed forests",0.076910590942724,0.0617581412501695
+"nNDVIGreendown","parVegetationIndex","Dinaric Mountains mixed forests",0.119965536451411,0.0718843193380408
+"nNDVIGreendown","parVegetationIndex","East European forest steppe",0.0628302196512315,NA
+"nNDVIGreendown","parVegetationIndex","English Lowlands beech forests",0.050083718105733,0.0320363097811988
+"nNDVIGreendown","parVegetationIndex","European Atlantic mixed forests",0.0614451344594189,0.0410756230862256
+"nNDVIGreendown","parVegetationIndex","Italian sclerophyllous and semi-deciduous forests",0.0875962495947829,0.0478725745744223
+"nNDVIGreendown","parVegetationIndex","Northeast Spain and Southern France Mediterranean forests",0.0523422302297197,0.0454800675071775
+"nNDVIGreendown","parVegetationIndex","Northwest Iberian montane forests",0.0727232605847058,0.0535733693104475
+"nNDVIGreendown","parVegetationIndex","Pannonian mixed forests",0.0784267117087378,0.044532272896461
+"nNDVIGreendown","parVegetationIndex","Po Basin mixed forests",0.0612496373858171,NA
+"nNDVIGreendown","parVegetationIndex","Pyrenees conifer and mixed forests",0.0773252380492481,0.053337663409086
+"nNDVIGreendown","parVegetationIndex","Rodope montane mixed forests",0.087981094004424,0.0254855423198376
+"nNDVIGreendown","parVegetationIndex","Sarmatic mixed forests",0.109311715812372,0.042651823296164
+"nNDVIGreendown","parVegetationIndex","South Apennine mixed montane forests",0.0774652245050848,0.0588492068346528
+"nNDVIGreendown","parVegetationIndex","Tyrrhenian-Adriatic sclerophyllous and mixed forests",0.0801714710965014,0.0487180380313283
+"nNDVIGreendown","parVegetationIndex","Western European broadleaf forests",0.0728225282428947,0.0444047766816823
+"nNDVIGrowth","parVegetationIndex","Alps conifer and mixed forests",2.39990970795742,0.462190992297561
+"nNDVIGrowth","parVegetationIndex","Appenine deciduous montane forests",2.46970211899156,0.464169185230712
+"nNDVIGrowth","parVegetationIndex","Balkan mixed forests",2.88000244226155,0.307815400237436
+"nNDVIGrowth","parVegetationIndex","Baltic mixed forests",2.44835138075305,0.507989494403736
+"nNDVIGrowth","parVegetationIndex","Cantabrian mixed forests",2.328576310551,0.514708331370817
+"nNDVIGrowth","parVegetationIndex","Carpathian montane forests",2.57987037120389,0.543179542426657
+"nNDVIGrowth","parVegetationIndex","Celtic broadleaf forests",1.8321624468872,NA
+"nNDVIGrowth","parVegetationIndex","Central European mixed forests",2.79577536967883,0.452936682214306
+"nNDVIGrowth","parVegetationIndex","Corsican montane broadleaf and mixed forests",2.13448525522693,0.500346463152366
+"nNDVIGrowth","parVegetationIndex","Dinaric Mountains mixed forests",2.74913139296882,0.306692758160722
+"nNDVIGrowth","parVegetationIndex","East European forest steppe",2.7564347614505,NA
+"nNDVIGrowth","parVegetationIndex","English Lowlands beech forests",2.21810264513068,0.612958340207628
+"nNDVIGrowth","parVegetationIndex","European Atlantic mixed forests",2.32090762284365,0.539006019949191
+"nNDVIGrowth","parVegetationIndex","Italian sclerophyllous and semi-deciduous forests",2.38225909109396,0.50573473410875
+"nNDVIGrowth","parVegetationIndex","Northeast Spain and Southern France Mediterranean forests",2.34787052847578,0.595142059924765
+"nNDVIGrowth","parVegetationIndex","Northwest Iberian montane forests",2.4009962213057,0.553771442897446
+"nNDVIGrowth","parVegetationIndex","Pannonian mixed forests",2.62808942495245,0.466799461010167
+"nNDVIGrowth","parVegetationIndex","Po Basin mixed forests",3.14767536494068,NA
+"nNDVIGrowth","parVegetationIndex","Pyrenees conifer and mixed forests",2.50028028262066,0.554874915790555
+"nNDVIGrowth","parVegetationIndex","Rodope montane mixed forests",2.61373964515103,0.451951001293691
+"nNDVIGrowth","parVegetationIndex","Sarmatic mixed forests",2.1568294471216,0.233419943302159
+"nNDVIGrowth","parVegetationIndex","South Apennine mixed montane forests",2.69362068360292,0.397990410313983
+"nNDVIGrowth","parVegetationIndex","Tyrrhenian-Adriatic sclerophyllous and mixed forests",2.06451836086514,0.522255115553489
+"nNDVIGrowth","parVegetationIndex","Western European broadleaf forests",2.41194145481596,0.499553753134019
+"understoryTemperatureShift","parVegetationIndex","Alps conifer and mixed forests",-0.920336456663567,4.34209495665351
+"understoryTemperatureShift","parVegetationIndex","Appenine deciduous montane forests",-3.87814160913964,4.32847865958628
+"understoryTemperatureShift","parVegetationIndex","Balkan mixed forests",-3.67618867412002,2.62495772146288
+"understoryTemperatureShift","parVegetationIndex","Baltic mixed forests",1.04395163760649,4.05174445790988
+"understoryTemperatureShift","parVegetationIndex","Cantabrian mixed forests",-4.22636261075934,4.28799069312054
+"understoryTemperatureShift","parVegetationIndex","Carpathian montane forests",0.416306080978081,3.87804236509474
+"understoryTemperatureShift","parVegetationIndex","Celtic broadleaf forests",9.17254439161689,NA
+"understoryTemperatureShift","parVegetationIndex","Central European mixed forests",-0.229347535206322,4.05855905391406
+"understoryTemperatureShift","parVegetationIndex","Corsican montane broadleaf and mixed forests",-5.46850332778122,4.05722023964899
+"understoryTemperatureShift","parVegetationIndex","Dinaric Mountains mixed forests",2.64829645236721,3.47248258286261
+"understoryTemperatureShift","parVegetationIndex","East European forest steppe",1.25948949713492,NA
+"understoryTemperatureShift","parVegetationIndex","English Lowlands beech forests",-3.03226869058878,4.14503793467866
+"understoryTemperatureShift","parVegetationIndex","European Atlantic mixed forests",-3.00415778781445,4.63756183287784
+"understoryTemperatureShift","parVegetationIndex","Italian sclerophyllous and semi-deciduous forests",-3.25196971799708,3.87958350888855
+"understoryTemperatureShift","parVegetationIndex","Northeast Spain and Southern France Mediterranean forests",-3.48169274983234,6.0838049737259
+"understoryTemperatureShift","parVegetationIndex","Northwest Iberian montane forests",-3.54971343358499,3.83632791359719
+"understoryTemperatureShift","parVegetationIndex","Pannonian mixed forests",-1.92982147113949,3.70292451651376
+"understoryTemperatureShift","parVegetationIndex","Po Basin mixed forests",-9.16890630265837,NA
+"understoryTemperatureShift","parVegetationIndex","Pyrenees conifer and mixed forests",-2.2493716887693,4.78009155791635
+"understoryTemperatureShift","parVegetationIndex","Rodope montane mixed forests",-1.54587601933652,2.8009119157818
+"understoryTemperatureShift","parVegetationIndex","Sarmatic mixed forests",1.97396532778385,2.30097365802555
+"understoryTemperatureShift","parVegetationIndex","South Apennine mixed montane forests",-2.24186774822432,4.44506404436194
+"understoryTemperatureShift","parVegetationIndex","Tyrrhenian-Adriatic sclerophyllous and mixed forests",-4.21095409643473,2.38392202945608
+"understoryTemperatureShift","parVegetationIndex","Western European broadleaf forests",-1.48243060149428,4.64957252391092
