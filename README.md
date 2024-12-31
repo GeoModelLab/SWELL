@@ -180,7 +180,9 @@ When _PC<sub>EC</sub>_ = 100%, the ecodormancy phase is completed and the growin
 Forcing thermal units (_TU<sub>GR</sub>_, day<sup>-1</sup>) are computed with the equation 11, which is taken from [Yan and Hunt, 1999](https://www.ggebiplot.com/Yan-Hunt1999a.pdf)
 
 
-\(TU_{\text{GR}} = \left( \frac{T_{\text{max}} - T}{T_{\text{max}} - T_{\text{opt}}} \right) \cdot \left( \frac{T - T_{\text{min}}}{T_{\text{opt}} - T_{\text{min}}} \right)^{\frac{T_{\text{opt}} - T_{\text{min}}}{T_{\text{max}} - T_{\text{opt}}}}\tag{12})\
+$$
+TU_{\text{GR}} = \left( \frac{T_{\text{max}} - T}{T_{\text{max}} - T_{\text{opt}}} \right) \cdot \left( \frac{T - T_{\text{min}}}{T_{\text{opt}} - T_{\text{min}}} \right)^{\frac{T_{\text{opt}} - T_{\text{min}}}{T_{\text{max}} - T_{\text{opt}}}}
+$$
 
 where _T<sub>min</sub>_, _T<sub>opt</sub>_ and _T<sub>max</sub>_ are the minimum, optimum, and maximum tree cardinal forcing temperatures (°C). The growth and greendown phases are simulated as a function of _TU<sub>GR</sub>_ only.
 The resulting function is drawn below.
