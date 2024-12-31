@@ -111,8 +111,8 @@ $$
 TU_{\text{DI}} =
 \begin{cases}
 0 & \text{if } T \geq T_{\text{DI\_l}} \\
-1 & \text{if } T_{\text{l}} \leq T_{\text{DI\_nl}} \\
-\frac{1}{1 + e^{10/(T_{\text{DI\_l}} - T_{\text{DI\_nl}}) \cdot (T - T_{\text{DI\_mid}})}} & \text{elsewhere}
+1 & \text{if } T_{\mathrm\text{l}} \leq T_{\text{DI\_nl}} \\
+\frac{1}{1 + e^{10/(T_\mathrm{\text{DI\_l}} - T_\mathrm{\text{DI\_nl}}) \cdot (T - T_\mathrm{\text{DI\_mid}})}} & \text{elsewhere}
 \end{cases}
 \tag{6}
 $$
