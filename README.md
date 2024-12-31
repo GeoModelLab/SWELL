@@ -13,14 +13,6 @@
     2. [Greendown](#greendown)
     3. [Decline](#decline)
   - [NDVI Simulation](#ndvi-simulation)
-- [Getting Started](#getting-started)
-  - [Design the Simulation](#design-the-simulation)
-    1. [NDVI Data](#ndvi-data)
-    2. [Weather Data](#weather-data)
-    3. [Tree Photothermal Requirements](#tree-photothermal-requirements)
-  - [Run swell](#run-swell)
-    1. [Calibration Mode](#calibration-mode)
-    2. [Validation Mode](#validation-mode)
 - [Installation](#installation)
 - [Support](#support)
 - [Contributing](#contributing)
@@ -160,15 +152,15 @@ The resulting function is displayed below.
 High _PC<sub>EN</sub>_ values accelerates the progress of the [ecodormancy](#ecodormancy) (_PTU<sub>EC_</sub>, day<sup>-1</sup>), whose completion is stimulated by long days and warm temperatures. The following equations 8-10 are used to estimate photothermal units during the ecodormancy phase.
 
 $$
-P_r = \frac{D_l}{P_{\text{EC\_nl}}} \tag{9}
+P_r = \frac{D_l}{P_{\mathrm{EC\_nl}}} \tag{9}
 $$
 
 $$
-T_{\text{EC\_mid}} = 0.5 \cdot T_{\text{EC\_nl}} + (1 - P_r) \cdot T_{\text{EC\_nl}} \tag{10}
+T_{\mathrm{EC\_mid}} = 0.5 \cdot T_{\mathrm{EC\_nl}} + (1 - P_r) \cdot T_{\mathrm{EC\_nl}} \tag{10}
 $$
 
 $$
-PTU_{\text{EC}} = \frac{PC_{\text{EN}} + (1 - PC_{\text{EN}}) \cdot P_r}{1 + e^{-10/(T_{\text{EC\_nl}} \cdot P_r \cdot (T - T_{\text{EC\_mid}}))}} \cdot \frac{1}{100} \tag{11}
+PTU_{\mathrm{EC}} = \frac{PC_{\mathrm{EN}} + (1 - PC_{\mathrm{EN}}) \cdot P_r}{1 + e^{-10/(T_{\mathrm{EC\_nl}} \cdot P_r \cdot (T - T_{\mathrm{EC\_mid}}))}} \cdot \frac{1}{100} \tag{11}
 $$
 
 where _Pr_ is the ratio between _Dl_ and the not-limiting photoperiod for ecodormancy (_P<sub>EC\_nl</sub>_, hour); _T<sub>EC\_mid</sub>_ (°C) is the midpoint of the logistic function reproducing the temperature effect. The function asymptote depends both on _PC<sub>EN</sub>_ and _Pr_. The figures below show the behaviour of these equations at two levels of endodormancy completion and different day lengths.
@@ -189,7 +181,7 @@ Forcing thermal units (_TU<sub>GR</sub>_, day<sup>-1</sup>) are computed with th
 
 
 $$
-TU_{\text{GR}} = \left( \frac{T_{\text{max}} - T}{T_{\text{max}} - T_{\text{opt}}} \right) \cdot \left( \frac{T - T_{\text{min}}}{T_{\text{opt}} - T_{\text{min}}} \right)^{\frac{T_{\text{opt}} - T_{\text{min}}}{T_{\text{max}} - T_{\text{opt}}}}
+TU_{\mathrm{GR}} = \left( \frac{T_{\mathrm{max}} - T}{T_{\mathrm{max}} - T_{\mathrm{opt}}} \right) \cdot \left( \frac{T - T_{\mathrm{min}}}{T_{\mathrm{opt}} - T_{\mathrm{min}}} \right)^{\frac{T_{\mathrm{opt}} - T_{\mathrm{min}}}{T_{\mathrm{max}} - T_{\mathrm{opt}}}}
 $$
 
 where _T<sub>min</sub>_, _T<sub>opt</sub>_ and _T<sub>max</sub>_ are the minimum, optimum, and maximum tree cardinal forcing temperatures (°C). The growth and greendown phases are simulated as a function of _TU<sub>GR</sub>_ only.
@@ -203,13 +195,11 @@ The resulting function is drawn below.
   <figcaption align="center"><em>Forcing accumulation during growth, greendown and decline. The shades correspond to the 40-60<sup>th</sup> and 25-75<sup>th</sup> percentiles of the distribution generated with minimum temperature ranging from 3 to 7 °C, optimum temperature from 16 to 22°C, and maximum temperature from 28 and 35 °C</em></figcaption>
 </figure>
 
-
-
 #### Decline
 During the decline phenophase, the photothermal unit (_PTU<sub>DE</sub>_, day<sup>-1</sup>) is simulated as the weighted average of _TU<sub>GR</sub>_ and the photothermal unit for [dormancy induction](#dormancy-induction), whose relative contribution depends on the percentage completion of the decline phenophase _PC<sub>DE</sub>_ (%), as in the equation below.
 
 $$
-PTU_{\text{DE}} = TU_{\text{GR}} \cdot (1 - PC_{\text{DE}}) + PTU_{\text{DI}} \cdot PC_{\text{DE}}\tag{13}
+PTU_{\mathrm{DE}} = TU_{\mathrm{GR}} \cdot (1 - PC_{\mathrm{DE}}) + PTU_{\mathrm{DI}} \cdot PC_{\mathrm{DE}} \tag{13}
 $$
 
 When _PC<sub>DE</sub>_ = 100%, the growing season ends, and the dormancy season restarts.
