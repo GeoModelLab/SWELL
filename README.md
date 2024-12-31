@@ -126,18 +126,18 @@ After dormancy induction is completed, the endodormancy proceeds along with chil
 $$
 CU_{\text{mid}} = 
 \begin{cases}
-  0.5 \cdot (T_{\text{EN\_l}\downarrow} + T_{\text{EN\_nl}\downarrow}) & \text{if } T_h \leq T_{\text{EN\_nl}\downarrow} \leq T_{\text{EN\_l}\downarrow}, \\
-  0.5 \cdot (T_{\text{EN\_l}\uparrow} + T_{\text{EN\_nl}\uparrow}) & \text{if } T_{\text{EN\_nl}\uparrow} \leq T_h \leq T_{\text{EN\_l}\uparrow}.
+  0.5 \cdot (T_{\mathrm{EN\_l}\downarrow} + T_{\mathrm{EN\_nl}\downarrow}) & \text{if } T_h \leq T_{\mathrm{EN\_nl}\downarrow} \leq T_{\mathrm{EN\_l}\downarrow}, \\
+  0.5 \cdot (T_{\mathrm{EN\_l}\uparrow} + T_{\mathrm{EN\_nl}\uparrow}) & \text{if } T_{\mathrm{EN\_nl}\uparrow} \leq T_h \leq T_{\mathrm{EN\_l}\uparrow}.
 \end{cases} \tag{7}
 $$
 
 $$
-CU_{\text{EN}} = 
+CU_{\text{EN}} =
 \begin{cases}
-  0 & \text{if } T_h \leq T_{\text{EN\_l}\downarrow} \text{ or } T_h \geq T_{\text{EN\_l}\uparrow}, \\
-  1 & \text{if } T_{\text{EN\_nl}\downarrow} \leq T_h \leq T_{\text{EN\_nl}\uparrow}, \\
-  \frac{1}{1 + e^{-10/(T_{\text{EN\_l}\downarrow} - T_{\text{EN\_nl}\downarrow}) \cdot (T_h - CU_{\text{mid}})}} & \text{if } T_{\text{EN\_l}\downarrow} < T_h < T_{\text{EN\_nl}\downarrow}, \\
-  \frac{1}{1 + e^{10/(T_{\text{EN\_l}\uparrow} - T_{\text{EN\_nl}\uparrow}) \cdot (T_h - CU_{\text{mid}})}} & \text{if } T_{\text{EN\_nl}\uparrow} < T_h < T_{\text{EN\_l}\uparrow}.
+0 & \text{if } T_h \leq T_{\mathrm{EN\_l}\downarrow} \text{ or } T_h \geq T_{\mathrm{EN\_l}\uparrow}, \\
+1 & \text{if } T_{\mathrm{EN\_nl}\downarrow} \leq T_h \leq T_{\mathrm{EN\_nl}\uparrow}, \\
+\frac{1}{1 + e^{-10/(T_{\mathrm{EN\_l}\downarrow} - T_{\mathrm{EN\_nl}\downarrow}) \cdot (T_h - CU_{\text{mid}})}} & \text{if } T_{\mathrm{EN\_l}\downarrow} < T_h < T_{\mathrm{EN\_nl}\downarrow}, \\
+\frac{1}{1 + e^{10/(T_{\mathrm{EN\_l}\uparrow} - T_{\mathrm{EN\_nl}\uparrow}) \cdot (T_h - CU_{\text{mid}})}} & \text{if } T_{\mathrm{EN\_nl}\uparrow} < T_h < T_{\mathrm{EN\_l}\uparrow}.
 \end{cases} \tag{8}
 $$
 
