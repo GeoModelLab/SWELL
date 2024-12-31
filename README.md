@@ -21,11 +21,6 @@
   - [Run swell](#run-swell)
     1. [Calibration Mode](#calibration-mode)
     2. [Validation Mode](#validation-mode)
-- [Use Cases](#use-cases)
-  - [Beech (_Fagus sylvatica_ L.) Forests in EU](#beech-fagus-sylvatica-l-forests-in-eu)
-    1. [Pixel-level Dynamics](#pixel-level-dynamics)
-    2. [Ecoregion-level Dynamics](#ecoregion-level-dynamics)
-    3. [Inspect Model Parameters](#inspect-model-parameters)
 - [Installation](#installation)
 - [Support](#support)
 - [Contributing](#contributing)
@@ -78,17 +73,17 @@ The [Dormancy induction](#dormancy-induction) is stimulated by short and cold da
 The following equations (3 and 4) are used to draw the logistic function displayed in the figure below, which is used to estimate the photoperiodic unit for dormancy induction _PU<sub>DI</sub>_.
 
 $$
-P_{\text{DI\_mid}} = 0.5 \cdot (P_{\text{DI\_l}} + P_{\text{DI\_nl}}) \tag{3}
+P_{\mathrm{DI\_mid}} = 0.5 \cdot (P_{\mathrm{DI\_l}} + P_{\mathrm{DI\_nl}}) \tag{3}
 $$
 
-
 $$
-PU_{\text{DI}} = \begin{cases}
-  0 & \text{if } D_l \geq P_{\text{DI\_l}} \\
-  1 & \text{if } D_l \leq P_{\text{DI\_nl}} \\
-  \frac{1}{1 + e^{10/(P_{\text{DI\_l}} - P_{\text{DI\_nl}}) \cdot (D_l - P_{\text{DI\_mid}})}} & \text{elsewhere}
+PU_{\mathrm{DI}} = \begin{cases}
+  0 & \text{if } D_l \geq P_{\mathrm{DI\_l}} \\
+  1 & \text{if } D_l \leq P_{\mathrm{DI\_nl}} \\
+  \frac{1}{1 + e^{10/(P_{\mathrm{DI\_l}} - P_{\mathrm{DI\_nl}}) \cdot (D_l - P_{\mathrm{DI\_mid}})}} & \text{elsewhere}
 \end{cases} \tag{4}
 $$
+
 
 
 where _P<sub>DI\_mid</sub>_ (hours) is the midpoint of the logistic function increasing from _P<sub>DI\_l</sub>_ (hours) to _P<sub>DI\_nl</sub>_ (hours), i.e., the limiting and non-limiting day length for dormancy induction, respectively; _Dl_ (hours) is the day length.
@@ -104,7 +99,7 @@ where _P<sub>DI\_mid</sub>_ (hours) is the midpoint of the logistic function inc
 The thermal unit for dormancy induction are derived with another logistic function, using equations 5 and 6.
 
 $$
-T_{\text{DI\_mid}} = 0.5 \cdot (T_{\text{DI\_l}} + T_{\text{DI\_nl}}) \tag{5}
+T_{\mathrm{DI\_mid}} = 0.5 \cdot (T_{\mathrm{DI\_l}} + T_{\mathrm{DI\_nl}}) \tag{5}
 $$
 
 $$
