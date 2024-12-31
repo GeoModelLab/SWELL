@@ -107,7 +107,6 @@ $$
 T_{\text{DI\_mid}} = 0.5 \cdot (T_{\text{DI\_l}} + T_{\text{DI\_nl}}) \tag{5}
 $$
 
-
 $$
 TU_{\text{DI}} =
 \begin{cases}
@@ -117,6 +116,7 @@ TU_{\text{DI}} =
 \end{cases}
 \tag{6}
 $$
+
 
 where _T<sub>DI\_mid</sub>_ (°C) is the midpoint of the logistic function increasing from _T<sub>DI\_l</sub>_ (°C) to _T<sub>DI\_nl</sub>_ (°C), i.e., the limiting and non-limiting temperature for dormancy induction, respectively; _T_ (°C) is the average daily air temperature.
 
