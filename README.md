@@ -179,9 +179,8 @@ When _PC<sub>EC</sub>_ = 100%, the ecodormancy phase is completed and the growin
 #### Growth and greendown
 Forcing thermal units (_TU<sub>GR</sub>_, day<sup>-1</sup>) are computed with the equation 11, which is taken from [Yan and Hunt, 1999](https://www.ggebiplot.com/Yan-Hunt1999a.pdf)
 
-$$
-TU_{\text{GR}} = \left( \frac{T_{\text{max}} - T}{T_{\text{max}} - T_{\text{opt}}} \right) \cdot \left( \frac{T - T_{\text{min}}}{T_{\text{opt}} - T_{\text{min}}} \right)^{\frac{T_{\text{opt}} - T_{\text{min}}}{T_{\text{max}} - T_{\text{opt}}}}\tag{12}
-$$
+
+\(TU_{\text{GR}} = \left( \frac{T_{\text{max}} - T}{T_{\text{max}} - T_{\text{opt}}} \right) \cdot \left( \frac{T - T_{\text{min}}}{T_{\text{opt}} - T_{\text{min}}} \right)^{\frac{T_{\text{opt}} - T_{\text{min}}}{T_{\text{max}} - T_{\text{opt}}}}\tag{12})\
 
 where _T<sub>min</sub>_, _T<sub>opt</sub>_ and _T<sub>max</sub>_ are the minimum, optimum, and maximum tree cardinal forcing temperatures (°C). The growth and greendown phases are simulated as a function of _TU<sub>GR</sub>_ only.
 The resulting function is drawn below.
@@ -244,50 +243,14 @@ $$
 where _NDVI<sub>GR*</sub>_ (day<sup>-1</sup>) is a pixel-specific parameter corresponding to the maximum _NDVI<sub>swell</sub>_ increase during the growth phase. After reaching the seasonal peak, _NDVI<sub>swell</sub>_ decreases during the greendown phenophase (NDVIr,GD, equation 18), and is further reduced during the decline phase (NDVIr,DE, equation 19). 
 
 
-## Getting started
-You can use swell to reproduce the interannual dynamic of NDVI in a forested area.
-Before using swell, make sure that you have the following resources:
-
-### Design the simulation 
-
-#### NDVI data
-
-
-#### Weather data
-the filasdasfasfas
-
-#### Tree photothermal requirements
-
-
-### Run swell
-
-#### Calibration mode
-
-#### Validation mode
-
-## Use cases
-### Beech (_Fagus sylvatica_ L.) forests in EU
-
-#### Pixel-level dynamics
-
-#### Ecoregion-level dynamics
-
-#### Inspect model parameters
-
-
 ## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+TO BE COMPLETED.
 
 ## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
+TO BE COMPLETED.
 
 ## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+TO BE COMPLETED.
 
 ## License
 This project is licensed under the [GNU General Public License version 3.0 or later](LICENSE).
