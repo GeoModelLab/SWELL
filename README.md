@@ -109,7 +109,7 @@ $$
 
 
 $$
-TU_{\text{DI}} = 
+TU_{\text{DI}} =
 \begin{cases}
 0 & \text{if } T \geq T_{\text{DI\_l}} \\
 1 & \text{if } T_{\text{l}} \leq T_{\text{DI\_nl}} \\
