@@ -1,2 +1,8 @@
 **/.vs
 **/obj
+.Rproj.user
+.Rhistory
+.RData
+.DS_Store
+*.rds
+R/inst/extdata/Windows/weather/*

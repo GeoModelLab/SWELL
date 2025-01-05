@@ -1,0 +1,512 @@
+theme_minimal()
+ggplot(testMerge,aes(x=DATE))+
+#geom_line(aes(y=gddState))+
+#geom_line(aes(y=phenoCode),col='blue')+
+#geom_line(aes(y=fIntPotState*100),col='green',alpha=1,size=1)+
+#geom_line(aes(y=fIntDisState*100),col='green4',alpha=1,size=1,linetype=4)+
+#geom_line(aes(y=fIntPotRate*1),col='red',size=1,alpha=1)+
+#geom_line(aes(y=fIntDisRate*1),col='orange',size=1,alpha=1,linetype=2)+
+# geom_line(aes(y=bioPotState/10000),col='green')+
+# geom_line(aes(y=bioDisState/10000),col='red')+
+#geom_line(aes(y=yieldPotState/1000/8),col='blue')+
+#geom_line(aes(y=yieldDisState/1000/8),col='purple')+
+#geom_line(aes(y=PathogenSuitRate),col='red',alpha=0.3)+
+geom_line(aes(y=patSuitNorm),col='red')+
+#geom_errorbar(aes(ymin=valueDisNorm-sdDis,
+#                  ymax=valueDisNorm+sdDis),col='black')+
+geom_point(aes(y=valueDisNorm),col="red",size=3)+
+#geom_line(aes(y=HTtime),col='red')+
+#geom_col(aes(y=p/max(p)),fill='blue')+
+#geom_area(aes(y=HTlatent*100),fill='grey77',alpha=.5)+
+#geom_area(aes(y=HTsporulating*100),fill='grey55',alpha=.5)+
+#geom_area(aes(y=HTaffected*100),fill='grey33',alpha=.5)+
+#geom_area(aes(y=HTaffNorm),fill='grey33',alpha=.5)+
+#geom_area(aes(y=HTdead*100),fill='grey11',alpha=.5)+
+facet_wrap(~site,nrow=8,scales='free_x')+
+#scale_x_date(date_breaks="1 year")+
+theme_minimal()
+#read reference data
+referenceDisease<-as.data.frame(fread("Sardinia//referenceDisease.csv")) |>
+filter(disease=="Septoriosi")
+View(test)
+testMerge<-test |>
+mutate(site=ifelse(site=="SLucia","Slucia",site)) |>
+left_join(referenceDisease)
+#read reference data
+referenceDisease<-as.data.frame(fread("Sardinia//referenceDisease.csv")) |>
+filter(disease=="Septoriosi")
+testMerge<-test |>
+mutate(site=ifelse(site=="SLucia","Slucia",site)) |>
+left_join(referenceDisease) |>
+mutate(patSuitNorm = (PathogenSuitState-min(PathogenSuitState))/
+(max(PathogenSuitState)-min(PathogenSuitState)),
+HTaffNorm = (HTaffected-min(HTaffected))/
+(max(HTaffected)-min(HTaffected)),
+valueDisNorm= (valueDis-min(valueDis,na.rm=T))/
+(max(valueDis,na.rm=T)-min(valueDis,na.rm=T)))
+testMerge$DATE <- as.Date(paste(testMerge$year, testMerge$doy, sep = "-"), format = "%Y-%j")
+ggplot(testMerge,aes(x=DATE))+
+#geom_line(aes(y=gddState))+
+#geom_line(aes(y=phenoCode),col='blue')+
+#geom_line(aes(y=fIntPotState*100),col='green',alpha=1,size=1)+
+#geom_line(aes(y=fIntDisState*100),col='green4',alpha=1,size=1,linetype=4)+
+#geom_line(aes(y=fIntPotRate*1),col='red',size=1,alpha=1)+
+#geom_line(aes(y=fIntDisRate*1),col='orange',size=1,alpha=1,linetype=2)+
+# geom_line(aes(y=bioPotState/10000),col='green')+
+# geom_line(aes(y=bioDisState/10000),col='red')+
+#geom_line(aes(y=yieldPotState/1000/8),col='blue')+
+#geom_line(aes(y=yieldDisState/1000/8),col='purple')+
+#geom_line(aes(y=PathogenSuitRate),col='red',alpha=0.3)+
+geom_line(aes(y=patSuitNorm),col='red')+
+#geom_errorbar(aes(ymin=valueDisNorm-sdDis,
+#                  ymax=valueDisNorm+sdDis),col='black')+
+geom_point(aes(y=valueDisNorm),col="red",size=3)+
+#geom_line(aes(y=HTtime),col='red')+
+#geom_col(aes(y=p/max(p)),fill='blue')+
+#geom_area(aes(y=HTlatent*100),fill='grey77',alpha=.5)+
+#geom_area(aes(y=HTsporulating*100),fill='grey55',alpha=.5)+
+#geom_area(aes(y=HTaffected*100),fill='grey33',alpha=.5)+
+#geom_area(aes(y=HTaffNorm),fill='grey33',alpha=.5)+
+#geom_area(aes(y=HTdead*100),fill='grey11',alpha=.5)+
+facet_wrap(~site,nrow=8,scales='free_x')+
+#scale_x_date(date_breaks="1 year")+
+theme_minimal()
+testMerge<-testMerge |>
+filter(!is.na(valueDis))
+lmD=lm(testMerge$valueDisNorm~testMerge$patSuitNorm)
+summary(lmD)
+ggplot(testMerge |>
+filter(!is.na(valueDisNorm))) +
+aes(x=valueDisNorm,y=patSuitNorm)+
+geom_point()+
+geom_smooth(stat="smooth",method="lm")
+library(GA)  # Load the Genetic Algorithm package
+rm(list = ls())
+library(devtools)
+library(tidyverse)
+library(data.table)
+# this path
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+load_all("..\\R\\.") # Working directory should be in the package SCC_R_package
+# this path
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+# Function to calculate saturation vapor pressure
+calc_svp <- function(T) {
+6.112 * exp((17.67 * T) / (T + 243.5))
+}
+options(scipen = 999)
+# Read and process the weather data
+weather <- read.csv("era5_land_weather_data_sepLoc.csv") |>
+select(site, date, temperature_2m_max, temperature_2m_min,
+total_precipitation_sum, dewpoint_temperature_2m_min,
+dewpoint_temperature_2m_max) |>
+rename(tx = temperature_2m_max,
+tn = temperature_2m_min,
+td_x = dewpoint_temperature_2m_max,
+td_n = dewpoint_temperature_2m_min,
+p=total_precipitation_sum) |>
+mutate(tx = round(tx - 273.15,3), # Convert Kelvin to Celsius
+tn = round(tn - 273.15,3),
+td_x = round(td_x - 273.15,3),
+td_n = round(td_n - 273.15,3)) |>
+mutate(e_dew_x = calc_svp(td_x),  # Saturation vapor pressure for dewpoint (max)
+e_t_x = calc_svp(tx),      # Saturation vapor pressure for temp (max)
+e_dew_n = calc_svp(td_n),  # Saturation vapor pressure for dewpoint (min)
+e_t_n = calc_svp(tn),      # Saturation vapor pressure for temp (min)
+rh_x = 100 * (e_dew_x / e_t_x), # RH max
+rh_n = 100 * (e_dew_n / e_t_n)) |>  # RH min
+mutate(p=p*1000)
+loc<-read.csv('septoriaLocations.csv')
+# Enforce logical consistency: RHn should not exceed RHx
+weather <- weather |>
+mutate(rh_nOk = ifelse(rh_n > rh_x, rh_x, rh_n),
+rh_xOk = ifelse(rh_x > rh_n, rh_x, rh_n)) |>
+mutate(p = ifelse(p>1, p, 0)) |>
+select(site, date, tx, tn, p, rh_nOk, rh_xOk) |>
+rename(rhx = rh_xOk, rhn = rh_nOk) |>
+mutate(date = as.Date(date)) |>
+left_join(loc) |>
+select(site, date, tx, tn, p, rhx, rhn, latitude)
+#read parameters
+param_all<-read.csv("parameters.csv")
+paramCrop = param_all |>
+filter(Model == 'Crop') |>
+select(-c(description,unit,min,max)) |>
+pivot_wider(names_from=parameter, values_from=c(value))
+paramCrop
+paramCrop$HalfIntGrowth<-35
+paramCrop$SlopeGrowth<-0.01
+paramCrop$HalfIntSenescence<-95
+paramCrop$SlopeSenescence<-0.005
+paramCrop$CycleLength<-1500
+paramDisease = param_all |>
+filter(Model == 'Disease') |>
+select(-c(description,unit,min,max)) |>
+pivot_wider(names_from=parameter, values_from=c(value))
+paramDisease$Tmin<-5
+paramDisease$Topt<-18
+paramDisease$Tmax<-32
+paramDisease$WetnessDurationMinimum<-6
+paramDisease$DryCriticalInterruption<-12
+paramDisease$HydroThermalTimeOnset<-25
+weather<-weather |>
+rename(TMAX=tx, TMIN=tn,RAIN=p,LAT=latitude)
+test<-fRanchestyn_daily(weather,paramCrop,paramDisease,
+estimateRad=T,sowingDate = 320, leafWetnessRH = 90)
+test$DATE <- as.Date(paste(test$year, test$doy, sep = "-"), format = "%Y-%j")
+ggplot(test,aes(x=DATE))+
+geom_line(aes(y=fIntPotState),col='blue')+
+geom_line(aes(y=PathogenSuitState/max(PathogenSuitState)),col='red')+
+#  geom_point(aes(y=valueDisNorm),col="red",size=3)+
+#geom_col(aes(y=p/max(p)),fill='blue')+
+#geom_area(aes(y=HTaffected),fill='grey33',alpha=.5)+
+facet_wrap(~site,nrow=7,scales='free_x')+
+theme_minimal()
+#read reference data
+referenceDisease<-as.data.frame(fread("Sardinia//referenceDisease.csv")) |>
+filter(disease=="Septoriosi")
+testMerge<-test |>
+mutate(site=ifelse(site=="SLucia","Slucia",site)) |>
+left_join(referenceDisease) |>
+mutate(patSuitNorm = (PathogenSuitState-min(PathogenSuitState))/
+(max(PathogenSuitState)-min(PathogenSuitState)),
+HTaffNorm = (HTaffected-min(HTaffected))/
+(max(HTaffected)-min(HTaffected)),
+valueDisNorm= (valueDis-min(valueDis,na.rm=T))/
+(max(valueDis,na.rm=T)-min(valueDis,na.rm=T)))
+testMerge$DATE <- as.Date(paste(testMerge$year, testMerge$doy, sep = "-"), format = "%Y-%j")
+ggplot(testMerge,aes(x=DATE))+
+#geom_line(aes(y=gddState))+
+#geom_line(aes(y=phenoCode),col='blue')+
+#geom_line(aes(y=fIntPotState*100),col='green',alpha=1,size=1)+
+#geom_line(aes(y=fIntDisState*100),col='green4',alpha=1,size=1,linetype=4)+
+#geom_line(aes(y=fIntPotRate*1),col='red',size=1,alpha=1)+
+#geom_line(aes(y=fIntDisRate*1),col='orange',size=1,alpha=1,linetype=2)+
+# geom_line(aes(y=bioPotState/10000),col='green')+
+# geom_line(aes(y=bioDisState/10000),col='red')+
+#geom_line(aes(y=yieldPotState/1000/8),col='blue')+
+#geom_line(aes(y=yieldDisState/1000/8),col='purple')+
+#geom_line(aes(y=PathogenSuitRate),col='red',alpha=0.3)+
+geom_line(aes(y=patSuitNorm),col='red')+
+#geom_errorbar(aes(ymin=valueDisNorm-sdDis,
+#                  ymax=valueDisNorm+sdDis),col='black')+
+geom_point(aes(y=valueDisNorm),col="red",size=3)+
+#geom_line(aes(y=HTtime),col='red')+
+#geom_col(aes(y=p/max(p)),fill='blue')+
+#geom_area(aes(y=HTlatent*100),fill='grey77',alpha=.5)+
+#geom_area(aes(y=HTsporulating*100),fill='grey55',alpha=.5)+
+#geom_area(aes(y=HTaffected*100),fill='grey33',alpha=.5)+
+#geom_area(aes(y=HTaffNorm),fill='grey33',alpha=.5)+
+#geom_area(aes(y=HTdead*100),fill='grey11',alpha=.5)+
+facet_wrap(~site,nrow=8,scales='free_x')+
+#scale_x_date(date_breaks="1 year")+
+theme_minimal()
+testMerge<-testMerge |>
+filter(!is.na(valueDis))
+lmD=lm(testMerge$valueDisNorm~testMerge$patSuitNorm)
+summary(lmD)
+ggplot(testMerge |>
+filter(!is.na(valueDisNorm))) +
+aes(x=valueDisNorm,y=patSuitNorm)+
+geom_point()+
+geom_smooth(stat="smooth",method="lm")
+library(GA)  # Load the Genetic Algorithm package
+# Define loss function
+lossFunctionGA <- function(params) {
+paramCrop = param_all |>
+filter(Model == 'Crop') |>
+select(-c(description,unit,min,max)) |>
+pivot_wider(names_from=parameter, values_from=c(value))
+paramCrop$HalfIntGrowth<-params[1]
+paramCrop$SlopeGrowth<-params[2]
+paramCrop$HalfIntSenescence<-params[3]
+paramCrop$SlopeSenescence<-params[4]
+paramCrop$CycleLength<-params[5]
+paramDisease = param_all |>
+filter(Model == 'Disease') |>
+select(-c(description,unit,min,max)) |>
+pivot_wider(names_from=parameter, values_from=c(value))
+paramDisease$Tmin<-params[6]
+paramDisease$Topt<-params[7]
+paramDisease$Tmax<-params[8]
+paramDisease$WetnessDurationMinimum<-params[9]
+paramDisease$DryCriticalInterruption<-params[10]
+paramDisease$HydroThermalTimeOnset<-params[11]
+paramDisease$PathogenInfectivity<-params[12]
+paramDisease$PathogenSpread<-params[13]
+paramDisease$SporulationDuration<-params[14]
+paramDisease$LatencyDuration<-params[15]
+paramDisease$WetnessDurationOptimum<-params[16]
+# Run the simulation
+DisSim <- fRanchestyn_daily(weather |> filter(year<=2023), paramCrop,
+paramDisease, estimateRad = TRUE,
+sowingDate = 340, leafWetnessRH = params[17])
+DisSim <- as.data.frame(DisSim) |>
+mutate(site = ifelse(site == "SLucia", "Slucia", site)) |>
+left_join(referenceDisease, join_by(site, year)) |>
+filter(!is.na(valueDis))
+#normalize data
+DisSim<-DisSim |>
+mutate(patSuitNorm = (PathogenSuitState-min(PathogenSuitState))/
+(max(PathogenSuitState)-min(PathogenSuitState)),
+HTaffNorm = (HTaffected-min(HTaffected))/
+(max(HTaffected)-min(HTaffected)),
+valueDisNorm= (valueDis-min(valueDis,na.rm=T))/
+(max(valueDis,na.rm=T)-min(valueDis,na.rm=T)))
+# Calculate RMSE
+mse <- sqrt(mean((DisSim$HTaffNorm*100 - DisSim$valueDisNorm)^2))
+r <- cor(DisSim$HTaffNorm*100,DisSim$valueDisNorm,method='pearson')
+objFun <- (mse*.5)/100 + ((1-r)*.5)
+cat(paste0("RMSE ", round(mse,3)), " Spearman r ", round(r,3), " obj fun ", round(objFun,3), " \n")
+return(objFun)
+}
+lowerPar = c(25,0.005,70,.001,1500,3,13,27,5,8,5,.5,0.5,10,10,15,80)  # Set appropriate lower bounds for your parameters
+upperPar = c(55,0.03,95,0.5,2200,7,21,35,9,14,50,1,2,35,30,30,95)# Set appropriate upper bounds for your parameters
+#install.packages('GA')
+library(GA)
+# Run the Genetic Algorithm
+ga_result <- ga(
+type = "real-valued",
+fitness = function(params) -lossFunctionGA(params),  # Maximize the negative RMSE
+lower = lowerPar,
+upper = upperPar,
+popSize = 50,         # Population size
+maxiter = 100,       # Maximum number of generations
+run = 50,             # Stop if no improvement after 50 generations
+pmutation = 0.1,      # Mutation probability
+pcrossover = 0.8,     # Crossover probability
+optimArgs=list(method='L-BFGS-B')
+)
+# Run the Genetic Algorithm
+ga_result <- ga(
+type = "real-valued",
+fitness = function(params) -lossFunctionGA(params),  # Maximize the negative RMSE
+lower = lowerPar,
+upper = upperPar,
+popSize = 50,         # Population size
+maxiter = 100,       # Maximum number of generations
+run = 50,             # Stop if no improvement after 50 generations
+pmutation = 0.1,      # Mutation probability
+pcrossover = 0.8,     # Crossover probability
+optimArgs=list(method='L-BFGS-B')
+)
+paramCrop = param_all |>
+filter(Model == 'Crop') |>
+select(-c(description,unit,min,max)) |>
+pivot_wider(names_from=parameter, values_from=c(value))
+paramCrop$HalfIntGrowth<-params[1]
+paramCrop$SlopeGrowth<-params[2]
+paramCrop = param_all |>
+filter(Model == 'Crop') |>
+select(-c(description,unit,min,max)) |>
+pivot_wider(names_from=parameter, values_from=c(value))
+paramCrop$HalfIntGrowth<-params[1]
+paramDisease = param_all |>
+filter(Model == 'Disease') |>
+select(-c(description,unit,min,max)) |>
+pivot_wider(names_from=parameter, values_from=c(value))
+# Run the simulation
+DisSim <- fRanchestyn_daily(weather |> filter(year<=2023), paramCrop,
+paramDisease, estimateRad = TRUE,
+sowingDate = 340, leafWetnessRH = params[17])
+# Run the simulation
+DisSim <- fRanchestyn_daily(weather, paramCrop,
+paramDisease, estimateRad = TRUE,
+sowingDate = 340, leafWetnessRH = params[17])
+library(GA)  # Load the Genetic Algorithm package
+# Define loss function
+lossFunctionGA <- function(params) {
+paramCrop = param_all |>
+filter(Model == 'Crop') |>
+select(-c(description,unit,min,max)) |>
+pivot_wider(names_from=parameter, values_from=c(value))
+paramCrop$HalfIntGrowth<-params[1]
+paramCrop$SlopeGrowth<-params[2]
+paramCrop$HalfIntSenescence<-params[3]
+paramCrop$SlopeSenescence<-params[4]
+paramCrop$CycleLength<-params[5]
+paramDisease = param_all |>
+filter(Model == 'Disease') |>
+select(-c(description,unit,min,max)) |>
+pivot_wider(names_from=parameter, values_from=c(value))
+paramDisease$Tmin<-params[6]
+paramDisease$Topt<-params[7]
+paramDisease$Tmax<-params[8]
+paramDisease$WetnessDurationMinimum<-params[9]
+paramDisease$DryCriticalInterruption<-params[10]
+paramDisease$HydroThermalTimeOnset<-params[11]
+paramDisease$PathogenInfectivity<-params[12]
+paramDisease$PathogenSpread<-params[13]
+paramDisease$SporulationDuration<-params[14]
+paramDisease$LatencyDuration<-params[15]
+paramDisease$WetnessDurationOptimum<-params[16]
+# Run the simulation
+DisSim <- fRanchestyn_daily(weather, paramCrop,
+paramDisease, estimateRad = TRUE,
+sowingDate = 340, leafWetnessRH = params[17])
+DisSim <- as.data.frame(DisSim) |>
+mutate(site = ifelse(site == "SLucia", "Slucia", site)) |>
+left_join(referenceDisease, join_by(site, year)) |>
+filter(!is.na(valueDis))
+#normalize data
+DisSim<-DisSim |>
+mutate(patSuitNorm = (PathogenSuitState-min(PathogenSuitState))/
+(max(PathogenSuitState)-min(PathogenSuitState)),
+HTaffNorm = (HTaffected-min(HTaffected))/
+(max(HTaffected)-min(HTaffected)),
+valueDisNorm= (valueDis-min(valueDis,na.rm=T))/
+(max(valueDis,na.rm=T)-min(valueDis,na.rm=T)))
+# Calculate RMSE
+mse <- sqrt(mean((DisSim$HTaffNorm*100 - DisSim$valueDisNorm)^2))
+r <- cor(DisSim$HTaffNorm*100,DisSim$valueDisNorm,method='pearson')
+objFun <- (mse*.5)/100 + ((1-r)*.5)
+cat(paste0("RMSE ", round(mse,3)), " Spearman r ", round(r,3), " obj fun ", round(objFun,3), " \n")
+return(objFun)
+}
+lowerPar = c(25,0.005,70,.001,1500,3,13,27,5,8,5,.5,0.5,10,10,15,80)  # Set appropriate lower bounds for your parameters
+upperPar = c(55,0.03,95,0.5,2200,7,21,35,9,14,50,1,2,35,30,30,95)# Set appropriate upper bounds for your parameters
+#install.packages('GA')
+library(GA)
+# Run the Genetic Algorithm
+ga_result <- ga(
+type = "real-valued",
+fitness = function(params) -lossFunctionGA(params),  # Maximize the negative RMSE
+lower = lowerPar,
+upper = upperPar,
+popSize = 50,         # Population size
+maxiter = 100,       # Maximum number of generations
+run = 50,             # Stop if no improvement after 50 generations
+pmutation = 0.1,      # Mutation probability
+pcrossover = 0.8,     # Crossover probability
+optimArgs=list(method='L-BFGS-B')
+)
+# Define loss function
+lossFunctionGA <- function(params) {
+paramCrop = param_all |>
+filter(Model == 'Crop') |>
+select(-c(description,unit,min,max)) |>
+pivot_wider(names_from=parameter, values_from=c(value))
+paramCrop$HalfIntGrowth<-params[1]
+paramCrop$SlopeGrowth<-params[2]
+paramCrop$HalfIntSenescence<-params[3]
+paramCrop$SlopeSenescence<-params[4]
+paramCrop$CycleLength<-params[5]
+paramDisease = param_all |>
+filter(Model == 'Disease') |>
+select(-c(description,unit,min,max)) |>
+pivot_wider(names_from=parameter, values_from=c(value))
+paramDisease$Tmin<-params[6]
+paramDisease$Topt<-params[7]
+paramDisease$Tmax<-params[8]
+paramDisease$WetnessDurationMinimum<-params[9]
+paramDisease$DryCriticalInterruption<-params[10]
+paramDisease$HydroThermalTimeOnset<-params[11]
+paramDisease$PathogenInfectivity<-params[12]
+paramDisease$PathogenSpread<-params[13]
+paramDisease$SporulationDuration<-params[14]
+paramDisease$LatencyDuration<-params[15]
+paramDisease$WetnessDurationOptimum<-params[16]
+# Run the simulation
+DisSim <- fRanchestyn_daily(weather, paramCrop,
+paramDisease, estimateRad = TRUE,
+sowingDate = 340, leafWetnessRH = params[17])
+DisSim <- as.data.frame(DisSim) |>
+mutate(site = ifelse(site == "SLucia", "Slucia", site)) |>
+left_join(referenceDisease, join_by(site, year)) |>
+filter(!is.na(valueDis))
+#normalize data
+DisSim<-DisSim |>
+group_by(site) |>
+mutate(patSuitNorm = (PathogenSuitState-min(PathogenSuitState))/
+(max(PathogenSuitState)-min(PathogenSuitState)),
+HTaffNorm = (HTaffected-min(HTaffected))/
+(max(HTaffected)-min(HTaffected)),
+valueDisNorm= (valueDis-min(valueDis,na.rm=T))/
+(max(valueDis,na.rm=T)-min(valueDis,na.rm=T)))
+# Calculate RMSE
+mse <- sqrt(mean((DisSim$HTaffNorm*100 - DisSim$valueDisNorm)^2))
+r <- cor(DisSim$HTaffNorm*100,DisSim$valueDisNorm,method='pearson')
+objFun <- (mse*.5)/100 + ((1-r)*.5)
+cat(paste0("RMSE ", round(mse,3)), " Spearman r ", round(r,3), " obj fun ", round(objFun,3), " \n")
+return(objFun)
+}
+lowerPar = c(25,0.005,70,.001,1500,3,13,27,5,8,5,.5,0.5,10,10,15,80)  # Set appropriate lower bounds for your parameters
+upperPar = c(55,0.03,95,0.5,2200,7,21,35,9,14,50,1,2,35,30,30,95)# Set appropriate upper bounds for your parameters
+#install.packages('GA')
+library(GA)
+# Run the Genetic Algorithm
+ga_result <- ga(
+type = "real-valued",
+fitness = function(params) -lossFunctionGA(params),  # Maximize the negative RMSE
+lower = lowerPar,
+upper = upperPar,
+popSize = 50,         # Population size
+maxiter = 100,       # Maximum number of generations
+run = 50,             # Stop if no improvement after 50 generations
+pmutation = 0.1,      # Mutation probability
+pcrossover = 0.8,     # Crossover probability
+optimArgs=list(method='L-BFGS-B')
+)
+rm(list=ls())
+#install.packages("pkgdown")
+#if (!requireNamespace("devtools", quietly = TRUE)) {
+#  install.packages("devtools")
+#}
+#set the working directory
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+remove.packages("SWELL")
+devtools::install()
+devtools::document()
+#devtools::install(build_vignettes = TRUE, force = TRUE)
+#devtools::document()
+library(SWELL)
+?swellValidation
+load("..//..//data//SWELLparameters.rda")
+print(ls()) # Should show "SWELLparameters" in the environment.
+SWELLparameters
+weather_data<-read.csv('C:\\Users\\simoneugomaria.brega\\Dropbox\\data\\e-obs\\data\\45.2498605458953_26.4498602851736.csv')
+weather_data<-read.csv('C:\\Users\\simoneugomaria.brega\\Dropbox\\data\\e-obs\\data\\45.2498605458953_26.4498602851736.csv')
+vegetation_data<-read.csv('C:\\Users\\simoneugomaria.brega\\Dropbox\\IO\\SWELL\\inst\\extdata\\files\\referenceData\\pixelsCalibrationEvi.csv')
+weather_data
+pixels <- swellCalibration(weather_data,
+vegetation_data |> filter(id=='10000a'),
+vegetationIndex = 'EVI',
+SWELLparameters,
+start_year=2011,end_year=2021,
+simplexes=4,iterations=1000)
+rm(list=ls())
+#install.packages("pkgdown")
+#if (!requireNamespace("devtools", quietly = TRUE)) {
+#  install.packages("devtools")
+#}
+#set the working directory
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+remove.packages("SWELL")
+devtools::install()
+devtools::document()
+#devtools::install(build_vignettes = TRUE, force = TRUE)
+#devtools::document()
+library(SWELL)
+?swellValidation
+load("..//..//data//SWELLparameters.rda")
+print(ls()) # Should show "SWELLparameters" in the environment.
+SWELLparameters
+weather_data<-read.csv('C:\\Users\\simoneugomaria.brega\\Dropbox\\data\\e-obs\\data\\45.2498605458953_26.4498602851736.csv')
+vegetation_data<-read.csv('C:\\Users\\simoneugomaria.brega\\Dropbox\\IO\\SWELL\\inst\\extdata\\files\\referenceData\\pixelsCalibrationEvi.csv')
+start_year<-2011
+end_year<-2021
+simplexes<-1
+iterations<-1
+weather_data$Date<-as.Date(weather_data$Date)
+library(tidyverse)
+SWELLparameters <- SWELL::SWELLparameters %>%
+mutate(max = ifelse(parameter == "maximumNDVI", .9, max),
+max = ifelse(parameter == "minimumNDVI", .2, max),
+min = ifelse(parameter == "maximumNDVI", .6, min))
+#SWELLparameters$calibration<-TRUE
+pixels <- swellCalibration(weather_data,
+vegetation_data |> filter(id=='10000a'),
+vegetationIndex = 'EVI',
+SWELLparameters,
+start_year=2011,end_year=2021,
+simplexes=4,iterations=1000)
