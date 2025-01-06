@@ -16,6 +16,7 @@ library(jsonlite)
 #devtools::install(repos = NULL, type = "source")
 devtools::document()
 devtools::build_vignettes()
+
 devtools::install(build_vignettes = TRUE, force = TRUE)
 #devtools::document()
 library(SWELL)
