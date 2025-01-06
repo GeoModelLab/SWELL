@@ -6,20 +6,24 @@ rm(list=ls())
 #set the working directory
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 remove.packages("SWELL")
-devtools::install()
-devtools::document()
-#devtools::install(build_vignettes = TRUE, force = TRUE)
+library(jsonlite)
+devtools::install(repos = NULL, type = "source", verbose = TRUE)
+.devtools::document()
+devtools::install(build_vignettes = TRUE, force = TRUE)
 #devtools::document()
 library(SWELL)
 ?swellValidation
 load("..//..//data//SWELLparameters.rda")
 print(ls()) # Should show "SWELLparameters" in the environment.
-
+devtools::check()
 SWELLparameters
 
-weather_data<-read.csv('C:\\Users\\simoneugomaria.brega\\Dropbox\\IO\\data\\e-obs\\data\\45.2498605458953_26.4498602851736.csv')
+source('..//..//R//Main_backup.R')
+source('..//..//data-raw//SWELLparameters.R')
 
-vegetation_data<-read.csv('C:\\Users\\simoneugomaria.brega\\Dropbox\\IO\\SWELL\\inst\\extdata\\files\\referenceData\\pixelsCalibrationEvi.csv')
+weather_data<-read.csv('C:\\Users\\simoneugomaria.brega\\Dropbox\\data\\e-obs\\data\\45.2498605458953_26.4498602851736.csv')
+
+vegetation_data<-read.csv('C:\\Users\\simoneugomaria.brega\\Dropbox\\IO\\SWELL_dev\\inst\\extdata\\files\\referenceData\\pixelsCalibrationEvi.csv')
 
 start_year<-2011
 end_year<-2021

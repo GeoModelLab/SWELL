@@ -30,9 +30,11 @@ The vegetation data refer to hazelnut orchards in Turkey from NASA MODIS satelli
 
 Let's have a look on these data
 
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
+```{r_install, fig.show='hold'}
+
+
+
+
 ```
 
 
