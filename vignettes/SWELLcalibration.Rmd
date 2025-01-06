@@ -1,0 +1,76 @@
+---
+title: "SWELL calibration tutorial"
+author: "GeoModel lab"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{SWELL calibration tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This `html_vignette` explains how to perform the calibration of the `SWELL` model for NDVI and EVI simulation. 
+
+## Preparing climate and vegetation data 
+
+The `SWELL` model uses daily air temperature and latitude as input to estimate photothermal responses of vegetation to reproduce the dynamics of a remote sensing index via calibration. The two sources of information needed are then:
+- vegetation index data: the Normalized Difference Vegetation Index (NDVI) and the Enhanced Vegetation Index (EVI) are current options.
+- climate data: daily maximum and minimum air temperature (°C) 
+
+The climate data are downloaded by the NASA-Power database as an example. 
+The vegetation data refer to hazelnut orchards in Turkey from NASA MODIS satellite.  These data are accessible in the `hazelnut_data` dataframe, but can also be downloaded via the `MODIStools` package, as explained at the end of this vignette.
+
+Let's have a look on these data
+
+```{r, fig.show='hold'}
+plot(1:10)
+plot(10:1)
+```
+
+
+
+## Styles
+
+The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+
+    output: 
+      rmarkdown::html_vignette:
+        css: mystyles.css
+
+## Figures
+
+The figure sizes have been customised so that you can easily put two images side-by-side. 
+
+```{r, fig.show='hold'}
+plot(1:10)
+plot(10:1)
+```
+
+You can enable figure captions by `fig_caption: yes` in YAML:
+
+    output:
+      rmarkdown::html_vignette:
+        fig_caption: yes
+
+Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+
+## More Examples
+
+You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
+
+```{r, echo=FALSE, results='asis'}
+knitr::kable(head(mtcars, 10))
+```
+
+Also a quote using `>`:
+
+> "He who gives up [code] safety for [code] speed deserves neither."
+([via](https://twitter.com/hadleywickham/status/504368538874703872))
