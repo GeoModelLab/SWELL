@@ -31,7 +31,10 @@ The vegetation data refer to hazelnut orchards in Turkey from NASA MODIS satelli
 
 ```{r_install, fig.show='hold'}
 
+#load SWELL library
 library(SWELL)
+
+?vegetation_data
 
 
 ```

@@ -10,7 +10,8 @@ library(devtools)
 install_github("https://github.com/GeoModelLab/SWELL.git")
 
 library(SWELL)
-
+?swellCalibration()
+?hazelnut_vegetation_data()
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(jsonlite)
 #devtools::install(repos = NULL, type = "source")
