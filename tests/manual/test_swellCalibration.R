@@ -3,11 +3,15 @@ rm(list=ls())
 #if (!requireNamespace("devtools", quietly = TRUE)) {
 #  install.packages("devtools")
 #}
-#set the working directory
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+#install.packages("jsonlite")
 remove.packages("SWELL")
+library(devtools)
+
+#install_github("https://github.com/GeoModelLab/SWELL.git")
+
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(jsonlite)
-devtools::install(repos = NULL, type = "source", verbose = TRUE)
+devtools::install(repos = NULL, type = "source")
 .devtools::document()
 devtools::install(build_vignettes = TRUE, force = TRUE)
 #devtools::document()
