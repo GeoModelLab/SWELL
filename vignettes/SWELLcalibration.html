@@ -12,7 +12,7 @@
 
 <meta name="author" content="GeoModel lab" />
 
-<meta name="date" content="2025-01-05" />
+<meta name="date" content="2025-01-06" />
 
 <title>SWELL calibration tutorial</title>
 
@@ -340,7 +340,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">SWELL calibration tutorial</h1>
 <h4 class="author">GeoModel lab</h4>
-<h4 class="date">2025-01-05</h4>
+<h4 class="date">2025-01-06</h4>
 
 
 
@@ -362,6 +362,9 @@ NASA MODIS satellite. These data are accessible in the
 <code>hazelnut_data</code> dataframe, but can also be downloaded via the
 <code>MODIStools</code> package, as explained at the end of this
 vignette.</p>
+<pre class="r_install"><code>
+library(SWELL)
+</code></pre>
 </div>
 <div id="styles" class="section level2">
 <h2>Styles</h2>
@@ -376,8 +379,8 @@ metadata as follows:</p>
 <h2>Figures</h2>
 <p>The figure sizes have been customised so that you can easily put two
 images side-by-side.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">1</span>)</span></code></pre></div>
 <p><img role="img" src="data:image/png;base64,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" /><img role="img" src="data:image/png;base64,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" /></p>
 <p>You can enable figure captions by <code>fig_caption: yes</code> in
 YAML:</p>

@@ -28,11 +28,10 @@ The `SWELL` model uses daily air temperature and latitude as input to estimate p
 The climate data are downloaded by the NASA-Power database as an example. 
 The vegetation data refer to hazelnut orchards in Turkey from NASA MODIS satellite.  These data are accessible in the `hazelnut_data` dataframe, but can also be downloaded via the `MODIStools` package, as explained at the end of this vignette.
 
-Let's have a look on these data
 
 ```{r_install, fig.show='hold'}
 
-
+library(SWELL)
 
 
 ```

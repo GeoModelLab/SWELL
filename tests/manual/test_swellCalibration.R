@@ -7,12 +7,15 @@ rm(list=ls())
 remove.packages("SWELL")
 library(devtools)
 
-#install_github("https://github.com/GeoModelLab/SWELL.git")
+install_github("https://github.com/GeoModelLab/SWELL.git")
+
+library(SWELL)
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(jsonlite)
-devtools::install(repos = NULL, type = "source")
-.devtools::document()
+#devtools::install(repos = NULL, type = "source")
+devtools::document()
+
 devtools::install(build_vignettes = TRUE, force = TRUE)
 #devtools::document()
 library(SWELL)
