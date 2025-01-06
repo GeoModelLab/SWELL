@@ -10,17 +10,16 @@ library(devtools)
 install_github("https://github.com/GeoModelLab/SWELL.git")
 
 library(SWELL)
-?swellCalibration()
-?hazelnut_vegetation_data()
+
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(jsonlite)
 #devtools::install(repos = NULL, type = "source")
 devtools::document()
-
+devtools::build_vignettes()
 devtools::install(build_vignettes = TRUE, force = TRUE)
 #devtools::document()
 library(SWELL)
-?swellValidation
+?swellValidation()
 load("..//..//data//SWELLparameters.rda")
 print(ls()) # Should show "SWELLparameters" in the environment.
 devtools::check()

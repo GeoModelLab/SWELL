@@ -6,11 +6,11 @@ Authors@R:
     person("Sofia", "Bajocco", email = "sofia.bajocco@crea.gov.it", role = "aut",comment = c(ORCID = "0000-0003-2301-9188")),
     person("Carlo", "Ricotta", email = "carlo.ricotta@uniroma1.it", role = "ctb",comment = c(ORCID = "0000-0003-0818-3959")))
 Description: SWELL simulates the daily dynamics of a remotely sensed vegetation index referred to a deciduous species. It uses photoperiod and temperature as key environmental cues, with species-specific photothermal requirements as input parameters. The core model is written in C#, and the package offers functions for automatic calibration (multi-start simplex) and validation
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a license
+License:  GPL-3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Depends: 
     R (>= 3.5)
 LazyData: true
-Imports: jsonlite
+Imports: jsonlite, tidyverse
