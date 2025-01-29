@@ -9,9 +9,12 @@ library(jsonlite)
 #' @param vegetation_data A data frame containing the vegetation index data.
 #'   Columns must be: PixelID (string), Group (string), Year (integer), Doy (integer), Longitude (numeric), Latitude (numeric), VegetationIndex (numeric).
 #' @param vegetation_index The vegetation index used for SWELL calibration (string). Available options are 'EVI' and 'NDVI'.
-#' @param SWELLparameters A named list structured as `SWELLparameters$class$parameter`, containing SWELL model parameters.
-#'   Each parameter is itself a list with `min`, `max`, `value`, and `calibration` elements.
-#'   See 'SWELLparameters' object for the template.
+#' @param SWELLparameters A nested list structured as `SWELLparameters$species$class$parameter`,
+#'   containing SWELL model parameters. Each parameter is itself a list with the following elements:
+#'   - `min`: Minimum value of the parameter (numeric), used for calibration.
+#'   - `max`: Maximum value of the parameter (numeric), used for calibration.
+#'   - `value`: Default value of the parameter (numeric).
+#'   - `calibration`: Logical (`TRUE` if the parameter is under calibration, `FALSE` otherwise).
 #' @param start_year Start year for calibration (default: 2011).
 #' @param end_year End year for calibration (default: 2022).
 #' @param simplexes Number of simplexes for calibration (default: 3).
@@ -131,26 +134,31 @@ swellCalibration <- function(weather_data, vegetation_data,
   #### Write Vegetation Data ####
   write.table(vegetation_data, file = ndvi_file, sep = ",", row.names = FALSE, col.names = TRUE, quote = FALSE)
 
-  SWELLparameters_df <- do.call(rbind, lapply(names(SWELLparameters), function(class) {
-    do.call(rbind, lapply(names(SWELLparameters[[class]]), function(param) {
-      # Ensure all numeric values are present and valid
-      min_value <- ifelse(is.null(SWELLparameters[[class]][[param]]$min), 0, SWELLparameters[[class]][[param]]$min)
-      max_value <- ifelse(is.null(SWELLparameters[[class]][[param]]$max), 1, SWELLparameters[[class]][[param]]$max)
-      value <- ifelse(is.null(SWELLparameters[[class]][[param]]$value), (min_value + max_value) / 2, SWELLparameters[[class]][[param]]$value)
-      calibration_flag <- ifelse(is.null(SWELLparameters[[class]][[param]]$calibration), "",
-                                 ifelse(SWELLparameters[[class]][[param]]$calibration, "x", ""))
+  SWELLparameters_df <- do.call(rbind, lapply(names(SWELLparameters), function(species) {
+    do.call(rbind, lapply(names(SWELLparameters[[species]]), function(class) {
+      do.call(rbind, lapply(names(SWELLparameters[[species]][[class]]), function(param) {
+        param_list <- SWELLparameters[[species]][[class]][[param]]
 
-      data.frame(
-        class = class,
-        parameter = param,
-        min = as.numeric(min_value),
-        max = as.numeric(max_value),
-        value = as.numeric(value),
-        calibration = calibration_flag
-      )
+        # Ensure numeric values are present and valid
+        min_value <- ifelse(is.null(param_list$min), 0, param_list$min)
+        max_value <- ifelse(is.null(param_list$max), 1, param_list$max)
+        value <- ifelse(is.null(param_list$value), (min_value + max_value) / 2, param_list$value)
+        calibration_flag <- ifelse(is.null(param_list$calibration), FALSE, param_list$calibration)
+
+        data.frame(
+          species = species,  # Include species column
+          class = class,
+          parameter = param,
+          min = as.numeric(min_value),
+          max = as.numeric(max_value),
+          value = as.numeric(value),
+          calibration = ifelse(calibration_flag, "x", "")  # Convert TRUE → "x", FALSE → ""
+        )
+      }))
     }))
   }))
 
+  # Write the table to file
   write.table(SWELLparameters_df, file = parameters_file, sep = ",", row.names = FALSE, col.names = TRUE, quote = FALSE)
 
 
