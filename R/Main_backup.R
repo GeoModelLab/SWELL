@@ -131,16 +131,22 @@ swellCalibration <- function(weather_data, vegetation_data,
   #### Write Vegetation Data ####
   write.table(vegetation_data, file = ndvi_file, sep = ",", row.names = FALSE, col.names = TRUE, quote = FALSE)
 
-  #### Convert SWELLparameters to Data Frame and Write ####
   SWELLparameters_df <- do.call(rbind, lapply(names(SWELLparameters), function(class) {
     do.call(rbind, lapply(names(SWELLparameters[[class]]), function(param) {
+      # Ensure all numeric values are present and valid
+      min_value <- ifelse(is.null(SWELLparameters[[class]][[param]]$min), 0, SWELLparameters[[class]][[param]]$min)
+      max_value <- ifelse(is.null(SWELLparameters[[class]][[param]]$max), 1, SWELLparameters[[class]][[param]]$max)
+      value <- ifelse(is.null(SWELLparameters[[class]][[param]]$value), (min_value + max_value) / 2, SWELLparameters[[class]][[param]]$value)
+      calibration_flag <- ifelse(is.null(SWELLparameters[[class]][[param]]$calibration), "",
+                                 ifelse(SWELLparameters[[class]][[param]]$calibration, "x", ""))
+
       data.frame(
         class = class,
         parameter = param,
-        min = SWELLparameters[[class]][[param]]$min,
-        max = SWELLparameters[[class]][[param]]$max,
-        value = SWELLparameters[[class]][[param]]$value,
-        calibration = ifelse(SWELLparameters[[class]][[param]]$calibration, "x", "")
+        min = as.numeric(min_value),
+        max = as.numeric(max_value),
+        value = as.numeric(value),
+        calibration = calibration_flag
       )
     }))
   }))

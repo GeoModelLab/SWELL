@@ -40,11 +40,6 @@ iterations<-1
 weather_data$Date<-as.Date(weather_data$Date)
 library(tidyverse)
 
-SWELLparameters <- SWELL::SWELLparameters %>%
-  mutate(max = ifelse(parameter == "maximumNDVI", .9, max),
-         max = ifelse(parameter == "minimumNDVI", .2, max),
-         min = ifelse(parameter == "maximumNDVI", .6, min))
-#SWELLparameters$calibration<-TRUE
 
 pixels <- swellCalibration(weather_data,
                            vegetation_data |> filter(id=='10000a'),
