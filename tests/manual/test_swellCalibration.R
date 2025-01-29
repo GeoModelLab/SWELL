@@ -46,7 +46,7 @@ pixels <- swellCalibration(weather_data,
                            vegetationIndex = 'EVI',
                            SWELLparameters,
                         start_year=2011,end_year=2021,
-                        simplexes=4,iterations=1000)
+                        simplexes=1,iterations=1000)
 
 results<-pixels$calibration_results
 paramPixels<-pixels$parameters_pixels

@@ -15,6 +15,7 @@ library(jsonlite)
 #'   - `max`: Maximum value of the parameter (numeric), used for calibration.
 #'   - `value`: Default value of the parameter (numeric).
 #'   - `calibration`: Logical (`TRUE` if the parameter is under calibration, `FALSE` otherwise).
+#' @param species the species to be run: it must be present in the SWELLparameters list as the first item
 #' @param start_year Start year for calibration (default: 2011).
 #' @param end_year End year for calibration (default: 2022).
 #' @param simplexes Number of simplexes for calibration (default: 3).
@@ -26,7 +27,7 @@ library(jsonlite)
 #' @export
 swellCalibration <- function(weather_data, vegetation_data,
                              vegetationIndex = "EVI",
-                             SWELLparameters,
+                             SWELLparameters, species = 'beech',
                              start_year = 2011, end_year = 2022,
                              simplexes = 1, iterations = 1) {
 
@@ -235,9 +236,9 @@ swellCalibration <- function(weather_data, vegetation_data,
 
   # Splitting 'param' column to extract species, class, and parameter
   split_cols <- sapply(strsplit(resultsParameters$param, "_"), `[`)
-  resultsParameters$species <- split_cols[1, ]
-  resultsParameters$class <- split_cols[2, ]
-  resultsParameters$param <- split_cols[3, ]
+  resultsParameters$species <- species
+  resultsParameters$class <- split_cols[1, ]
+  resultsParameters$param <- split_cols[2, ]
 
   # Rename and rearrange columns
   colnames(resultsParameters)[2] <- "group"  # Rename the second column to 'group'
