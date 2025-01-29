@@ -18,6 +18,7 @@ hazelnut_vegetation_data <- hazelnut_vegetation_data[
   , c("orchard_id", "Municipality", "latitude", "longitude", "year", "doy", "ndvi", "evi")
 ]
 
+#usethis::use_data_raw("hazelnut_vegetation_data")
 # Save the dataset to the `data/` folder of the package
 usethis::use_data(hazelnut_vegetation_data, overwrite = TRUE)
 

@@ -1,21 +1,23 @@
 #' SWELL parameters data used in calibration
 #'
-#' A dataframe providing default values for SWELL application to reproduce beech vegetation dynamics.
+#' A nested list providing default values for the SWELL model to reproduce tree phenology and vegetation dynamics.
 #' Users can modify this dataset as needed before using it in the `swellCalibration` function for calibration.
 #'
-#' @format A data frame with 31 rows and 7 columns:
+#' @format A nested list structured as `SWELLparameters$class$parameter`, where:
 #' \describe{
-#'   \item{species}{Species name.}
-#'   \item{class}{Class of the parameter.}
-#'   \item{parameter}{Name of the parameter.}
+#'   \item{class}{A category grouping related parameters (e.g., "parDormancy", "parGrowth").}
+#'   \item{parameter}{A specific parameter within a class (e.g., "limitingPhotoperiod", "thermalThreshold").}
 #'   \item{min}{Minimum value of the parameter (numeric). Used for automatic calibration if `calibration` is TRUE.}
 #'   \item{max}{Maximum value of the parameter (numeric). Used for automatic calibration if `calibration` is TRUE.}
 #'   \item{value}{Default value of the parameter (numeric).}
 #'   \item{calibration}{Logical, TRUE if the parameter is under calibration, FALSE otherwise.}
 #' }
 #'
-#' @details This dataset is used as the starting point for parameter values in the `swellCalibration` function.
+#' @details This dataset is structured as a hierarchical list to facilitate easy access to SWELL parameters.
+#' Users can retrieve or modify specific parameter values using expressions like:
+#' \code{SWELLparameters$parDormancy$limitingPhotoperiod$min}.
+#' The dataset serves as the starting point for parameter values in the `swellCalibration` function.
 #' Users can edit or replace parameter values to suit specific modeling needs or calibration goals.
 #'
-#' @source <https://www.who.int/teams/global-tuberculosis-programme/data>
+#' @source <https://github.com/GeoModelLab/SWELL/tree/main/data>
 "SWELLparameters"
