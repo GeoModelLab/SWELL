@@ -15,7 +15,7 @@ library(jsonlite)
 #'   - `max`: Maximum value of the parameter (numeric), used for calibration.
 #'   - `value`: Default value of the parameter (numeric).
 #'   - `calibration`: Logical (`TRUE` if the parameter is under calibration, `FALSE` otherwise).
-#' @param species the species to be run: it must be present in the SWELLparameters list as the first item
+#' @param species the species to be used: it must be present in SWELLparameters as the first level  of the named list
 #' @param start_year Start year for calibration (default: 2011).
 #' @param end_year End year for calibration (default: 2022).
 #' @param simplexes Number of simplexes for calibration (default: 3).
@@ -344,7 +344,7 @@ swellCalibration <- function(weather_data, vegetation_data,
 #'     \item{\code{mean}}{(numeric) The mean value of the calibrated parameter.}
 #'     \item{\code{sd}}{(numeric) The standard deviation of the calibrated parameter.}
 #'   }
-#'
+#' @param species the species to be used: it must be present in SWELLparameters as the first level  of the named list
 #' @param parametersDistributions (string) The type of distribution used to sample SWELL parameters during validation.
 #'   Available options are:
 #'   \describe{
@@ -406,7 +406,7 @@ swellCalibration <- function(weather_data, vegetation_data,
 
 swellValidation <- function(weather_data, vegetation_data, vegetationIndex = "EVI",
                             SWELLparameters,
-                            SWELLparametersCalibrated,
+                            SWELLparametersCalibrated, species = 'beech',
                             start_year = 2011, end_year = 2022,
                             validationReplicates = 5) {
 
@@ -463,7 +463,6 @@ swellValidation <- function(weather_data, vegetation_data, vegetationIndex = "EV
   if (!as.character(end_year) %in% weather_years) {
     stop(paste0("End year ", end_year, " is not present in 'weather_data'."))
   }
-
   if (!is.numeric(validationReplicates) || validationReplicates <= 0 || validationReplicates != as.integer(validationReplicates)) {
     stop("'validationReplicates' must be a positive integer.")
   }
@@ -509,7 +508,7 @@ swellValidation <- function(weather_data, vegetation_data, vegetationIndex = "EV
   ndvi_file <- file.path(config_folder, "ndvi_data.csv")
   parameters_file <- file.path(config_folder, "parameters.csv")
 
-  write.csv(SWELLparametersCalibrated |> select(1:3,6,7),
+  write.csv(SWELLparametersCalibrated |> select(1,3:4,7,8),
             file.path(config_folder, "parametersCalibrated.csv"),
             row.names = FALSE, quote = FALSE)
   parametersCalib <- file.path(config_folder, "parametersCalibrated.csv")
@@ -549,14 +548,15 @@ swellValidation <- function(weather_data, vegetation_data, vegetationIndex = "EV
   }))
 
   # Write the table to file
-  write.table(SWELLparameters_df, file = parameters_file, sep = ",", row.names = FALSE, col.names = TRUE, quote = FALSE)
+  write.table(SWELLparameters_df,
+              file = parameters_file, sep = ",", row.names = FALSE, col.names = TRUE, quote = FALSE)
 
 
   # Prepare configuration file
   swell_config <- list(
     settings = list(
       calibration = "false",
-      species = "beech",
+      species = species,
       startYear = as.character(start_year),
       endYear = as.character(end_year),
       weatherDirectory = normalizePath(weather_dir),

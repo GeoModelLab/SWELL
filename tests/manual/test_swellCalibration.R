@@ -73,7 +73,7 @@ ggplot(pixels[[1]] |> filter(year>=2013), aes(x=date)) +
   facet_wrap(~group,nrow=2)
 
 
-
+SWELLparametersCalibrated<-paramGroups
 pixelsValid <- swellValidation(weather_data, vegetation_data, vegetationIndex = 'EVI',
                                SWELL::SWELLparameters,
                                paramGroups,
