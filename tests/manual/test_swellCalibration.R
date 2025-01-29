@@ -17,7 +17,7 @@ library(jsonlite)
 devtools::document()
 devtools::build_vignettes()
 
-devtools::install(build_vignettes = TRUE, force = TRUE)
+#devtools::install(build_vignettes = TRUE, force = TRUE)
 #devtools::document()
 library(SWELL)
 ?swellValidation()

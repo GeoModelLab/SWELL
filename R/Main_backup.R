@@ -222,51 +222,59 @@ swellCalibration <- function(weather_data, vegetation_data,
   results$dormancyInductionRate <- ifelse(results$greendownRate > 0, 0, results$dormancyInductionRate)
 
 
-  #Load calibrated parameters
+  # Load calibrated parameters
   output_dir_parameters <- file.path(config_folder, "outputsParameters")
   csv_files <- list.files(output_dir_parameters, pattern = "\\.csv$", full.names = TRUE)
+
   if (length(csv_files) == 0) {
-    stop("No CSV files found in the directory: ", output_dir)
+    stop("No CSV files found in the directory: ", output_dir_parameters)
   }
+
   # Combine results into a single data frame
   resultsParameters <- do.call(rbind, lapply(csv_files, read.csv, stringsAsFactors = FALSE))
 
+  # Splitting 'param' column to extract species, class, and parameter
+  split_cols <- sapply(strsplit(resultsParameters$param, "_"), `[`)
+  resultsParameters$species <- split_cols[1, ]
+  resultsParameters$class <- split_cols[2, ]
+  resultsParameters$param <- split_cols[3, ]
 
-  # Splitting and assigning to new columns
-  split_cols <- sapply(strsplit(resultsParameters$param, "_"), `[`)  # Split and extract elements
-  resultsParameters$class <- split_cols[1, ]  # Assign first split to 'class'
-  resultsParameters$param <- split_cols[2, ]  # Assign second split to 'param'
-  # Rearrange and rename the second column to 'group'
+  # Rename and rearrange columns
   colnames(resultsParameters)[2] <- "group"  # Rename the second column to 'group'
+
+  # Match calibrated parameters with the corresponding min/max values from SWELLparameters
   resultsParameters$min <-
-    SWELLparameters$min[match(paste(resultsParameters$class,
-                                    resultsParameters$param),
-                              paste(SWELLparameters$class, SWELLparameters$parameter))]
+    sapply(seq_along(resultsParameters$param), function(i) {
+      SWELLparameters[[resultsParameters$species[i]]][[resultsParameters$class[i]]][[resultsParameters$param[i]]]$min
+    })
+
   resultsParameters$max <-
-    SWELLparameters$max[match(paste(resultsParameters$class,
-                                    resultsParameters$param),
-                              paste(SWELLparameters$class, SWELLparameters$parameter))]
-  resultsParameters <-
-    resultsParameters[, c("pixelID", "group", "class", "param", "min", "max", "value")]  # Rearrange columns
+    sapply(seq_along(resultsParameters$param), function(i) {
+      SWELLparameters[[resultsParameters$species[i]]][[resultsParameters$class[i]]][[resultsParameters$param[i]]]$max
+    })
 
+  # Rearrange columns for clarity
+  resultsParameters <- resultsParameters[, c("pixelID", "group", "species", "class", "param", "min", "max", "value")]
 
+  # Define columns for grouping
+  grouping_columns <- c("group", "species", "class", "param", "min", "max")
 
-  # Get the names of the first two columns (param and the other one)
-  grouping_columns <- names(resultsParameters)[c(2,3,4,5,6)]
   # Dynamically create the formula for aggregation
   aggregation_formula <- as.formula(paste("value ~", paste(grouping_columns, collapse = " + ")))
+
   # Perform the aggregation
   resultsParametersGroup <- aggregate(aggregation_formula,
                                       data = resultsParameters,
-                                      FUN = function(x)
-                                        c(mean = round(mean(x),4),
-                                          sd = round(sd(x),4)))
+                                      FUN = function(x) c(mean = round(mean(x), 4), sd = round(sd(x), 4)))
 
-  # Convert the aggregated results into a flat dataframe
+  # Convert the aggregated results into a flat data frame
   resultsParametersGroup <- do.call(data.frame, resultsParametersGroup)
+
   # Rename columns dynamically for clarity
   colnames(resultsParametersGroup) <- c(grouping_columns, "mean", "sd")
-  resultsParametersGroup$sd <- ifelse(is.na(resultsParametersGroup$sd),0,resultsParametersGroup$sd)
+
+  # Replace NA standard deviation values with 0
+  resultsParametersGroup$sd <- ifelse(is.na(resultsParametersGroup$sd), 0, resultsParametersGroup$sd)
 
   #remove the calibration and the parameters files
   # Paths to the directories
