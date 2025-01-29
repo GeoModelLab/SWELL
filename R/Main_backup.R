@@ -8,9 +8,10 @@ library(jsonlite)
 #'   Columns must be: Latitude (numeric), Longitude (numeric), Date (YYYY-MM-DD), Tmin (numeric, °C), Tmax (numeric, °C).
 #' @param vegetation_data A data frame containing the vegetation index data.
 #'   Columns must be: PixelID (string), Group (string), Year (integer), Doy (integer), Longitude (numeric), Latitude (numeric), VegetationIndex (numeric).
-#' @param vegetation_index The vegetation index used for SWELL calibration (string). Available options are 'EVI' and 'NDVI'
-#' @param SWELLparameters A data frame containing SWELL model parameters.
-#'   Columns must be: species (string), class (string), parameter (string), min (float), max (float), value (float), is_calibrated (boolean). See 'SWELLparameters' object for the template.
+#' @param vegetation_index The vegetation index used for SWELL calibration (string). Available options are 'EVI' and 'NDVI'.
+#' @param SWELLparameters A named list structured as `SWELLparameters$class$parameter`, containing SWELL model parameters.
+#'   Each parameter is itself a list with `min`, `max`, `value`, and `calibration` elements.
+#'   See 'SWELLparameters' object for the template.
 #' @param start_year Start year for calibration (default: 2011).
 #' @param end_year End year for calibration (default: 2022).
 #' @param simplexes Number of simplexes for calibration (default: 3).
@@ -18,7 +19,7 @@ library(jsonlite)
 #' @return A list containing:
 #'   - calibration_results: A data frame combining all calibration results with SWELL outputs.
 #'   - parameters_pixels: A data frame containing the calibrated values of SWELL parameters.
-#'   - parameters_group: A data frame containing the mean and standard deviation of SWELL parameters grouped by the Group column in the vegetation_data dataframe
+#'   - parameters_group: A data frame containing the mean and standard deviation of SWELL parameters grouped by the Group column in the vegetation_data dataframe.
 #' @export
 swellCalibration <- function(weather_data, vegetation_data,
                              vegetationIndex = "EVI",
@@ -26,7 +27,7 @@ swellCalibration <- function(weather_data, vegetation_data,
                              start_year = 2011, end_year = 2022,
                              simplexes = 1, iterations = 1) {
 
-  ####input check####
+  #### Input Validation ####
   # Check if weather_data is a data frame
   if (!is.data.frame(weather_data)) {
     stop("'weather_data' object must be a data frame.")
@@ -37,14 +38,14 @@ swellCalibration <- function(weather_data, vegetation_data,
     stop("'vegetation_data' must be a data frame.")
   }
 
-  # Check if vegetationIndex is one of the allowed values
+  # Check if vegetationIndex is valid
   if (!vegetationIndex %in% c("EVI", "NDVI")) {
     stop("'vegetationIndex' must be either 'EVI' or 'NDVI'.")
   }
 
-  # Check if SWELLparameters is a list
-  if (!is.data.frame(SWELLparameters)) {
-    stop("'SWELLparameters' must be a dataframe.")
+  # Check if SWELLparameters is a named list
+  if (!is.list(SWELLparameters) || is.null(names(SWELLparameters))) {
+    stop("'SWELLparameters' must be a named list.")
   }
 
   # Check if start_year and end_year are numeric and valid
@@ -74,7 +75,7 @@ swellCalibration <- function(weather_data, vegetation_data,
     stop(paste0("End year ", end_year, " is not present in 'weather_data'."))
   }
 
-  # Check if simplexes, iterations, and validationReplicates are positive integers
+  # Check if simplexes and iterations are positive integers
   if (!is.numeric(simplexes) || simplexes <= 0 || simplexes != as.integer(simplexes)) {
     stop("'simplexes' must be a positive integer.")
   }
@@ -82,77 +83,70 @@ swellCalibration <- function(weather_data, vegetation_data,
     stop("'iterations' must be a positive integer.")
   }
 
-
-
-
-  # Determine executable path based on the operating system
+  #### Path Configuration ####
   exe_path <- switch(Sys.info()["sysname"],
-                     "Windows" =
-                       system.file("extdata", "Windows", "runner.exe", package = "SWELL"),
-                     "Darwin"  =
-                       system.file("extdata", "macOS", "runner", package = "SWELL"),
-                     "Linux"   =
-                       system.file("extdata", "Linux", "runner", package = "SWELL"))
+                     "Windows" = system.file("extdata", "Windows", "runner.exe", package = "SWELL"),
+                     "Darwin"  = system.file("extdata", "macOS", "runner", package = "SWELL"),
+                     "Linux"   = system.file("extdata", "Linux", "runner", package = "SWELL"))
 
   if (!file.exists(exe_path)) {
     stop("Executable not found at the specified path: ", exe_path)
   }
 
-
-  # Define configuration folder and ensure it exists
   config_folder <- dirname(exe_path)
   if (!dir.exists(config_folder)) {
     stop("Config folder does not exist: ", config_folder)
   }
 
-  # Default config_folder to a suitable directory
   if (missing(config_folder)) {
-    config_folder <- tempdir()  # Use a temporary directory by default
+    config_folder <- tempdir()
   }
 
-  # Prepare weather data with unique file names
+  #### Prepare Weather Data ####
   weather_data$fileName <- paste0(weather_data$Latitude, "_", weather_data$Longitude)
 
-  # Clean date column if present
   if ("Date" %in% names(weather_data)) {
     weather_data$Date <- gsub("^\"|\"$", "", as.character(weather_data$Date))
   }
 
-  # Define file paths
   weather_dir <- file.path(config_folder, "weather")
   weather_file <- file.path(weather_dir, paste0(unique(weather_data$fileName), ".csv"))
   ndvi_file <- file.path(config_folder, "ndvi_data.csv")
   parameters_file <- file.path(config_folder, "parameters.csv")
 
-  # Ensure necessary directories exist
   dir.create(weather_dir, showWarnings = FALSE, recursive = TRUE)
   dir.create(file.path(config_folder, "outputsCalibration"), showWarnings = FALSE, recursive = TRUE)
   dir.create(file.path(config_folder, "outputsValidation"), showWarnings = FALSE, recursive = TRUE)
   dir.create(file.path(config_folder, "outputsParameters"), showWarnings = FALSE, recursive = TRUE)
 
-  # Write data files without quotes around values
-
-  # Extract unique combinations of Latitude and Longitude
+  #### Write Weather Data ####
   unique_coords <- unique(weather_data[, c("Latitude", "Longitude")])
 
-  i<-1
-  # Loop through each unique combination of Latitude and Longitude
-  for (i in 1:length(weather_file)) {
-
-    # Isolate the file name without the directory and without the .csv extension
+  for (i in seq_along(weather_file)) {
     file_name <- sub(".*/([^/]+)\\.csv$", "\\1", weather_file[i])
-
-    # Filter the data for this latitude and longitude combination
     filtered_data <- subset(weather_data, fileName == file_name)
-
-    # Write the filtered data to the respective file
     write.table(filtered_data, file = weather_file[i], sep = ",", row.names = FALSE, col.names = TRUE, quote = FALSE)
   }
 
+  #### Write Vegetation Data ####
   write.table(vegetation_data, file = ndvi_file, sep = ",", row.names = FALSE, col.names = TRUE, quote = FALSE)
-  # Convert the "calibration" column to show "x" for TRUE and "" for FALSE
-  SWELLparameters$calibration <- ifelse(SWELLparameters$calibration, "x", "")
-  write.table(SWELLparameters, file = parameters_file, sep = ",", row.names = FALSE, col.names = TRUE, quote = FALSE)
+
+  #### Convert SWELLparameters to Data Frame and Write ####
+  SWELLparameters_df <- do.call(rbind, lapply(names(SWELLparameters), function(class) {
+    do.call(rbind, lapply(names(SWELLparameters[[class]]), function(param) {
+      data.frame(
+        class = class,
+        parameter = param,
+        min = SWELLparameters[[class]][[param]]$min,
+        max = SWELLparameters[[class]][[param]]$max,
+        value = SWELLparameters[[class]][[param]]$value,
+        calibration = ifelse(SWELLparameters[[class]][[param]]$calibration, "x", "")
+      )
+    }))
+  }))
+
+  write.table(SWELLparameters_df, file = parameters_file, sep = ",", row.names = FALSE, col.names = TRUE, quote = FALSE)
+
 
   # Prepare configuration file
   swell_config <- list(
