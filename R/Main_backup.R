@@ -426,9 +426,10 @@ swellValidation <- function(weather_data, vegetation_data, vegetationIndex = "EV
     stop("'vegetationIndex' must be either 'EVI' or 'NDVI'.")
   }
 
-  # Check if SWELLparameters is a list
-  if (!is.data.frame(SWELLparameters)) {
-    stop("'SWELLparameters' must be dataframe.")
+
+  # Check if SWELLparameters is a named list
+  if (!is.list(SWELLparameters) || is.null(names(SWELLparameters))) {
+    stop("'SWELLparameters' must be a named list.")
   }
 
   # Check if SWELLparametersCalibrated is a list

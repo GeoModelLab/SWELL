@@ -19,7 +19,6 @@ devtools::build_vignettes()
 
 #devtools::install(build_vignettes = TRUE, force = TRUE)
 #devtools::document()
-library(SWELL)
 ?swellValidation()
 load("..//..//data//SWELLparameters.rda")
 print(ls()) # Should show "SWELLparameters" in the environment.
@@ -40,13 +39,13 @@ iterations<-1
 weather_data$Date<-as.Date(weather_data$Date)
 library(tidyverse)
 
-
+SWELLparameters$beech$parVegetationIndex$minimumNDVI$max<-0.2
 pixels <- swellCalibration(weather_data,
                            vegetation_data |> filter(id=='10000a'),
                            vegetationIndex = 'EVI',
                            SWELLparameters,
                         start_year=2011,end_year=2021,
-                        simplexes=1,iterations=1000)
+                        simplexes=5,iterations=1000)
 
 results<-pixels$calibration_results
 paramPixels<-pixels$parameters_pixels
@@ -61,7 +60,7 @@ library(tidyverse)
 ggplot(pixels[[2]]) + geom_boxplot(aes(y = value,fill=group))+
   facet_wrap(~param+class,scales='free_y')
 
-ggplot(pixels[[1]] |> filter(year==2013), aes(x=doy)) +
+ggplot(pixels[[1]] |> filter(year>=2013), aes(x=date)) +
   stat_summary(geom='line',aes(y = SWELL),size=2)+
   stat_summary(geom='point',aes(y = reference),size=2)+
   scale_color_manual(values=c('green','darkgreen','green3','red','brown'))+
