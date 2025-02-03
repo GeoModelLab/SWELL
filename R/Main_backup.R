@@ -160,7 +160,8 @@ swellCalibration <- function(weather_data, vegetation_data,
   }))
 
   # Write the table to file
-  write.table(SWELLparameters_df, file = parameters_file, sep = ",", row.names = FALSE, col.names = TRUE, quote = FALSE)
+  write.table(SWELLparameters_df[,-1], file = parameters_file,
+              sep = ",", row.names = FALSE, col.names = TRUE, quote = FALSE)
 
 
   # Prepare configuration file
