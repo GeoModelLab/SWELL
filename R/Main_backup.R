@@ -167,7 +167,7 @@ swellCalibration <- function(weather_data, vegetation_data,
   swell_config <- list(
     settings = list(
       calibration = "true",
-      species = "beech",
+      species = species,
       startYear = as.character(start_year),
       endYear = as.character(end_year),
       weatherDirectory = normalizePath(weather_dir),
