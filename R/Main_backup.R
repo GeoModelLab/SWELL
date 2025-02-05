@@ -333,10 +333,14 @@ swellCalibrationBatch <- function(weather_data, vegetation_data,
 
 
   #### Input Validation ####
-  # Check if weather_data is a data frame
+  # Check if outPath exists
   if (!file.exists(outPath)) {
     stop("The specified outputs path does not exist. Create it before running SWELL in batch mode")
   }
+  
+  unique_pixel <- unique(vegetation_data$PixelID)
+  pixel_parameters_outPath  <- file.path(outPath, paste0(pixel, "_parameters_pixels.csv"))
+  pixel_calibration_outPath <- file.path(outPath, paste0(pixel, "_calibration_results.csv"))   
 
   # Check if vegetation_data is a data frame
   if (!is.data.frame(vegetation_data)) {
@@ -479,9 +483,9 @@ swellCalibrationBatch <- function(weather_data, vegetation_data,
       simplexes = as.character(simplexes),
       iterations = as.character(iterations),
       vegetationIndex = vegetationIndex,
-      outputCalibrationDir = normalizePath(outPath),
-      outputValidationDir = normalizePath(file.path(config_folder, "outputsValidation")),
-      outputParametersDir = normalizePath(outPath),
+      outputCalibrationDir = normalizePath(pixel_parameters_outPath),
+      outputValidationDir  = normalizePath(file.path(config_folder, "outputsValidation")),
+      outputParametersDir  = normalizePath(pixel_calibration_outPath),
       startPixel = "0",
       numberPixels = "5000"
     )
