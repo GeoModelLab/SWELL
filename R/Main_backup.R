@@ -324,7 +324,7 @@ swellCalibration <- function(weather_data, vegetation_data,
 #' @export
 swellCalibrationBatch <- function(weather_data, vegetation_data,
                              vegetationIndex = "EVI",
-                             SWELLparameters, species = 'beech',
+                             SWELLparameters, species,
                              start_year = 2011, end_year = 2022,
                              simplexes = 1, iterations = 1,
                              outPath=paste0(getwd())) {

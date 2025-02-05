@@ -9,6 +9,8 @@ library(devtools)
 
 install_github("https://github.com/GeoModelLab/SWELL.git")
 
+devtools::install_local("C:\\Users\\simoneugomaria.brega\\OneDrive - CREA\\Documenti\\git\\SWELL")
+
 library(SWELL)
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
@@ -17,16 +19,13 @@ library(jsonlite)
 devtools::document()
 devtools::build_vignettes()
 
-#devtools::install(build_vignettes = TRUE, force = TRUE)
-#devtools::document()
-?swellValidation()
-load("..//..//data//SWELLparameters.rda")
+#load("..//..//data//SWELLparameters.rda")
 print(ls()) # Should show "SWELLparameters" in the environment.
 devtools::check()
-SWELLparameters
 
-source('..//..//R//Main_backup.R')
-source('..//..//data-raw//SWELLparameters.R')
+
+#source('..//..//R//Main_backup.R')
+#source('..//..//data-raw//SWELLparameters.R')
 
 weather_data<-read.csv('C:\\Users\\simoneugomaria.brega\\Dropbox\\data\\e-obs\\data\\45.2498605458953_26.4498602851736.csv')
 
@@ -43,12 +42,23 @@ SWELLparameters$beech$parVegetationIndex$minimumNDVI$max<-0.15
 SWELLparameters$beech$parVegetationIndex$minimumNDVI$min<-0.1
 SWELLparameters$beech$parVegetationIndex$nNDVIEndodormancy$max<-0.3
 SWELLparameters$beech$parVegetationIndex$nNDVIEcodormancy$max<-3
+
 pixels <- swellCalibration(weather_data,
                            vegetation_data |> filter(id=='10000a'),
                            vegetationIndex = 'EVI',
                            SWELLparameters,
                         start_year=2011,end_year=2021,
                         simplexes=5,iterations=1000)
+
+
+pixels <- swellCalibrationBatch(weather_data,
+                           vegetation_data |> filter(id=='10000a'),
+                           vegetationIndex = 'EVI',
+                           SWELLparameters,species='beech',
+                           start_year=2011,end_year=2021,
+                           simplexes=1,iterations=1,
+                           outPath= "C:\\Users\\simoneugomaria.brega\\OneDrive - CREA\\Documenti\\git\\SWELL\\tests\\manual\\testBatchRun")
+
 
 results<-pixels$calibration_results
 paramPixels<-pixels$parameters_pixels

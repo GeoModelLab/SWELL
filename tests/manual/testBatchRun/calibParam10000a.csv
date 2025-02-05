@@ -1,0 +1,15 @@
+pixelID, ecoRegion, param, value
+10000a,Romania,parDormancy_photoThermalThreshold,22.975
+10000a,Romania,parEcodormancy_photoThermalThreshold,10.006
+10000a,Romania,parEndodormancy_chillingThreshold,121.973
+10000a,Romania,parGreendown_thermalThreshold,55.954
+10000a,Romania,parGrowth_thermalThreshold,52.98
+10000a,Romania,parSenescence_photoThermalThreshold,77.995
+10000a,Romania,parVegetationIndex_maximumNDVI,0.82
+10000a,Romania,parVegetationIndex_minimumNDVI,0.146
+10000a,Romania,parVegetationIndex_nNDVIEcodormancy,0.967
+10000a,Romania,parVegetationIndex_nNDVIEndodormancy,0.256
+10000a,Romania,parVegetationIndex_nNDVIGreendown,0.072
+10000a,Romania,parVegetationIndex_nNDVIGrowth,0.647
+10000a,Romania,parVegetationIndex_nNDVISenescence,1.457
+10000a,Romania,parVegetationIndex_pixelTemperatureShift,1.077
