@@ -4,60 +4,77 @@ rm(list=ls())
 #  install.packages("devtools")
 #}
 #install.packages("jsonlite")
-remove.packages("SWELL")
+# remove.packages("SWELL")
+
 library(devtools)
+library(SWELL)
+library(nasapower)
+library(jsonlite)
+library(tidyverse)
+
 
 install_github("https://github.com/GeoModelLab/SWELL.git")
 
-devtools::install_local("C:\\Users\\simoneugomaria.brega\\OneDrive - CREA\\Documenti\\git\\SWELL")
-
-library(SWELL)
-
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-library(jsonlite)
-#devtools::install(repos = NULL, type = "source")
-devtools::document()
-devtools::build_vignettes()
 
-#load("..//..//data//SWELLparameters.rda")
-print(ls()) # Should show "SWELLparameters" in the environment.
-devtools::check()
+source("..\\..\\R\\Main_backup.R")
+# 1. load data ----
 
 
-#source('..//..//R//Main_backup.R')
-#source('..//..//data-raw//SWELLparameters.R')
+vegetation_data <- read.csv("..\\..\\inst\\extdata\\files\\referenceData\\pixelsCalibrationEvi.csv")
+vegetation_data <- vegetation_data |> filter(id == '10000a')
 
-weather_data<-read.csv('C:\\Users\\simoneugomaria.brega\\Dropbox\\data\\e-obs\\data\\45.2498605458953_26.4498602851736.csv')
+weather_data <- get_power(
+  community = "ag",
+  lonlat = c(unique(vegetation_data$long), unique(vegetation_data$lat)),
+  pars = c("T2M_MAX", "T2M_MIN"),
+  dates = c("2000-01-01", "2024-01-01"),
+  temporal_api = "daily"
+)
 
-vegetation_data<-read.csv('C:\\Users\\simoneugomaria.brega\\Dropbox\\IO\\SWELL_dev\\inst\\extdata\\files\\referenceData\\pixelsCalibrationEvi.csv')
+weather_data <- weather_data |> 
+  rename(Longitude = LON,
+         Latitude = LAT,
+         Date = YYYYMMDD,
+         Tmin = T2M_MIN,
+         Tmax = T2M_MAX) |> 
+  select(-c(DOY, MM, DD, YEAR))
 
-start_year<-2011
-end_year<-2021
-simplexes<-1
-iterations<-1
-weather_data$Date<-as.Date(weather_data$Date)
-library(tidyverse)
+start_year <- 2001
+end_year   <- 2021
+simplexes  <- 1
+iterations <- 100
 
 SWELLparameters$beech$parVegetationIndex$minimumNDVI$max<-0.15
 SWELLparameters$beech$parVegetationIndex$minimumNDVI$min<-0.1
 SWELLparameters$beech$parVegetationIndex$nNDVIEndodormancy$max<-0.3
 SWELLparameters$beech$parVegetationIndex$nNDVIEcodormancy$max<-3
+SWELLparameters$pippo <- SWELLparameters$beech
 
-pixels <- swellCalibration(weather_data,
-                           vegetation_data |> filter(id=='10000a'),
-                           vegetationIndex = 'EVI',
-                           SWELLparameters,
-                        start_year=2011,end_year=2021,
-                        simplexes=5,iterations=1000)
+pixels <- swellCalibration(
+  weather_data,
+  vegetation_data,
+  vegetationIndex = 'EVI',
+  SWELLparameters = SWELL::SWELLparameters,
+  species = 'beech',
+  start_year=start_year,
+  end_year=end_year,
+  simplexes=simplexes,
+  iterations=iterations
+  )
 
 
-pixels <- swellCalibrationBatch(weather_data,
-                           vegetation_data |> filter(id=='10000a'),
-                           vegetationIndex = 'EVI',
-                           SWELLparameters,species='beech',
-                           start_year=2011,end_year=2021,
-                           simplexes=1,iterations=1,
-                           outPath= "C:\\Users\\simoneugomaria.brega\\OneDrive - CREA\\Documenti\\git\\SWELL\\tests\\manual\\testBatchRun")
+pixels <- swellCalibrationBatch(
+  weather_data,
+  vegetation_data,
+  vegetationIndex = 'EVI',
+  SWELLparameters = SWELL::SWELLparameters,
+  species='beech',
+  start_year=start_year,
+  end_year=end_year,
+  simplexes=1,
+  iterations=100,
+  outPath = "C:\\Users\\loren\\Desktop\\testBatchRun")
 
 
 results<-pixels$calibration_results
