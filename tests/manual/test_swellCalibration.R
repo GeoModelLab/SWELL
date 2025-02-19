@@ -22,11 +22,12 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 
 vegetation_data <- read.csv("..\\..\\inst\\extdata\\files\\referenceData\\pixelsCalibrationEvi.csv")
-vegetation_data <- vegetation_data |> filter(id == '10000a')
+vegetation_data <- vegetation_data
 
 weather_data <- get_power(
   community = "ag",
-  lonlat = c(unique(vegetation_data$long), unique(vegetation_data$lat)),
+  #lonlat = c(unique(vegetation_data$long), unique(vegetation_data$lat)),
+  lonlat = c(26, 45),
   pars = c("T2M_MAX", "T2M_MIN"),
   dates = c("2000-01-01", "2024-01-01"),
   temporal_api = "daily"
@@ -45,11 +46,18 @@ end_year   <- 2021
 simplexes  <- 1
 iterations <- 100
 
-SWELLparameters$beech$parVegetationIndex$minimumNDVI$max<-0.15
-SWELLparameters$beech$parVegetationIndex$minimumNDVI$min<-0.1
-SWELLparameters$beech$parVegetationIndex$nNDVIEndodormancy$max<-0.3
-SWELLparameters$beech$parVegetationIndex$nNDVIEcodormancy$max<-3
+SWELLparameters$beech$parVegetationIndex$minimumVI$max<-0.15
+SWELLparameters$beech$parVegetationIndex$minimumVI$min<-0.1
+SWELLparameters$beech$parVegetationIndex$nVIEndodormancy$max<-0.3
+SWELLparameters$beech$parVegetationIndex$nVIEcodormancy$max<-3
 SWELLparameters$pippo <- SWELLparameters$beech
+
+unique(vegetation_data$id)
+
+rm(SWELLparameters)
+SWELLparameters<-SWELL::SWELLparameters
+
+source("..\\..\\R\\Main_backup.R")
 
 pixels <- swellCalibration(
   weather_data,

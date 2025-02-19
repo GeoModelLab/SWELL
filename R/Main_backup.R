@@ -41,7 +41,7 @@ swellCalibration <- function(weather_data, vegetation_data,
   if (!is.data.frame(vegetation_data)) {
     stop("'vegetation_data' must be a data frame.")
   }
-  
+
   # Check if vegetationIndex is valid
   if (!species %in% names(SWELLparameters)) {
     sp <- names(SWELLparameters)
@@ -50,7 +50,7 @@ swellCalibration <- function(weather_data, vegetation_data,
     }
     stop("'species' is not valid. Please see above the available species or add a new species to SWELLparameters list.")
   }
-  
+
   # Check if vegetationIndex is valid
   if (!vegetationIndex %in% c("EVI", "NDVI")) {
     stop("'vegetationIndex' must be either 'EVI' or 'NDVI'.")
@@ -205,7 +205,15 @@ swellCalibration <- function(weather_data, vegetation_data,
   cmd <- paste(shQuote(exe_path), shQuote(json_file))
   message("Running command: ", cmd)
   result <- tryCatch({
-    system(cmd, intern = FALSE)
+    # Run the C# executable and capture output
+    output <- system2(cmd, stdout = TRUE, stderr = TRUE)
+
+    # Convert to UTF-8
+    output <- iconv(output, from = "", to = "UTF-8")
+
+    # Print output correctly
+    cat(output, sep = "\n")
+
     list(success = TRUE)
   }, error = function(e) {
     list(success = FALSE, error = e$message)
@@ -273,6 +281,7 @@ swellCalibration <- function(weather_data, vegetation_data,
   # Dynamically create the formula for aggregation
   aggregation_formula <- as.formula(paste("value ~", paste(grouping_columns, collapse = " + ")))
 
+  colnames(resultsParameters)
   # Perform the aggregation
   resultsParametersGroup <- aggregate(aggregation_formula,
                                       data = resultsParameters,
@@ -343,7 +352,7 @@ swellCalibrationBatch <- function(weather_data, vegetation_data,
   if (!file.exists(outPath)) {
     stop("The specified outputs path does not exist. Create it before running SWELL in batch mode")
   }
-  
+
   # Check if vegetation_data is a data frame
   if (!is.data.frame(vegetation_data)) {
     stop("'vegetation_data' must be a data frame.")
