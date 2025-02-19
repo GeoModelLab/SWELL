@@ -211,9 +211,7 @@ namespace runner
 
             Console.ForegroundColor = consoleColor;
 
-            // Define a fixed console width (optional: adjust based on actual console size)
-            int consoleWidth = Console.BufferWidth - 1;
-
+            
             Console.Write("\rcalibration: pixel = {0}; group = {1}; RMSE = {2:F3} and Pearson r = {3:F3} {4} | {5:F1}% ",
       idPixel.Keys.First(),
       idPixel[idPixel.Keys.First()].ecoName,
