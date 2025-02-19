@@ -4,21 +4,20 @@ rm(list=ls())
 #  install.packages("devtools")
 #}
 #install.packages("jsonlite")
-# remove.packages("SWELL")
+remove.packages("SWELL")
 
 library(devtools)
-library(SWELL)
+
 library(nasapower)
 library(jsonlite)
 library(tidyverse)
 
 
-
 install_github("https://github.com/GeoModelLab/SWELL.git")
-
+library(SWELL)
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-source("..\\..\\R\\Main_backup.R")
+#source("..\\..\\R\\Main_backup.R")
 # 1. load data ----
 
 
@@ -33,12 +32,12 @@ weather_data <- get_power(
   temporal_api = "daily"
 )
 
-weather_data <- weather_data |> 
+weather_data <- weather_data |>
   rename(Longitude = LON,
          Latitude = LAT,
          Date = YYYYMMDD,
          Tmin = T2M_MIN,
-         Tmax = T2M_MAX) |> 
+         Tmax = T2M_MAX) |>
   select(-c(DOY, MM, DD, YEAR))
 
 start_year <- 2001
