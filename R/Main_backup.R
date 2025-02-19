@@ -41,7 +41,16 @@ swellCalibration <- function(weather_data, vegetation_data,
   if (!is.data.frame(vegetation_data)) {
     stop("'vegetation_data' must be a data frame.")
   }
-
+  
+  # Check if vegetationIndex is valid
+  if (!species %in% names(SWELLparameters)) {
+    sp <- names(SWELLparameters)
+    for (i in 1:length(unique(sp))){
+      print(sp[i])
+    }
+    stop("'species' is not valid. Please see above the available species or add a new species to SWELLparameters list.")
+  }
+  
   # Check if vegetationIndex is valid
   if (!vegetationIndex %in% c("EVI", "NDVI")) {
     stop("'vegetationIndex' must be either 'EVI' or 'NDVI'.")
@@ -328,9 +337,6 @@ swellCalibrationBatch <- function(weather_data, vegetation_data,
                              start_year = 2011, end_year = 2022,
                              simplexes = 1, iterations = 1,
                              outPath=paste0(getwd())) {
-
-
-
 
   #### Input Validation ####
   # Check if outPath exists
