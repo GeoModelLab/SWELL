@@ -206,13 +206,7 @@ swellCalibration <- function(weather_data, vegetation_data,
   message("Running command: ", cmd)
   result <- tryCatch({
     # Run the C# executable and capture output
-    output <- system2(cmd, stdout = TRUE, stderr = TRUE)
-
-    # Convert to UTF-8
-    output <- iconv(output, from = "", to = "UTF-8")
-
-    # Print output correctly
-    cat(output, sep = "\n")
+    system(cmd, intern = F)
 
     list(success = TRUE)
   }, error = function(e) {

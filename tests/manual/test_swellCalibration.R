@@ -57,7 +57,7 @@ unique(vegetation_data$id)
 rm(SWELLparameters)
 SWELLparameters<-SWELL::SWELLparameters
 
-source("..\\..\\R\\Main_backup.R")
+#source("..\\..\\R\\Main_backup.R")
 
 pixels <- swellCalibration(
   weather_data,
