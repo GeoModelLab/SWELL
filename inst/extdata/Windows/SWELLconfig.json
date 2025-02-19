@@ -1,1 +1,22 @@
-{"settings":{"calibration":"true","species":"beech","startYear":"2009","endYear":"2023","weatherDirectory":"C:\\Users\\simoneugomaria.brega\\Dropbox\\IO\\SWELL\\inst\\extdata\\Windows\\weather","referenceDataFile":"C:\\Users\\simoneugomaria.brega\\Dropbox\\IO\\SWELL\\inst\\extdata\\Windows\\ndvi_data.csv","parametersDataFile":"C:\\Users\\simoneugomaria.brega\\Dropbox\\IO\\SWELL\\inst\\extdata\\Windows\\parameters.csv","validationReplicates":"1","parametersDistributions":"uniform","parametersValidationFile":"","simplexes":"4","iterations":"1000","vegetationIndex":"EVI","outputCalibrationDir":"C:\\Users\\simoneugomaria.brega\\Dropbox\\IO\\SWELL\\inst\\extdata\\Windows\\outputsCalibration","outputValidationDir":"C:\\Users\\simoneugomaria.brega\\Dropbox\\IO\\SWELL\\inst\\extdata\\Windows\\outputsValidation","outputParametersDir":"C:\\Users\\simoneugomaria.brega\\Dropbox\\IO\\SWELL\\inst\\extdata\\Windows\\outputsParameters","startPixel":"0","numberPixels":"5000"}}
+{
+    "settings": {
+        "calibration": "true",
+        "species": "beech",
+        "startYear": "2011",
+        "endYear": "2022",
+        "simplexes": "1",
+        "iterations": "1",
+        "validationReplicates": "3",
+        "parametersDistributions": "uniform",
+        "weatherDirectory": "C:\\Users\\simoneugomaria.brega\\Dropbox\\data\\e-obs\\data",
+        "referenceDataFile": "..\\..\\..\\files\\referenceData\\pixelsCalibration.csv",
+        "parametersDataFile": "..\\..\\..\\files\\parametersData\\photothermalRequirements.csv",
+        "parametersValidationFile": "C:\\Users\\simoneugomaria.brega\\OneDrive - CREA\\Documenti\\git\\SWELL\\tests\\manual\\parametersValidationFile.csv",
+        "startPixel": "0",
+        "numberPixels": "5000",
+        "vegetationIndex": "NDVI",
+        "outputCalibrationDir": "C:\\Users\\simoneugomaria.brega\\AppData\\Local\\R\\win-library\\4.4\\SWELL\\extdata\\Windows\\outputsCalibration",
+        "outputValidationDir": "C:\\Users\\simoneugomaria.brega\\Dropbox\\IO\\SWELL\\inst\\extdata\\Windows\\outputsValidation",
+        "outputParametersDir": "C:\\Users\\simoneugomaria.brega\\AppData\\Local\\R\\win-library\\4.4\\SWELL\\extdata\\Windows\\outputsParameters"
+    }
+}
