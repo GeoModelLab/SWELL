@@ -34,7 +34,7 @@ namespace runner
                 species_nameParam[species][line[1] + "_" + line[2]] = parameter;
                               
             }
-
+            sr.Close();
             return species_nameParam;
         }
     }

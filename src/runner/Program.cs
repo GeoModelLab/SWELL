@@ -6,24 +6,14 @@ using MathNet.Numerics.Distributions;
 using System.Text.Json;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 
 #region Console opening message
-//Console.WriteLine("                   ______  __        __  _____   _      _");
-//Console.WriteLine("                  |  ____| \\ \\      / / |  ___| | |    | |");
-//Console.WriteLine("                  | |____   \\ \\    / /  | |___  | |    | |");
-//Console.WriteLine("                  |_____ |   \\ \\/\\/ /   |  ___| | |    | |");
-//Console.WriteLine("                   ____| |    \\    /    | |___  | |___ | |___");
-//Console.WriteLine("                  |______|     \\/\\/     |_____| |_____||_____|");
-//
-//Console.WriteLine("                  Simulated   Waves of  Energy,  Light & Life");
-//Console.WriteLine("·._.··`¯´´·.¸¸.·``¯´´·.¸¸.·``¯´´·.¸¸.·``¯´´·.¸¸.·``¯´´·.¸¸.·``¯´´·.¸¸.·``¯´´");
-//Console.WriteLine("  ·._.··`¯´´·.¸¸.·``¯´´·.¸¸.·``¯´´·.¸¸.·``¯´´·.¸¸.·``¯´´·.¸¸.·``¯´´·.¸¸.·``¯´´");
-//Console.WriteLine("    ·._.··`¯´´·.¸¸.·``¯´´·.¸¸.·``¯´´·.¸¸.·``¯´´·.¸¸.·``¯´´·.¸¸.·``¯´´·.¸¸.·``¯´´");
-//Console.WriteLine("     ·._.··`¯´´·.¸¸.·``¯´´·.¸¸.·``¯´´·.¸¸.·``¯´´·.¸¸.·``¯´´·.¸¸.·``¯´´·.¸¸.·``¯´´");
-//Console.WriteLine(" ");
-//Console.WriteLine("command prompt: simulation settings are read from the SWELLconfig.json file.");
-//Console.WriteLine(" ");
+
+Console.WriteLine(".-..  ..--.  .");
+Console.WriteLine("`-.|/\\||- |  |");
+Console.WriteLine("`-''  ''--'--'--");
 #endregion
 
 #region read the configuration file (SWELLConfig.config)
@@ -60,8 +50,6 @@ bool isCalibration = bool.Parse(config.settings.calibration.ToString());
 string runningMode = "";
 if (isCalibration) runningMode = "calibration"; else runningMode = "validation";
 
-Console.WriteLine("RUNNING MODE: {0}", runningMode);
-
 //set start pixel and number of pixels (for calibration)
 int startPixel = int.Parse(config.settings.startPixel.ToString());
 int numberPixels = int.Parse(config.settings.numberPixels.ToString());
@@ -73,22 +61,21 @@ int iterations = int.Parse(config.settings.iterations.ToString());
 int validationReplicates = int.Parse(config.settings.validationReplicates.ToString());
 string parametersDistribution = config.settings.parametersDistributions.ToString();
 
+//set species
+string species = config.settings.species.ToString();
+
 if (isCalibration)
 {
-    Console.WriteLine("SIMPLEXES: {0} ITERATIONS: {1}", simplexes, iterations);
+    Console.WriteLine("species: {0} | simplexes: {1} | iterations: {2}", species, simplexes, iterations);
 }
 else
 {
-    Console.WriteLine("REPLICATES: {0} DISTRIBUTION: {1}", validationReplicates, parametersDistribution);
+    Console.WriteLine("species: {0} | replicates: {1} | distribution: {2}", species, validationReplicates, parametersDistribution);
 }
 
 
 //set weather directory
 var weatherDir = config.settings.weatherDirectory;
-//Console.WriteLine("WEATHER DIRECTORY: {0}", weatherDir);
-
-//set species
-string species = config.settings.species.ToString();
 
 //set parameters file
 string parametersDataFile = config.settings.parametersDataFile.ToString();
@@ -104,24 +91,22 @@ string outputsValidationDir = config.settings.outputValidationDir.ToString();
 string outputParametersDir = config.settings.outputParametersDir.ToString();
 
 string vegetationIndex = config.settings.vegetationIndex.ToString();
-Console.WriteLine("PLANT SPECIES: {0}", species);
-Console.WriteLine("");
+
 #endregion
 
 #region read reference NDVI data
 //message to console
-//Console.WriteLine("reading all pixels NDVI data....");
+Console.WriteLine("");
 
 //instance of reference reader class
 referenceReader referenceReader = new referenceReader();
 
 //read simulated pixels
+Random random = new Random();
 Dictionary<string, pixel> allPixels = referenceReader.readReferenceData(referenceDataFile);
 #endregion
 
 #region get all weather files
-//message to console
-Console.WriteLine("reading weather files....");
 //optimizer class
 optimizer optimizer = new optimizer();
 optimizer.startYear = startYear;
@@ -154,6 +139,19 @@ optimizer.species_nameParam = paramReader.read(parametersDataFile, species);
 Dictionary<string, float> paramCalibValue = new Dictionary<string, float>();
 #endregion
 
+// Define an array of bright colors
+ConsoleColor[] colors = new ConsoleColor[]
+{
+    ConsoleColor.Cyan,
+    ConsoleColor.Yellow,
+    ConsoleColor.Green,
+    ConsoleColor.Magenta,
+    ConsoleColor.Blue
+};
+
+Random rnd = new Random();
+Console.ForegroundColor = colors[rnd.Next(colors.Length)]; // Pick a random color
+
 #region switch between calibration and validation
 if (isCalibration)
 {
@@ -166,11 +164,11 @@ if (isCalibration)
     msx.NofSimplexes = simplexes;// 19; //5;
     msx.Ftol = 0.01;
     msx.Itmax = iterations;// 999;
-
-
     #endregion
 
+
     #region loop over pixels
+
     for (int pixel = startPixel; pixel < startPixel + numberPixels; pixel++)
     {
         if (pixel< allPixels.Count )
@@ -181,11 +179,7 @@ if (isCalibration)
             //check if pixel is already calibrated
             if (!calibratedFiles.Contains(pixelID))
             {
-                //if (pixelID == "251a")
-                //{
-                //message to console
-                Console.WriteLine("pixel {0} start", pixelID);
-
+               
                 //set pixel to calibrate
                 optimizer.idPixel = allPixels.Where(x => x.Key == pixelID).ToDictionary(p => p.Key, p => p.Value); ;
 
@@ -227,7 +221,9 @@ if (isCalibration)
                 optimizer.species = species;
                 optimizer.isCalibration = isCalibration;
                 optimizer.param_outCalibration = param_outCalibration;
-
+                optimizer.pixelNumber = allPixels.Count;
+                optimizer.currentPixelNumber = pixel+1;
+                optimizer.consoleColor = colors[rnd.Next(colors.Length)];
                 //run optimizer
                 msx.Multistart(optimizer, paramCalibrated, Limits, out results);
 
@@ -256,17 +252,13 @@ if (isCalibration)
                 }
 
                 //write calibrated parameters to file
-                System.IO.File.WriteAllLines(outputParametersDir + "//calibParam" + pixelID + ".csv", writeParam);
+                System.IO.File.WriteAllLines(outputParametersDir + "//"+ pixelID + "_parameters.csv", writeParam);
                 #endregion
 
                 //empty dictionary of dates and outputs objects
                 var dateOutputs = new Dictionary<DateTime, output>();
                 //execute model with calibrated parameters
                 optimizer.oneShot(paramCalibValue, out dateOutputs, optimizer.parset);
-
-                //message to console
-                Console.WriteLine("pixel {0} calibrated", pixelID);
-                // }
             }
         }
     }
@@ -276,12 +268,7 @@ if (isCalibration)
 }
 else
 {
-    //message to console
-    Console.WriteLine("selecting pixels for validation...");
     Dictionary<string, pixel> allPixelsToValidate = referenceReader.readReferenceData(referenceDataFile);
-
-    //message to console
-    Console.WriteLine("validation loop starts...");
 
     List<string> availableGroups = new List<string>();
     StreamReader sr = new StreamReader(parametersValidationFile);
@@ -294,23 +281,25 @@ else
             availableGroups.Add(group);
         }
     }
-
+    sr.Close();
+    int barWidth = 30;
 
     #region loop over pixels 
+    int currentPixelNumber = 0;
+
+    List<pixel> pixelsNotValidated = new List<pixel>();
+
     foreach (var pixel in allPixelsToValidate.Keys)
     {
 
         //check if the pixels has been already validated
         if (!availableGroups.Contains(allPixelsToValidate[pixel].ecoName))
         {
-            Console.WriteLine("pixel {0} not run as {1} is not present in the calibrated file", pixel,
-                allPixelsToValidate[pixel].ecoName);
+            allPixelsToValidate[pixel].id = pixel;
+            pixelsNotValidated.Add(allPixelsToValidate[pixel]);
         }
         else
         {
-            //message to console
-            //Console.WriteLine("pixel {0} start", pixel);
-
             //get calibrated parameters
             paramCalibValue = new Dictionary<string, float>();
 
@@ -348,11 +337,15 @@ else
             //structure to store outputs from each parset
             var parsetOutputs = new Dictionary<int, Dictionary<DateTime, output>>();
 
+            // Calculate the progress percentage
+            double progress = Math.Round((double)currentPixelNumber / allPixelsToValidate.Count, 3);
+            int progressBlocks = (int)(progress * barWidth) + 1;
+            string progressBar = new string('█', progressBlocks).PadRight(barWidth, ' ');
+
+            Console.ForegroundColor = colors[rnd.Next(colors.Length)];
             #region loop over calibrated parsets for each pixel
             for (int parset = 0; parset < validationReplicates; parset++)
-            {
-                //message to console
-                //Console.WriteLine("pixel {0}, parset {1} run", pixel, parset);
+            { 
 
                 //reinitialize calibrated parameters
                 paramCalibValue = new Dictionary<string, float>();
@@ -404,6 +397,12 @@ else
                 optimizer.oneShot(paramCalibValue, out dateOutputs, parset);
 
                 parsetOutputs.Add(parset, dateOutputs);
+
+  
+
+                // Messaging to console
+                Console.Write("\rvalidation: pixel = {0:F2}; group = {1}; replicate = {2} {3} | {4:F1}%", pixel,
+                    allPixelsToValidate[pixel].ecoName, parset+1, progressBar, progress * 100);
             }
             #endregion
 
@@ -416,10 +415,6 @@ else
 
             // Dictionary to store all NDVI simulations for each date
             var ndviSimulations = new Dictionary<DateTime, Dictionary<string, float>>();
-
-            // Messaging to console
-            Console.WriteLine("Compute synthetic outputs per pixel {0}, group {1}", pixel,
-                allPixelsToValidate[pixel].ecoName);
 
             // Loop over dates and outputs
             foreach (var group in flattenedAndGrouped)
@@ -486,13 +481,27 @@ else
         #endregion
 
         #endregion
+
+        //increase the number of pixel
+        currentPixelNumber++;
+    }
+
+    if (pixelsNotValidated.Count > 0)
+    {
+        for (int i = 0; i < pixelsNotValidated.Count; i++)
+        {
+            Console.WriteLine("\npixel {0} not run because group {1} is missing in the parameter structure",
+                pixelsNotValidated[i].id.ToString(), pixelsNotValidated[i].ecoName.ToString());
+        }
     }
 }
-    
-        
+
+
+
+
 
 #region compute statistics from the multiple validation runs
-        static float CalculatePercentile(IEnumerable<float> values, int percentile)
+static float CalculatePercentile(IEnumerable<float> values, int percentile)
         {
             // Ensure the values are sorted
             var sortedValues = values.OrderBy(v => v).ToList();

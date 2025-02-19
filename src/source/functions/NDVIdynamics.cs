@@ -4,7 +4,7 @@ using System;
 namespace source.functions
 {
     //this class contains the method to simulate the growth, greendown and decline processes
-    public class NDVIdynamics
+    public class VIdynamics
     {
         public void ndviNormalized(input input, parameters parameters, output output, output outputT1)
         {
@@ -35,16 +35,22 @@ namespace source.functions
                 {
                     float tbelow0 = Math.Abs((parameters.parGrowth.minimumTemperature - tshift) - aveTemp);
                     tratio = -tbelow0 / 10;
+                    if (tratio < -1)
+                    {
+                        tratio = -1;
+                    }
                 }
                 else
                 {
                     tratio = 0;
+                    //float tabove0 = Math.Abs(aveTemp- (parameters.parGrowth.minimumTemperature - tshift));
+                    //tratio = - 1 / tabove0;
                 }
                 //compute endodormancy contribution
-                endodormancyContribution = parameters.parVegetationIndex.nNDVIEndodormancy * tratio;
+                endodormancyContribution = parameters.parVegetationIndex.nVIEndodormancy * tratio;
 
                 //derive the rate of NDVI normalized for ecodormancy
-                float ecodormancyNDVInormalized = parameters.parVegetationIndex.nNDVIEcodormancy;
+                float ecodormancyNDVInormalized = parameters.parVegetationIndex.nVIEcodormancy;
 
                 float ecodormancyContribution = gddEco * ecodormancyNDVInormalized;
 
@@ -62,7 +68,7 @@ namespace source.functions
             else if (outputT1.phenoCode == 3)
             {
                 //derive the rate of NDVI normalized for growth
-                float growthNDVInormalized = parameters.parVegetationIndex.nNDVIGrowth;
+                float growthNDVInormalized = parameters.parVegetationIndex.nVIGrowth;
                 //derive the contribution of growth to rate of NDVI
                 rateNDVInormalized = growthNDVInormalized * 100 * outputT1.growth.growthRate;
 
@@ -72,11 +78,11 @@ namespace source.functions
                     output.ndviAtGrowth = outputT1.ndviAtGrowth;
                 }
 
-                if (outputT1.ndviAtGrowth >= parameters.parVegetationIndex.maximumNDVI)
+                if (outputT1.ndviAtGrowth >= parameters.parVegetationIndex.maximumVI)
                 {
-                    outputT1.ndviAtGrowth = parameters.parVegetationIndex.maximumNDVI - 0.01F;
+                    outputT1.ndviAtGrowth = parameters.parVegetationIndex.maximumVI - 0.01F;
                 }
-                float EVItoMax = (output.ndvi / 100 - outputT1.ndviAtGrowth) / (parameters.parVegetationIndex.maximumNDVI - outputT1.ndviAtGrowth);
+                float EVItoMax = (output.ndvi / 100 - outputT1.ndviAtGrowth) / (parameters.parVegetationIndex.maximumVI - outputT1.ndviAtGrowth);
                 if (EVItoMax > 1) EVItoMax = 1;
                 rateNDVInormalized = growthNDVInormalized * (1 - outputT1.greenDownPercentage/100) * (1 - EVItoMax);
 
@@ -86,7 +92,7 @@ namespace source.functions
             {
                 outputT1.ndviAtGrowth = 0;
                 //derive the rate of NDVI normalized for greendown
-                float greenDownNDVInormalized = parameters.parVegetationIndex.nNDVIGreendown;
+                float greenDownNDVInormalized = parameters.parVegetationIndex.nVIGreendown;
 
                 if (input.vegetationIndex == "EVI")
                 {
@@ -107,8 +113,8 @@ namespace source.functions
             {
                 float weight = SymmetricBellFunction(outputT1.declinePercentage);
                 //derive the contribution of decline to the rate of NDVI
-                float declineNDVInormalized = -parameters.parVegetationIndex.nNDVIGreendown -
-                    parameters.parVegetationIndex.nNDVISenescence * weight;
+                float declineNDVInormalized = -parameters.parVegetationIndex.nVIGreendown -
+                    parameters.parVegetationIndex.nVISenescence * weight;
 
 
                 //derive the contribution of degree days and photothermal units (decline) to rate of NDVI normalized
@@ -120,10 +126,10 @@ namespace source.functions
             //update states
             outputT1.ndvi = output.ndvi + output.ndviRate;
 
-            //NDVI thresholds between minimum and maximumNDVI
-           if (outputT1.ndvi / 100 <parameters.parVegetationIndex.minimumNDVI)
+            //NDVI thresholds between minimum and maximumVI
+           if (outputT1.ndvi / 100 <parameters.parVegetationIndex.minimumVI)
            {
-               outputT1.ndvi = parameters.parVegetationIndex.minimumNDVI*100;
+               outputT1.ndvi = parameters.parVegetationIndex.minimumVI*100;
            }
 
         }

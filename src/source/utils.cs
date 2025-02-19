@@ -299,7 +299,7 @@ namespace source.functions
         //initialize the SWELL phenology classes with functions
         dormancySeason dormancy = new dormancySeason();
         growingSeason growing = new growingSeason();
-        NDVIdynamics NDVIdynamics = new NDVIdynamics();
+        VIdynamics VIdynamics = new VIdynamics();
         //initialize the outputT1
         output outputT0 = new output();
         output outputT1 = new output();
@@ -322,7 +322,7 @@ namespace source.functions
             growing.greendownRate(input, parameters, outputT0, outputT1);
             growing.declineRate(input, parameters, outputT0, outputT1);
             //NDVI dynamics
-            NDVIdynamics.ndviNormalized(input, parameters, outputT0, outputT1);
+            VIdynamics.ndviNormalized(input, parameters, outputT0, outputT1);
 
             return outputT1;
         }

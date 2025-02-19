@@ -38,6 +38,8 @@ namespace runner
                 DateTime date = new DateTime(year, 1, 1).AddDays(int.Parse(line[9]));              
             }
 
+            sr.Close();
+
             return idPixel;
         }
 

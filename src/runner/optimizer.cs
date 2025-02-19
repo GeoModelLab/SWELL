@@ -51,7 +51,7 @@ namespace runner
         output output = new output();
         output outputT1 = new output();
         //instance of the SWELL functions
-        NDVIdynamics NDVIdynamics = new NDVIdynamics();
+        VIdynamics VIdynamics = new VIdynamics();
         dormancySeason dormancy = new dormancySeason();
         growingSeason growing = new growingSeason();
         #endregion
@@ -80,6 +80,13 @@ namespace runner
         public string outputsValidationDir;
         public string outputParametersDir;
         public string vegetationIndex;
+        public float pixelNumber;
+        public float currentPixelNumber;
+        public ConsoleColor consoleColor;
+       
+        int barWidth = 30; // Width of the progress bar
+
+
         #endregion
 
         //this method perform the multi-start simplex calibration
@@ -102,195 +109,39 @@ namespace runner
             _ncompute++;
             #endregion
 
-            #region assign parameters under calibration
+            #region assign parameters
+            // Get the type of the parameters object
             source.data.parameters parameters = new parameters();
-            parDormancyInduction parDormancy = new parDormancyInduction();
-            PropertyInfo[] propsDormancy = parDormancy.GetType().GetProperties();//get all properties
-            parEndodormancy parEndodormancy = new parEndodormancy();
-            PropertyInfo[] propsEndodormancy = parEndodormancy.GetType().GetProperties();//get all properties
-            parEcodormancy parEcodormancy = new parEcodormancy();
-            PropertyInfo[] propsEcodormancy = parEcodormancy.GetType().GetProperties();//get all properties
-            parGrowth parGrowth = new parGrowth();
-            PropertyInfo[] propsGrowth = parGrowth.GetType().GetProperties();//get all properties
-            parGreendown parGreendown = new parGreendown();
-            PropertyInfo[] propsGreendown = parGreendown.GetType().GetProperties();//get all properties
-            parSenescence parSenescence = new parSenescence();
-            PropertyInfo[] propsDecline = parSenescence.GetType().GetProperties();//get all properties
-            parVegetationIndex parVegetationIndex = new parVegetationIndex();
-            PropertyInfo[] propsGrowingSeason = parVegetationIndex.GetType().GetProperties();//get all properties            
+            var _parametersType = parameters.GetType();
 
-            int i = 0;
-            //single species calibration
+            int coef = 0;
             foreach (var param in species_nameParam[species_nameParam.Keys.First()].Keys)
             {
+                //split class from param name
+                string paramClass = param.Split('_')[0].Trim();
+                string propertyName = param.Split('_')[1].Trim();
+
+                // Find the class inside the parameters instance
+                var classProperty = _parametersType.GetField(paramClass);
+                var classInstance = classProperty.GetValue(parameters);
+
+                var propertyInfo = classInstance.GetType().GetProperty(propertyName);
+
                 if (species_nameParam[species_nameParam.Keys.First()][param].calibration != "")
                 {
-                    //split class from param name
-                    string[] paramClass = param.Split('_');
-                    if (paramClass[0] == "parDormancy")
-                    {
-                        foreach (PropertyInfo prp in propsDormancy)
-                        {
-                            if (paramClass[1] == prp.Name)
-                            {
-                                prp.SetValue(parDormancy, (float)(Coefficient[i])); //set the values for this parameter
-                            }
-
-                        }
-                    }
-                    else if (paramClass[0] == "parEndodormancy")
-                    {
-                        foreach (PropertyInfo prp in propsEndodormancy)
-                        {
-                            if (paramClass[1] == prp.Name)
-                            {
-                                prp.SetValue(parEndodormancy, (float)(Coefficient[i])); //set the values for this parameter
-                            }
-
-                        }
-                    }
-                    else if (paramClass[0] == "parEcodormancy")
-                    {
-                        foreach (PropertyInfo prp in propsEcodormancy)
-                        {
-                            if (paramClass[1] == prp.Name)
-                            {
-                                prp.SetValue(parEcodormancy, (float)(Coefficient[i])); //set the values for this parameter
-                            }
-
-                        }
-                    }
-                    else if (paramClass[0] == "parGrowth")
-                    {
-                        foreach (PropertyInfo prp in propsGrowth)
-                        {
-                            if (paramClass[1] == prp.Name)
-                            {
-                                prp.SetValue(parGrowth, (float)(Coefficient[i])); //set the values for this parameter
-                            }
-
-                        }
-                    }
-                    else if (paramClass[0] == "parSenescence")
-                    {
-                        foreach (PropertyInfo prp in propsDecline)
-                        {
-                            if (paramClass[1] == prp.Name)
-                            {
-                                prp.SetValue(parSenescence, (float)(Coefficient[i])); //set the values for this parameter
-                            }
-
-                        }
-                    }
-                    else if (paramClass[0] == "parVegetationIndex")
-                    {
-                        foreach (PropertyInfo prp in propsGrowingSeason)
-                        {
-                            if (paramClass[1] == prp.Name)
-                            {
-                                prp.SetValue(parVegetationIndex, (float)(Coefficient[i])); //set the values for this parameter
-                            }
-
-                        }
-                    }
-                    else if (paramClass[0] == "parGreendown")
-                    {
-                        foreach (PropertyInfo prp in propsGreendown)
-                        {
-                            if (paramClass[1] == prp.Name)
-                            {
-                                prp.SetValue(parGreendown, (float)(Coefficient[i])); //set the values for this parameter
-                            }
-
-                        }
-                    }
-                    i++;
+                    object convertedValue = Convert.ChangeType(Coefficient[coef],
+                        propertyInfo.PropertyType);
+                    propertyInfo.SetValue(classInstance, convertedValue);
+                    coef++;
                 }
                 else
                 {
-                    //split class from param name
-                    string[] paramClass = param.Split('_');
-                    if (paramClass[0] == "parDormancy")
-                    {
-                        foreach (PropertyInfo prp in propsDormancy)
-                        {
-                            if (paramClass[1] == prp.Name)
-                            {
-                                prp.SetValue(parDormancy, param_outCalibration[param]); //set the values for this parameter
-                            }
-
-                        }
-                    }
-                    else if (paramClass[0] == "parEndodormancy")
-                    {
-                        foreach (PropertyInfo prp in propsEndodormancy)
-                        {
-                            if (paramClass[1] == prp.Name)
-                            {
-                                prp.SetValue(parEndodormancy, param_outCalibration[param]); //set the values for this parameter
-                            }
-
-                        }
-                    }
-                    else if (paramClass[0] == "parEcodormancy")
-                    {
-                        foreach (PropertyInfo prp in propsEcodormancy)
-                        {
-                            if (paramClass[1] == prp.Name)
-                            {
-                                prp.SetValue(parEcodormancy, param_outCalibration[param]); //set the values for this parameter
-                            }
-
-                        }
-                    }
-                    else if (paramClass[0] == "parGrowth")
-                    {
-                        foreach (PropertyInfo prp in propsGrowth)
-                        {
-                            if (paramClass[1] == prp.Name)
-                            {
-                                prp.SetValue(parGrowth, param_outCalibration[param]); //set the values for this parameter
-                            }
-
-                        }
-                    }
-                    else if (paramClass[0] == "parSenescence")
-                    {
-                        foreach (PropertyInfo prp in propsDecline)
-                        {
-                            if (paramClass[1] == prp.Name)
-                            {
-                                prp.SetValue(parSenescence, param_outCalibration[param]); //set the values for this parameter
-                            }
-
-                        }
-                    }
-                    else if (paramClass[0] == "parVegetationIndex")
-                    {
-                        foreach (PropertyInfo prp in propsGrowingSeason)
-                        {
-                            if (paramClass[1] == prp.Name)
-                            {
-                                prp.SetValue(parVegetationIndex, param_outCalibration[param]); //set the values for this parameter
-                            }
-
-                        }
-                    }
+                    propertyInfo.SetValue(classInstance, param_outCalibration[param]);
                 }
-               
+
+
             }
 
-          
-
-
-            parameters.parDormancyInduction = parDormancy;
-            parameters.parEndodormancy = parEndodormancy;
-            parameters.parEcodormancy = parEcodormancy;
-            parameters.parGrowth = parGrowth;
-            parameters.parGreendown = parGreendown;
-            parameters.parSenescence = parSenescence;
-            parameters.parVegetationIndex = parVegetationIndex;
-            
             #endregion
 
             //list of errors
@@ -333,7 +184,7 @@ namespace runner
                             measured.Add(idPixel[id].dateNDVInorm[day]);
 
                             //this is used to weight less the errors when the NDVI is very low
-                            if (idPixel[id].dateNDVInorm[day] < (parVegetationIndex.minimumNDVI+(parVegetationIndex.minimumNDVI *.2F)))
+                            if (idPixel[id].dateNDVInorm[day] < (parameters.parVegetationIndex.minimumVI+(parameters.parVegetationIndex.minimumVI *.2F)))
                             {     
                             errors.Add(Math.Pow(idPixel[id].dateNDVInorm[day] - outputT1.ndvi / 100, 2)/6);
                             }
@@ -350,10 +201,27 @@ namespace runner
 
             //compute objective function
             objFun =(1-pearsonR) + RMSE;
-            
+
             //write it in the console
-            Console.WriteLine("pixel {0} group {1}: RMSE = {2}, Pearson r = {3}", idPixel.Keys.First(), 
-                idPixel[idPixel.Keys.First()].ecoName, RMSE, pearsonR);
+
+            // Calculate the progress percentage
+            double progress = Math.Round((double)currentPixelNumber / pixelNumber,3);
+            int progressBlocks = (int)(progress * barWidth)+1;
+            string progressBar = new string('█', progressBlocks).PadRight(barWidth, ' ');
+
+            Console.ForegroundColor = consoleColor;
+
+            // Define a fixed console width (optional: adjust based on actual console size)
+            int consoleWidth = Console.BufferWidth - 1;
+
+            Console.Write("\rcalibration: pixel = {0}; group = {1}; RMSE = {2:F3} and Pearson r = {3:F3} {4} | {5:F1}% ",
+      idPixel.Keys.First(),
+      idPixel[idPixel.Keys.First()].ecoName,
+      RMSE,
+      pearsonR,
+      progressBar, progress*100);
+
+           
 
             //return the objective function
             return objFun;
@@ -405,203 +273,47 @@ namespace runner
             date_outputs = new Dictionary<DateTime, output>();
 
             #region assign parameters
+            // Get the type of the parameters object
             source.data.parameters parameters = new parameters();
-            parDormancyInduction parDormancy = new parDormancyInduction();
-            PropertyInfo[] propsDormancy = parDormancy.GetType().GetProperties();//get all properties
-            parEndodormancy parEndodormancy = new parEndodormancy();
-            PropertyInfo[] propsEndodormancy = parEndodormancy.GetType().GetProperties();//get all properties
-            parEcodormancy parEcodormancy = new parEcodormancy();
-            PropertyInfo[] propsEcodormancy = parEcodormancy.GetType().GetProperties();//get all properties
-            parGrowth parGrowth = new parGrowth();
-            PropertyInfo[] propsGrowth = parGrowth.GetType().GetProperties();//get all properties
-            parGreendown parGreendown = new parGreendown();
-            PropertyInfo[] propsGreendown = parGreendown.GetType().GetProperties();//get all properties
-            parSenescence parSenescence = new parSenescence();
-            PropertyInfo[] propsDecline = parSenescence.GetType().GetProperties();//get all properties
-            parVegetationIndex parVegetationIndex = new parVegetationIndex();
-            PropertyInfo[] propsGrowingSeason = parVegetationIndex.GetType().GetProperties();//get all properties
-            
-            //assign calibrated parameters
+            var _parametersType = parameters.GetType();
+
             foreach (var param in paramValue.Keys)
             {
                 //split class from param name
-                string[] paramClass = param.Split('_');
-                
-                if (paramClass[0] == "parDormancy")
-                {
-                    foreach (PropertyInfo prp in propsDormancy)
-                    {
-                        if (paramClass[1] == prp.Name)
-                        {
-                            prp.SetValue(parDormancy, (float)(paramValue[param])); //set the values for this parameter
-                        }
+                string paramClass = param.Split('_')[0].Trim();
+                string propertyName = param.Split('_')[1].Trim();
 
-                    }
-                }
-                else if (paramClass[0] == "parEndodormancy")
-                {
-                    foreach (PropertyInfo prp in propsEndodormancy)
-                    {
-                        if (paramClass[1] == prp.Name)
-                        {
-                            prp.SetValue(parEndodormancy, (float)(paramValue[param])); //set the values for this parameter
-                        }
+                // Find the class inside the parameters instance
+                var classProperty = _parametersType.GetField(paramClass);
+                var classInstance = classProperty.GetValue(parameters);
 
-                    }
-                }
-                else if (paramClass[0] == "parEcodormancy")
-                {
-                    foreach (PropertyInfo prp in propsEcodormancy)
-                    {
-                        if (paramClass[1] == prp.Name)
-                        {
-                            prp.SetValue(parEcodormancy, (float)(paramValue[param])); //set the values for this parameter
-                        }
+                var propertyInfo = classInstance.GetType().GetProperty(propertyName);
 
-                    }
-                }
-                else if (paramClass[0] == "parGrowth")
-                {
-                    foreach (PropertyInfo prp in propsGrowth)
-                    {
-                        if (paramClass[1] == prp.Name)
-                        {
-                            prp.SetValue(parGrowth, (float)(paramValue[param])); //set the values for this parameter
-                        }
-
-                    }
-                }
-                else if (paramClass[0] == "parSenescence")
-                {
-                    foreach (PropertyInfo prp in propsDecline)
-                    {
-                        if (paramClass[1] == prp.Name)
-                        {
-                            prp.SetValue(parSenescence, (float)(paramValue[param])); //set the values for this parameter
-                        }
-
-                    }
-                }
-                else if (paramClass[0] == "parVegetationIndex")
-                {
-                    foreach (PropertyInfo prp in propsGrowingSeason)
-                    {
-                        if (paramClass[1] == prp.Name)
-                        {
-                            prp.SetValue(parVegetationIndex, (float)(paramValue[param])); //set the values for this parameter
-                        }
-
-                    }
-                }
-                else if (paramClass[0] == "parGreendown")
-                {
-                    foreach (PropertyInfo prp in propsGreendown)
-                    {
-                        if (paramClass[1] == prp.Name)
-                        {
-                            prp.SetValue(parGreendown, (float)(paramValue[param])); //set the values for this parameter
-                        }
-
-                    }
-                }
-
+                object convertedValue = Convert.ChangeType(paramValue[param],
+                    propertyInfo.PropertyType);
+                propertyInfo.SetValue(classInstance, convertedValue);
             }
 
-
-            //assign parameters out of calibration
-            foreach(var param in param_outCalibration.Keys)
+            foreach (var param in param_outCalibration.Keys)
             {
                 //split class from param name
-                string[] paramClass = param.Split('_');
-                if (paramClass[0] == "parDormancy")
-                {
-                    foreach (PropertyInfo prp in propsDormancy)
-                    {
-                        if (paramClass[1] == prp.Name)
-                        {
-                            prp.SetValue(parDormancy, param_outCalibration[param]); //set the values for this parameter
-                        }
+                string paramClass = param.Split('_')[0].Trim();
+                string propertyName = param.Split('_')[1].Trim();
 
-                    }
-                }
-                else if (paramClass[0] == "parEndodormancy")
-                {
-                    foreach (PropertyInfo prp in propsEndodormancy)
-                    {
-                        if (paramClass[1] == prp.Name)
-                        {
-                            prp.SetValue(parEndodormancy, param_outCalibration[param]); //set the values for this parameter
-                        }
+                // Find the class inside the parameters instance
+                var classProperty = _parametersType.GetField(paramClass);
+                var classInstance = classProperty.GetValue(parameters);
 
-                    }
-                }
-                else if (paramClass[0] == "parEcodormancy")
-                {
-                    foreach (PropertyInfo prp in propsEcodormancy)
-                    {
-                        if (paramClass[1] == prp.Name)
-                        {
-                            prp.SetValue(parEcodormancy, param_outCalibration[param]); //set the values for this parameter
-                        }
+                var propertyInfo = classInstance.GetType().GetProperty(propertyName);
 
-                    }
-                }
-                else if (paramClass[0] == "parGrowth")
-                {
-                    foreach (PropertyInfo prp in propsGrowth)
-                    {
-                        if (paramClass[1] == prp.Name)
-                        {
-                            prp.SetValue(parGrowth, param_outCalibration[param]); //set the values for this parameter
-                        }
 
-                    }
-                }
-                else if (paramClass[0] == "parSenescence")
-                {
-                    foreach (PropertyInfo prp in propsDecline)
-                    {
-                        if (paramClass[1] == prp.Name)
-                        {
-                            prp.SetValue(parSenescence, param_outCalibration[param]); //set the values for this parameter
-                        }
+                object convertedValue = Convert.ChangeType(param_outCalibration[param],
+                    propertyInfo.PropertyType);
+                propertyInfo.SetValue(classInstance, convertedValue);
 
-                    }
-                }
-                else if (paramClass[0] == "parVegetationIndex")
-                {
-                    foreach (PropertyInfo prp in propsGrowingSeason)
-                    {
-                        if (paramClass[1] == prp.Name)
-                        {
-                            prp.SetValue(parVegetationIndex, param_outCalibration[param]); //set the values for this parameter
-                        }
-
-                    }
-                }
-                else if (paramClass[0] == "parGreendown")
-                {
-                    foreach (PropertyInfo prp in propsGreendown)
-                    {
-                        if (paramClass[1] == prp.Name)
-                        {
-                            prp.SetValue(parGreendown, param_outCalibration[param]); //set the values for this parameter
-                        }
-
-                    }
-                }
             }
 
-
-            parameters.parDormancyInduction = parDormancy;
-            parameters.parEndodormancy = parEndodormancy;
-            parameters.parEcodormancy = parEcodormancy;
-            parameters.parGrowth = parGrowth;
-            parameters.parGreendown = parGreendown;
-            parameters.parSenescence = parSenescence;           
-            parameters.parVegetationIndex = parVegetationIndex;
             #endregion
-
             //loop over pixels
             foreach (var id in idPixel.Keys)
             {
@@ -813,7 +525,7 @@ namespace runner
             if (isCalibration)
             {
                 //save the file
-                System.IO.File.WriteAllLines(outputsCalibrationDir + "//" + id + "_" + parset + ".csv", toWrite);
+                System.IO.File.WriteAllLines(outputsCalibrationDir + "//" + id + "_results.csv", toWrite);
             }
             else
             {
@@ -965,7 +677,7 @@ namespace runner
             growing.greendownRate(weatherData, parameters, output, outputT1);
             growing.declineRate(weatherData, parameters, output, outputT1);
             //NDVI dynamics
-            NDVIdynamics.ndviNormalized(weatherData, parameters, output, outputT1);
+            VIdynamics.ndviNormalized(weatherData, parameters, output, outputT1);
         }
 
         #region associate the correct grid weather to the corresponding remote sensing pixel

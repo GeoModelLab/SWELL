@@ -121,19 +121,19 @@ namespace source.data
     public class parVegetationIndex
     {      
         //maximum NDVI rate during growth phenophase
-        public float nNDVIGrowth { get; set; } //NDVI, unitless
+        public float nVIGrowth { get; set; } //NDVI, unitless
         //maximum NDVI rate during endodormancy phenophase 
-        public float nNDVIEndodormancy { get; set; } //NDVI, unitless
+        public float nVIEndodormancy { get; set; } //NDVI, unitless
         //maximum NDVI rate during senescence phenophase
-        public float nNDVISenescence { get; set; } //NDVI, unitless
+        public float nVISenescence { get; set; } //NDVI, unitless
         //maximum NDVI rate during greendown phenophase
-        public float nNDVIGreendown { get; set; } //NDVI, unitless
+        public float nVIGreendown { get; set; } //NDVI, unitless
         //maximum NDVI rate during ecodormancy phenophase
-        public float nNDVIEcodormancy { get; set; } //NDVI, unitless
+        public float nVIEcodormancy { get; set; } //NDVI, unitless
         //temperature shift for understory, pixel specific
         public float pixelTemperatureShift { get; set; } //°C
-        public float minimumNDVI { get; set; } //NDVI, unitless
-        public float maximumNDVI { get; set; } //NDVI, unitless
+        public float minimumVI { get; set; } //NDVI, unitless
+        public float maximumVI { get; set; } //NDVI, unitless
     }
 }
 
