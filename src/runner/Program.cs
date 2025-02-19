@@ -7,7 +7,9 @@ using System.Text.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Text;
 
+Console.OutputEncoding = Encoding.UTF8;
 
 #region Console opening message
 
