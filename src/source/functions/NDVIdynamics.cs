@@ -146,7 +146,7 @@ namespace source.functions
 
             if(outputT1.ndvi==0)
             {
-                outputT1.ndvi = parameters.parVegetationIndex.minimumVI * 100;
+                outputT1.ndvi = parameters.parVegetationIndex.minimumVI / 100;
             }
 
         }
