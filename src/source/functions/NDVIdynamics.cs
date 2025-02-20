@@ -55,8 +55,6 @@ namespace source.functions
                     ecodormancyContribution = gddEco * parameters.parVegetationIndex.nVIEcodormancy; ;
                 }
 
-                
-
                 //derive the rate of NDVI normalized for dormancy
                 rateNDVInormalized = (ecodormancyContribution + endodormancyContribution);               
             }
@@ -145,9 +143,10 @@ namespace source.functions
             {
                 outputT1.ndvi = 1;// parameters.parVegetationIndex.maximumVI * 100;
             }
+
             if(outputT1.ndvi==0)
             {
-                output.ndvi = parameters.parVegetationIndex.minimumVI * 100;
+                outputT1.ndvi = parameters.parVegetationIndex.minimumVI * 100;
             }
 
         }

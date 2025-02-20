@@ -43,13 +43,15 @@ weather_data <- weather_data |>
 
 start_year <- 2001
 end_year   <- 2021
-simplexes  <- 1
-iterations <- 100
-
+simplexes  <- 10
+iterations <- 1000
+SWELLparameters<-SWELL::SWELLparameters
 SWELLparameters$beech$parVegetationIndex$minimumVI$max<-0.25
 SWELLparameters$beech$parVegetationIndex$minimumVI$min<-0.1
 SWELLparameters$beech$parVegetationIndex$maximumVI$max<-0.9
-SWELLparameters$beech$parVegetationIndex$maximumVI$min<-0.5
+SWELLparameters$beech$parEndodormancy$notLimitingLowerTemperature$value <- -3.4
+SWELLparameters$beech$parEndodormancy$limitingLowerTemperature$value <- -10
+
 
 pixels <- swellCalibration(
   weather_data,
@@ -59,7 +61,7 @@ pixels <- swellCalibration(
   species = 'beech',
   start_year=start_year,
   end_year=end_year,
-  simplexes=simplexes,
+  simplexes=10,
   iterations=iterations
   )
 
@@ -75,7 +77,7 @@ ggplot(pixels[[1]] |> filter(year>=2013), aes(x=doy)) +
   stat_summary(geom='area',aes(y = declineRate),fill='orange4',alpha=0.2)+
   facet_wrap(~year,nrow=2)
 
-
+pixels[[2]]
 pixels <- swellCalibrationBatch(
   weather_data,
   vegetation_data,
