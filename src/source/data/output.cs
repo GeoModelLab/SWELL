@@ -71,6 +71,7 @@ namespace source.data
 
         public float ndviAtGrowth { get; set; }
         public float ndviAtSenescence { get; set; }
+  
         #endregion
 
         #region variables related to the phenological phase

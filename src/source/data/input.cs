@@ -20,9 +20,7 @@ namespace source.data
     // separate object containing radiation data    
     public class radData
     {
-        public float extraterrestrialRadiation { get; set; } //extraterrestrial solar radiation, MJ m-2 d-1 (not strictly needed)
-        public float dayLength { get; set; } //hours
-        public float hourSunrise { get; set; } //hour
-        public float hourSunset { get; set; } //hour
+       public float dayLength { get; set; } //hours
+    
     }
 }

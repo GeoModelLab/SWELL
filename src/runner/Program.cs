@@ -403,8 +403,8 @@ else
   
 
                 // Messaging to console
-                Console.Write("\rvalidation: pixel = {0:F2}; group = {1}; replicate = {2} {3} | {4:F1}", pixel,
-                    allPixelsToValidate[pixel].ecoName, parset+1, progressBar, progress * 100);
+                Console.Write("\rvalidation: pixel = {0:F2}; group = {1}; replicate = {2} {3} |", pixel,
+                    allPixelsToValidate[pixel].ecoName, parset+1, progressBar);
             }
             #endregion
 

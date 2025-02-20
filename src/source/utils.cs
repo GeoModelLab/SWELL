@@ -39,28 +39,20 @@ namespace source.functions
 
             dd = 1 + 0.0334F * (float)Math.Cos(0.01721 * input.date.DayOfYear - 0.0552);
             float SolarDeclination = 0.4093F * (float)Math.Sin((6.284 / 365) * (284 + input.date.DayOfYear));
-            float SolarDeclinationMinimum = 0.4093F * (float)Math.Sin((6.284 / 365) * (284 + 356));//winter solstice
-            ss = (float)Math.Sin(SolarDeclination) * (float)Math.Sin(input.latitude * DtoR);
-            cc = (float)Math.Cos(SolarDeclination) * (float)Math.Cos(input.latitude * DtoR);
             ws = (float)Math.Acos(-Math.Tan(SolarDeclination) * (float)Math.Tan(input.latitude * DtoR));
-            float wsMinimum = (float)Math.Acos(-Math.Tan(SolarDeclinationMinimum) * (float)Math.Tan(input.latitude * DtoR));
-
+            
             //if -65 < Latitude and Latitude < 65 dayLength and ExtraterrestrialRadiation are
             //approximated using the algorithm in the hourly loop
             //if (rd.Latitude <65 || rd.Latitude>-65)
             if (input.latitude < 65 && input.latitude > -65)
             {
-                input.radData.dayLength = 0.13333F / DtoR * ws;
-                input.radData.extraterrestrialRadiation = solarConstant * dd * 24 / (float)Math.PI
-                    * (ws * ss + cc * (float)Math.Sin(ws));
+                input.radData.dayLength = 0.13333F / DtoR * ws;                
             }
             else
             {
                 input.radData.dayLength = dayHours;
             }
-            input.radData.hourSunrise = 12 - input.radData.dayLength / 2;
-            input.radData.hourSunset = 12 + input.radData.dayLength / 2;
-
+          
             return input.radData;
         }
 

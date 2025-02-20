@@ -182,16 +182,10 @@ namespace runner
                         {
                             simulated.Add(outputT1.ndvi / 100);
                             measured.Add(idPixel[id].dateNDVInorm[day]);
-
-                            //this is used to weight less the errors when the NDVI is very low
-                            if (idPixel[id].dateNDVInorm[day] < (parameters.parVegetationIndex.minimumVI+(parameters.parVegetationIndex.minimumVI *.2F)))
-                            {     
-                            errors.Add(Math.Pow(idPixel[id].dateNDVInorm[day] - outputT1.ndvi / 100, 2)/6);
-                            }
-                            else
-                            {
+                            
+                            //objective function
                             errors.Add(Math.Pow(idPixel[id].dateNDVInorm[day] - outputT1.ndvi / 100, 2));
-                            }
+                            
                         }
                     }                   
                 }
@@ -212,12 +206,12 @@ namespace runner
             Console.ForegroundColor = consoleColor;
 
             
-            Console.Write("\rcalibration: pixel = {0}; group = {1}; RMSE = {2:F3} and Pearson r = {3:F3} {4} | {5:F1}",
+            Console.Write("\rcalibration: pixel = {0}; group = {1}; RMSE = {2:F3} and Pearson r = {3:F3} {4} |",
       idPixel.Keys.First(),
       idPixel[idPixel.Keys.First()].ecoName,
       RMSE,
       pearsonR,
-      progressBar, progress*100);
+      progressBar);
 
            
 
@@ -345,8 +339,7 @@ namespace runner
                         outputT1.weather.airTemperatureMaximum = weatherData[day].airTemperatureMaximum;
                         outputT1.weather.precipitation = weatherData[day].precipitation;
                         outputT1.weather.radData.dayLength = weatherData[day].radData.dayLength;
-                        outputT1.weather.radData.extraterrestrialRadiation = weatherData[day].radData.extraterrestrialRadiation;
-
+                       
                         //add the NDVI data
                         if (idPixel[id].dateNDVInorm.ContainsKey(day))
                         {

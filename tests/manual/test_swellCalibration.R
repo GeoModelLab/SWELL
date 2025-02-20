@@ -21,7 +21,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 # 1. load data ----
 
 
-vegetation_data <- read.csv("..\\..\\inst\\extdata\\files\\referenceData\\pixelsCalibrationEvi.csv")
+vegetation_data <- read.csv("..\\..\\inst\\extdata\\files\\referenceData\\pixelsCalibrationEVI.csv")
 vegetation_data <- vegetation_data
 
 weather_data <- get_power(
@@ -46,30 +46,34 @@ end_year   <- 2021
 simplexes  <- 1
 iterations <- 100
 
-SWELLparameters$beech$parVegetationIndex$minimumVI$max<-0.15
+SWELLparameters$beech$parVegetationIndex$minimumVI$max<-0.25
 SWELLparameters$beech$parVegetationIndex$minimumVI$min<-0.1
-SWELLparameters$beech$parVegetationIndex$nVIEndodormancy$max<-0.3
-SWELLparameters$beech$parVegetationIndex$nVIEcodormancy$max<-3
-SWELLparameters$pippo <- SWELLparameters$beech
-
-unique(vegetation_data$id)
-
-rm(SWELLparameters)
-SWELLparameters<-SWELL::SWELLparameters
-
-#source("..\\..\\R\\Main_backup.R")
+SWELLparameters$beech$parVegetationIndex$maximumVI$max<-0.9
+SWELLparameters$beech$parVegetationIndex$maximumVI$min<-0.5
 
 pixels <- swellCalibration(
   weather_data,
   vegetation_data |> filter(id=='10000a'),
   vegetationIndex = 'EVI',
-  SWELLparameters = SWELL::SWELLparameters,
+  SWELLparameters = SWELLparameters,
   species = 'beech',
   start_year=start_year,
   end_year=end_year,
   simplexes=simplexes,
   iterations=iterations
   )
+
+ggplot(pixels[[1]] |> filter(year>=2013), aes(x=doy)) +
+  stat_summary(geom='line',aes(y = SWELL),size=2)+
+  stat_summary(geom='point',aes(y = reference),size=2)+
+  scale_color_manual(values=c('green','darkgreen','green3','red','brown'))+
+  stat_summary(geom='area',aes(y = dormancyInductionRate),fill='red',alpha=0.2)+
+  stat_summary(geom='area',aes(y = endodormancyRate),fill='blue',alpha=0.2)+
+  stat_summary(geom='area',aes(y = ecodormancyRate),fill='orange',alpha=0.9)+
+  stat_summary(geom='area',aes(y = growthRate),fill='green',alpha=0.2)+
+  stat_summary(geom='area',aes(y = greendownRate),fill='darkgreen',alpha=0.2)+
+  stat_summary(geom='area',aes(y = declineRate),fill='orange4',alpha=0.2)+
+  facet_wrap(~year,nrow=2)
 
 
 pixels <- swellCalibrationBatch(
@@ -98,17 +102,7 @@ library(tidyverse)
 ggplot(pixels[[2]]) + geom_boxplot(aes(y = value,fill=group))+
   facet_wrap(~param+class,scales='free_y')
 
-ggplot(pixels[[1]] |> filter(year>=2013), aes(x=doy)) +
-  stat_summary(geom='line',aes(y = SWELL),size=2)+
-  stat_summary(geom='point',aes(y = reference),size=2)+
-  scale_color_manual(values=c('green','darkgreen','green3','red','brown'))+
-  stat_summary(geom='area',aes(y = dormancyInductionRate),fill='red',alpha=0.2)+
-   stat_summary(geom='area',aes(y = endodormancyRate),fill='blue',alpha=0.2)+
-  stat_summary(geom='area',aes(y = ecodormancyRate),fill='orange',alpha=0.9)+
-  stat_summary(geom='area',aes(y = growthRate),fill='green',alpha=0.2)+
-  stat_summary(geom='area',aes(y = greendownRate),fill='darkgreen',alpha=0.2)+
-  stat_summary(geom='area',aes(y = declineRate),fill='orange4',alpha=0.2)+
-  facet_wrap(~group,nrow=2)
+
 
 
 SWELLparametersCalibrated<-paramGroups
