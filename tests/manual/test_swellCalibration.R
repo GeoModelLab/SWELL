@@ -61,7 +61,7 @@ SWELLparameters<-SWELL::SWELLparameters
 
 pixels <- swellCalibration(
   weather_data,
-  vegetation_data,
+  vegetation_data |> filter(id=='10000a'),
   vegetationIndex = 'EVI',
   SWELLparameters = SWELL::SWELLparameters,
   species = 'beech',
@@ -82,7 +82,7 @@ pixels <- swellCalibrationBatch(
   end_year=end_year,
   simplexes=1,
   iterations=100,
-  outPath = "C:\\Users\\loren\\Desktop\\testBatchRun")
+  outPath = "C:\\Users\\simoneugomaria.brega\\OneDrive - CREA\\Desktop\\testSwellBatch")
 
 
 results<-pixels$calibration_results

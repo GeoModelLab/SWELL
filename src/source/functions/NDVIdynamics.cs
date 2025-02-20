@@ -131,6 +131,11 @@ namespace source.functions
            {
                outputT1.ndvi = parameters.parVegetationIndex.minimumVI*100;
            }
+            //NDVI thresholds between minimum and maximumVI
+            if (outputT1.ndvi / 100 > parameters.parVegetationIndex.maximumVI)
+            {
+                outputT1.ndvi = parameters.parVegetationIndex.maximumVI * 100;
+            }
 
         }
 
