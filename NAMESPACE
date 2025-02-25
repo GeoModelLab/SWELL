@@ -3,3 +3,4 @@
 export(swellCalibration)
 export(swellCalibrationBatch)
 export(swellValidation)
+export(swellValidationBatch)
