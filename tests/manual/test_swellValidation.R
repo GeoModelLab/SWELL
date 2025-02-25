@@ -81,13 +81,7 @@ results<-pixels$calibration_results
 paramPixels<-pixels$parameters_pixels
 paramGroups<-pixels$parameters_group
 
-ggplot(pixels[[2]]) + geom_boxplot(aes(y = value,fill=group))+
-  facet_wrap(~param+class,scales='free_y')
-
-
 SWELLparametersCalibrated<-paramGroups
-
-unique(vegetation_data$country)
 
 pixelsValid <- swellValidation(weather_data, vegetation_data, vegetationIndex = 'EVI',
                                SWELL::SWELLparameters,
@@ -112,7 +106,8 @@ ggplot(pixelsValid |> filter(year>=2011), aes(x=doy)) +
   facet_wrap(~pixel)
 
 
-pixelsValid <- swellValidation(weather_data, vegetation_data, vegetationIndex = 'EVI',
+pixelsValid <- swellValidationBatch(weather_data, vegetation_data, vegetationIndex = 'EVI',
                                SWELL::SWELLparameters,
                                paramGroups,
-                               start_year=2011,end_year=2021,validationReplicates = 50)
+                               start_year=2011,end_year=2021,validationReplicates = 50,
+                               outPath = 'C:\\Users\\geomodellab\\Desktop\\Lorenzo\\SWELL\\tests\\manual\\testValidationBatch')
