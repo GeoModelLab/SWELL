@@ -6,7 +6,7 @@ namespace source.functions
     //this class contains the method to simulate the growth, greendown and decline processes
     public class VIdynamics
     {
-        float dayLengthDormancyFirstDay = 0;
+        float startDormancy = 0;
         public void ndviNormalized(input input, parameters parameters, output output, output outputT1)
         {
             outputT1.ndviAtGrowth = output.ndviAtGrowth;
@@ -16,10 +16,15 @@ namespace source.functions
             if (outputT1.phenoCode == 2)
             {
                 //first day of dormancy
-                if(dayLengthDormancyFirstDay==0)
+                if(startDormancy == 0)
                 {
+                    startDormancy = 1;
                     outputT1.ndviAtSenescence = output.ndvi / 100;
-                    output.ndviAtSenescence = outputT1.ndviAtSenescence;                   
+                    output.ndviAtSenescence = outputT1.ndviAtSenescence;
+                    if (output.ndviAtSenescence < parameters.parVegetationIndex.minimumVI)
+                    {
+                        output.ndviAtSenescence = parameters.parVegetationIndex.minimumVI + .01F;
+                    }
                 }
                 
                 //compute growing degree days for the understory
@@ -43,16 +48,33 @@ namespace source.functions
                     endodormancyContribution = parameters.parVegetationIndex.nVIEndodormancy * tratio;
 
                     float VItomin = (output.ndvi / 100 - parameters.parVegetationIndex.minimumVI) /
-                    (output.ndviAtSenescence - parameters.parVegetationIndex.minimumVI);
+                       (output.ndviAtSenescence - parameters.parVegetationIndex.minimumVI);
 
                     endodormancyContribution *= VItomin;
+                    if (endodormancyContribution > 0)
+                    {
+                        endodormancyContribution = 0;
+                    }
                 }
                 else
                 {
-                    tratio = 0;
-                    float gddEco = utils.forcingUnitFunction(input, parameters.parGrowth.minimumTemperature - tshift,
-                     parameters.parGrowth.optimumTemperature, parameters.parGrowth.maximumTemperature);
-                    ecodormancyContribution = gddEco * parameters.parVegetationIndex.nVIEcodormancy; ;
+                    input yesterday = new input();
+                    yesterday.latitude = input.latitude;
+                    yesterday.date = input.date.AddDays(-1);
+                    float dayLengthYesterday = utils.dayLength(yesterday);
+
+                    //ecodormancy contributes only when days are lengthening
+                    if (dayLengthYesterday > input.radData.dayLength)
+                    {
+                        ecodormancyContribution = 0;
+                    }
+                    else
+                    {
+                        tratio = 0;
+                        float gddEco = utils.forcingUnitFunction(input, parameters.parGrowth.minimumTemperature - tshift,
+                         parameters.parGrowth.optimumTemperature, parameters.parGrowth.maximumTemperature);
+                        ecodormancyContribution = gddEco * parameters.parVegetationIndex.nVIEcodormancy;
+                    }
                 }
 
                 //derive the rate of NDVI normalized for dormancy
@@ -61,7 +83,7 @@ namespace source.functions
             //growth
             else if (outputT1.phenoCode == 3)
             {
-                dayLengthDormancyFirstDay = 0;
+                startDormancy = 0;
                 //derive the rate of NDVI normalized for growth
                 float growthNDVInormalized = parameters.parVegetationIndex.nVIGrowth;
                 //derive the contribution of growth to rate of NDVI
@@ -122,17 +144,7 @@ namespace source.functions
             //update states
             outputT1.ndvi = output.ndvi + output.ndviRate;
 
-            // //NDVI thresholds between minimum and maximumVI
-            //if (outputT1.ndvi / 100 <parameters.parVegetationIndex.minimumVI)
-            //{
-            //    outputT1.ndvi = parameters.parVegetationIndex.minimumVI*100;
-            //}
-            // //NDVI thresholds between minimum and maximumVI
-            // if (outputT1.ndvi / 100 > parameters.parVegetationIndex.maximumVI)
-            // {
-            //     outputT1.ndvi = parameters.parVegetationIndex.maximumVI * 100;
-            // }
-
+        
             //NDVI thresholds between minimum and maximumVI
             if (outputT1.ndvi / 100 < 0)
             {
