@@ -144,7 +144,7 @@ namespace source.functions
             //update states
             outputT1.ndvi = output.ndvi + output.ndviRate;
 
-        
+
             //NDVI thresholds between minimum and maximumVI
             if (outputT1.ndvi / 100 < 0)
             {
@@ -156,7 +156,7 @@ namespace source.functions
                 outputT1.ndvi = 1;// parameters.parVegetationIndex.maximumVI * 100;
             }
 
-            if(outputT1.ndvi==0)
+            if (outputT1.ndvi == 0)
             {
                 outputT1.ndvi = parameters.parVegetationIndex.minimumVI / 100;
             }
