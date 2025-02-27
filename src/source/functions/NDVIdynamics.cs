@@ -73,7 +73,11 @@ namespace source.functions
                         tratio = 0;
                         float gddEco = utils.forcingUnitFunction(input, parameters.parGrowth.minimumTemperature - tshift,
                          parameters.parGrowth.optimumTemperature, parameters.parGrowth.maximumTemperature);
-                        ecodormancyContribution = gddEco * parameters.parVegetationIndex.nVIEcodormancy;
+                      
+                        float VItomin = (output.ndvi / 100 - parameters.parVegetationIndex.minimumVI) /
+                       (output.ndviAtSenescence - parameters.parVegetationIndex.minimumVI);
+
+                        ecodormancyContribution = gddEco * parameters.parVegetationIndex.nVIEcodormancy * VItomin;
                     }
                 }
 
