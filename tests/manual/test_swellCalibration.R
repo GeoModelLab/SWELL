@@ -6,8 +6,8 @@ rm(list=ls())
 #install.packages("jsonlite")
 remove.packages("SWELL")
 
+#libraries
 library(devtools)
-
 library(nasapower)
 library(jsonlite)
 library(tidyverse)
@@ -64,8 +64,9 @@ pixels <- swellCalibration(
   simplexes=10,
   iterations=iterations
   )
-
-ggplot(pixels[[1]] |> filter(year>=2013), aes(x=doy)) +
+pixels[[2]]
+calibrationResults<-pixels[[1]]
+ggplot(calibrationResults |> filter(year>=2013), aes(x=date)) +
   stat_summary(geom='line',aes(y = SWELL),size=2)+
   stat_summary(geom='point',aes(y = reference),size=2)+
   scale_color_manual(values=c('green','darkgreen','green3','red','brown'))+
@@ -74,8 +75,7 @@ ggplot(pixels[[1]] |> filter(year>=2013), aes(x=doy)) +
   stat_summary(geom='area',aes(y = ecodormancyRate),fill='orange',alpha=0.9)+
   stat_summary(geom='area',aes(y = growthRate),fill='green',alpha=0.2)+
   stat_summary(geom='area',aes(y = greendownRate),fill='darkgreen',alpha=0.2)+
-  stat_summary(geom='area',aes(y = declineRate),fill='orange4',alpha=0.2)+
-  facet_wrap(~year,nrow=2)
+  stat_summary(geom='area',aes(y = declineRate),fill='orange4',alpha=0.2)
 
 pixels[[2]]
 pixels <- swellCalibrationBatch(

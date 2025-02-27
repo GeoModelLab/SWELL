@@ -164,7 +164,7 @@ if (isCalibration)
     MultiStartSimplex msx = new MultiStartSimplex();
 
     msx.NofSimplexes = simplexes;// 19; //5;
-    msx.Ftol = 0.00001;
+    msx.Ftol = 0.000001;
     msx.Itmax = iterations;// 999;
     #endregion
 

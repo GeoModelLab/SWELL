@@ -21,9 +21,11 @@ namespace source.functions
                     startDormancy = 1;
                     outputT1.ndviAtSenescence = output.ndvi / 100;
                     output.ndviAtSenescence = outputT1.ndviAtSenescence;
-                    if (output.ndviAtSenescence < parameters.parVegetationIndex.minimumVI)
+
+                    if (output.ndviAtSenescence <= parameters.parVegetationIndex.minimumVI)
                     {
-                        output.ndviAtSenescence = parameters.parVegetationIndex.minimumVI + .01F;
+                        outputT1.ndviAtSenescence = parameters.parVegetationIndex.minimumVI + .01F;
+                        output.ndviAtSenescence = outputT1.ndviAtSenescence;
                     }
                 }
                 
@@ -50,6 +52,7 @@ namespace source.functions
                     float VItomin = (output.ndvi / 100 - parameters.parVegetationIndex.minimumVI) /
                        (output.ndviAtSenescence - parameters.parVegetationIndex.minimumVI);
 
+                   
                     endodormancyContribution *= VItomin;
                     if (endodormancyContribution > 0)
                     {
@@ -74,6 +77,7 @@ namespace source.functions
                         float gddEco = utils.forcingUnitFunction(input, parameters.parGrowth.minimumTemperature - tshift,
                          parameters.parGrowth.optimumTemperature, parameters.parGrowth.maximumTemperature);
                         ecodormancyContribution = gddEco * parameters.parVegetationIndex.nVIEcodormancy;
+
                     }
                 }
 
@@ -146,20 +150,17 @@ namespace source.functions
 
 
             //NDVI thresholds between minimum and maximumVI
-            if (outputT1.ndvi / 100 < 0)
+            if (outputT1.ndvi / 100 < parameters.parVegetationIndex.minimumVI)
             {
-                outputT1.ndvi = 0;
+                outputT1.ndvi = parameters.parVegetationIndex.minimumVI*100;
             }
             //NDVI thresholds between minimum and maximumVI
             if (outputT1.ndvi / 100 > 1)
             {
-                outputT1.ndvi = 1;// parameters.parVegetationIndex.maximumVI * 100;
+                outputT1.ndvi = 100;// parameters.parVegetationIndex.maximumVI * 100;
             }
 
-            if (outputT1.ndvi == 0)
-            {
-                outputT1.ndvi = parameters.parVegetationIndex.minimumVI / 100;
-            }
+        
 
         }
 
