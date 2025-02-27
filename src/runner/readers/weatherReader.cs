@@ -11,9 +11,8 @@ namespace runner
         public Dictionary<DateTime, input> readWeather(string fileName)
         {
             Dictionary<DateTime, input> date_input = new Dictionary<DateTime, input>();
-            //StreamReader streamReader = new StreamReader(fileName);
-            StreamReader streamReader = new StreamReader("C:\\Users\\simoneugomaria.brega\\Dropbox\\data\\e-obs\\data//42.9498605531828_-2.95013959721108.csv");
-
+            StreamReader streamReader = new StreamReader(fileName);
+           
             float latitude = 0;
             ///get latitude
             //for (int i = 0; i < 13; i++)
