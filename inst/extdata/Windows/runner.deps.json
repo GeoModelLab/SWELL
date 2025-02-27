@@ -27,10 +27,7 @@
       },
       "source/1.0.0": {
         "runtime": {
-          "source.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "source.dll": {}
         }
       },
       "optimizerSimplex.Reference/1.0.0.0": {

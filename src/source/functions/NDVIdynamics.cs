@@ -78,6 +78,7 @@ namespace source.functions
                          parameters.parGrowth.optimumTemperature, parameters.parGrowth.maximumTemperature);
                         ecodormancyContribution = gddEco * parameters.parVegetationIndex.nVIEcodormancy;
 
+
                     }
                 }
 
