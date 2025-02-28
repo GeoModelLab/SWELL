@@ -105,7 +105,7 @@ referenceReader referenceReader = new referenceReader();
 
 //read simulated pixels
 Random random = new Random();
-Dictionary<string, pixel> allPixels = referenceReader.readReferenceData(referenceDataFile);
+Dictionary<string, ID> allPixels = referenceReader.readReferenceData(referenceDataFile);
 #endregion
 
 #region get all weather files
@@ -270,7 +270,7 @@ if (isCalibration)
 }
 else
 {
-    Dictionary<string, pixel> allPixelsToValidate = referenceReader.readReferenceData(referenceDataFile);
+    Dictionary<string, ID> allPixelsToValidate = referenceReader.readReferenceData(referenceDataFile);
 
     List<string> availableGroups = new List<string>();
     StreamReader sr = new StreamReader(parametersValidationFile);
@@ -289,7 +289,7 @@ else
     #region loop over pixels 
     int currentPixelNumber = 0;
 
-    List<pixel> pixelsNotValidated = new List<pixel>();
+    List<ID> pixelsNotValidated = new List<ID>();
 
     foreach (var pixel in allPixelsToValidate.Keys)
     {
@@ -330,7 +330,7 @@ else
             optimizer.isCalibration = isCalibration;
 
             //set pixel to calibrate
-            Dictionary<string, pixel> keyValuePairs = new Dictionary<string, pixel>();
+            Dictionary<string, ID> keyValuePairs = new Dictionary<string, ID>();
 
             //add pixel to dictionary
             keyValuePairs.Add(pixel, allPixelsToValidate[pixel]);
@@ -453,19 +453,19 @@ else
                 pixelOutput.decline.declineRate = Median(group.Select(kv => kv.Value.decline.declineRate));
                 pixelOutput.decline.declineState = Median(group.Select(kv => kv.Value.decline.declineState));
                 pixelOutput.declinePercentage = Median(group.Select(kv => kv.Value.declinePercentage));
-                pixelOutput.ndviReference = Median(group.Select(kv => kv.Value.ndviReference));
-                pixelOutput.ndvi = Median(group.Select(kv => kv.Value.ndvi));
+                pixelOutput.viReference = Median(group.Select(kv => kv.Value.viReference));
+                pixelOutput.vi = Median(group.Select(kv => kv.Value.vi));
 
                 // Handle NDVI separately: Store all simulations
                 if (!ndviSimulations.ContainsKey(date))
                 {
                     ndviSimulations.Add(date, new Dictionary<string, float>());
-                    ndviSimulations[date].Add("10th", CalculatePercentile(group.Select(kv => kv.Value.ndvi), 10));
-                    ndviSimulations[date].Add("25th", CalculatePercentile(group.Select(kv => kv.Value.ndvi), 25));
-                    ndviSimulations[date].Add("40th", CalculatePercentile(group.Select(kv => kv.Value.ndvi), 40));
-                    ndviSimulations[date].Add("60th", CalculatePercentile(group.Select(kv => kv.Value.ndvi), 60));
-                    ndviSimulations[date].Add("75th", CalculatePercentile(group.Select(kv => kv.Value.ndvi), 75));
-                    ndviSimulations[date].Add("90th", CalculatePercentile(group.Select(kv => kv.Value.ndvi), 90));
+                    ndviSimulations[date].Add("10th", CalculatePercentile(group.Select(kv => kv.Value.vi), 10));
+                    ndviSimulations[date].Add("25th", CalculatePercentile(group.Select(kv => kv.Value.vi), 25));
+                    ndviSimulations[date].Add("40th", CalculatePercentile(group.Select(kv => kv.Value.vi), 40));
+                    ndviSimulations[date].Add("60th", CalculatePercentile(group.Select(kv => kv.Value.vi), 60));
+                    ndviSimulations[date].Add("75th", CalculatePercentile(group.Select(kv => kv.Value.vi), 75));
+                    ndviSimulations[date].Add("90th", CalculatePercentile(group.Select(kv => kv.Value.vi), 90));
                 }
 
                 // Add the pixel output to the results dictionary

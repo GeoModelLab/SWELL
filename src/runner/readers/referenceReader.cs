@@ -6,10 +6,10 @@ namespace runner
     internal class referenceReader
     {
         //this method reads the NDVI data from the .csv file
-        internal Dictionary<string, pixel> read(string file)
+        internal Dictionary<string, ID> read(string file)
         {
             //create the dictionary
-            Dictionary<string, pixel> idPixel = new Dictionary<string, pixel>();
+            Dictionary<string, ID> idPixel = new Dictionary<string, ID>();
 
             //open the stream
             StreamReader sr = new StreamReader(file);
@@ -27,7 +27,7 @@ namespace runner
                 //if the dictionary does not contain the pixel, add it
                 if (!idPixel.ContainsKey(pixel))
                 {
-                    idPixel.Add(pixel, new pixel());
+                    idPixel.Add(pixel, new ID());
                     idPixel[pixel].id = line[3];
                     idPixel[pixel].ecoName = line[4];
                     idPixel[pixel].cluster = int.Parse(line[13]);
@@ -43,9 +43,9 @@ namespace runner
             return idPixel;
         }
 
-        public Dictionary<string, pixel> readReferenceData(string file)
+        public Dictionary<string, ID> readReferenceData(string file)
         {
-            Dictionary<string, pixel> idPixel = new Dictionary<string, pixel>();
+            Dictionary<string, ID> idPixel = new Dictionary<string, ID>();
             //open a stream
             StreamReader sr = new StreamReader(file);
             sr.ReadLine();
@@ -60,7 +60,7 @@ namespace runner
                     if (!idPixel.ContainsKey(pixel))
                     {
 
-                        idPixel.Add(pixel, new pixel());
+                        idPixel.Add(pixel, new ID());
                         idPixel[pixel].longitude = float.Parse(line[4]);
                         idPixel[pixel].latitude = float.Parse(line[5]);
                         idPixel[pixel].ecoName=line[1];
@@ -70,9 +70,9 @@ namespace runner
                     if (line[6] != "NA")
                     {
                         DateTime date = new DateTime(year, 1, 1).AddDays(int.Parse(line[3]));
-                        if (!idPixel[pixel].dateNDVInorm.ContainsKey(date))
+                        if (!idPixel[pixel].dateVInorm.ContainsKey(date))
                         {                           
-                            idPixel[pixel].dateNDVInorm.Add(date, float.Parse(line[6]));
+                            idPixel[pixel].dateVInorm.Add(date, float.Parse(line[6]));
                         }
                     }
                 }

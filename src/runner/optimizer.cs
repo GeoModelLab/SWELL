@@ -61,7 +61,7 @@ namespace runner
         #endregion
 
         #region local variables to perform the optimization
-        public Dictionary<string, pixel> idPixel = new Dictionary<string, pixel>();
+        public Dictionary<string, ID> idPixel = new Dictionary<string, ID>();
         public Dictionary<string, Dictionary<string, parameter>> species_nameParam = new Dictionary<string, Dictionary<string, parameter>>();
         public Dictionary<string, float> param_outCalibration = new Dictionary<string, float>();
         public string caseStudy;
@@ -178,13 +178,20 @@ namespace runner
                         modelCall(weatherData[day], parameters);
 
                         
-                        if (idPixel[id].dateNDVInorm.ContainsKey(day) && day.Year >= startYear+1)
+                        if (idPixel[id].dateVInorm.ContainsKey(day) && day.Year >= startYear+1)
                         {
-                            simulated.Add(outputT1.ndvi / 100);
-                            measured.Add(idPixel[id].dateNDVInorm[day]);
-                            
-                            //objective function
-                            errors.Add(Math.Pow(idPixel[id].dateNDVInorm[day] - outputT1.ndvi / 100, 2));
+                            simulated.Add(outputT1.vi / 100);
+                            measured.Add(idPixel[id].dateVInorm[day]);
+
+                            if (idPixel[id].dateVInorm[day] < parameters.parVegetationIndex.minimumVI)
+                            {
+                                errors.Add(Math.Pow(idPixel[id].dateVInorm[day] - outputT1.vi / 100, 2)/2);
+                            }
+                            else
+                            {
+                                //objective function
+                                errors.Add(Math.Pow(idPixel[id].dateVInorm[day] - outputT1.vi / 100, 2));
+                            }
                             
                         }
                     }                   
@@ -341,9 +348,9 @@ namespace runner
                         outputT1.weather.radData.dayLength = weatherData[day].radData.dayLength;
                        
                         //add the NDVI data
-                        if (idPixel[id].dateNDVInorm.ContainsKey(day))
+                        if (idPixel[id].dateVInorm.ContainsKey(day))
                         {
-                            outputT1.ndviReference = idPixel[id].dateNDVInorm[day];
+                            outputT1.viReference = idPixel[id].dateVInorm[day];
                         }
 
                         //add the object to the output dictionary
@@ -499,11 +506,11 @@ namespace runner
                 line += Math.Round(date_outputs[weather].decline.declineRate, 3) + ",";
                 line += Math.Round(date_outputs[weather].decline.declineState, 3) + ",";
                 line += Math.Round(date_outputs[weather].declinePercentage, 3) + ",";
-                line += Math.Round(date_outputs[weather].ndviRate, 3) + ",";
-                line += Math.Round(date_outputs[weather].ndvi / 100, 3) + ",";
-                if (idPixel[id].dateNDVInorm.ContainsKey(weather))
+                line += Math.Round(date_outputs[weather].viRate, 3) + ",";
+                line += Math.Round(date_outputs[weather].vi / 100, 3) + ",";
+                if (idPixel[id].dateVInorm.ContainsKey(weather))
                 {
-                    line += Math.Round(idPixel[id].dateNDVInorm[weather], 3);
+                    line += Math.Round(idPixel[id].dateVInorm[weather], 3);
                 }
                 else
                 {
@@ -608,11 +615,11 @@ namespace runner
                 line += Math.Round(date_outputs[weather].decline.declineRate, 3) + ",";
                 line += Math.Round(date_outputs[weather].decline.declineState, 3) + ",";
                 line += Math.Round(date_outputs[weather].declinePercentage, 3) + ",";
-                line += Math.Round(date_outputs[weather].ndviRate, 3) + ",";
-                line += Math.Round(date_outputs[weather].ndvi / 100, 3) + ",";
-                if (idPixel[id].dateNDVInorm.ContainsKey(weather))
+                line += Math.Round(date_outputs[weather].viRate, 3) + ",";
+                line += Math.Round(date_outputs[weather].vi / 100, 3) + ",";
+                if (idPixel[id].dateVInorm.ContainsKey(weather))
                 {
-                    line += Math.Round(idPixel[id].dateNDVInorm[weather], 3) + ",";
+                    line += Math.Round(idPixel[id].dateVInorm[weather], 3) + ",";
                 }
                 else
                 {
