@@ -31,6 +31,7 @@ The model divides plant phenology into **dormancy and growing seasons**, mimicki
 - [Support](#support)
 - [Contributing](#contributing)
 - [License](#license)
+- [Coming soon](#comingsoon)
 
 ---
 
@@ -90,14 +91,33 @@ NDVI is modeled daily, combining understory and overstory vegetation signals in 
 
 ---
 
-## Installation
+> ⚠️ **Platform notice:**  
+> SWELL currently runs **only on Windows** due to its use of compiled C# executables.  
+> Cross-platform support (macOS/Linux) is under active development.
 
-> ⚠️ **Platform:** Windows only
+### 1. Install R
 
-1. Install **R** (version ≥ 4.0): [https://cran.r-project.org/](https://cran.r-project.org/)
-2. Clone this repository:
-3. 
-git clone https://github.com/yourusername/swell.git
+Make sure **R (version ≥ 4.0)** is installed:  
+🔗 [https://cran.r-project.org/](https://cran.r-project.org/)
+
+### 2. Clone the Repository
+
+Clone this repository locally using:
+
+```bash
+git clone https://github.com/GeoModelLab/SWELL.git
+```
+
+All core functions (swellCalibration, swellValidation, etc.) include Roxygen-style documentation. You can access help directly from R:
+```r
+?swellCalibration
+?swellValidation
+```
+Or use the RStudio help viewer by placing your cursor inside the function and pressing F1.
+
+The C# source code for the SWELL computational engine is included in the repository under the /exec or /src directory. A precompiled Windows .exe is also bundled under inst/extdata/Windows/.
+
+    📦 The R functions handle all the configuration and execution automatically by calling this backend executable.
 
 ## Getting Started
 
@@ -416,4 +436,12 @@ See CONTRIBUTING.md (coming soon) for guidelines.
 This project is licensed under the [Creative Commons Attribution 3.0 International (CC BY 3.0)](LICENSE).
 You are free to share and adapt the material for research purpose as long as you provide proper attribution.
 
+## Coming Soon
+
+    Cross-platform runner support (macOS/Linux)
+
+    R package installation via devtools::install_github()
+
+    Precompiled binaries and releases
+    
 ```bash
