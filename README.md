@@ -247,8 +247,6 @@ PU_{\mathrm{DI}} = \begin{cases}
 \end{cases} \tag{4}
 $$
 
-
-
 where _P<sub>DI\_mid</sub>_ (hours) is the midpoint of the logistic function increasing from _P<sub>DI\_l</sub>_ (hours) to _P<sub>DI\_nl</sub>_ (hours), i.e., the limiting and non-limiting day length for dormancy induction, respectively; _Dl_ (hours) is the day length.
 
 <figure>
@@ -417,20 +415,15 @@ where _NDVI<sub>GR*</sub>_ (day<sup>-1</sup>) is a pixel-specific parameter corr
 
 Need help?
 
-    Open an issue: https://github.com/yourusername/swell/issues
-
-    Contact the maintainer via email (see DESCRIPTION file)
+- Open an issue: https://github.com/GeoModelLab/SWELL/issues
+- Contact the maintainer via email (see DESCRIPTION file)
 
 ## Contributing
-We welcome contributions! To contribute:
-
-    Fork this repository
-
-    Create a feature branch
-
-    Submit a pull request with a clear description
-
-See CONTRIBUTING.md (coming soon) for guidelines.
+We welcome contributions! 
+To contribute:
+- Fork this repository
+- Create a feature branch
+- Submit a pull request with a clear description
 
 ## License
 This project is licensed under the [Creative Commons Attribution 3.0 International (CC BY 3.0)](LICENSE).
@@ -438,10 +431,6 @@ You are free to share and adapt the material for research purpose as long as you
 
 ## Coming Soon
 
-    Cross-platform runner support (macOS/Linux)
-
-    R package installation via devtools::install_github()
-
-    Precompiled binaries and releases
+- Cross-platform runner support (macOS/Linux)
     
-```bash
+
