@@ -4,7 +4,7 @@
 
 # SWELL - Simulated Waves of Energy, Light and Life
 
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)  
+[![License: CC BY-NC 3.0](https://img.shields.io/badge/License-CC%20BY--NC%203.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/3.0/)
 [![Platform](https://img.shields.io/badge/platform-Windows--only-blue)](https://microsoft.com)  
 [![Language](https://img.shields.io/badge/language-R%20%7C%20C%23-purple)](https://cran.r-project.org/)  
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
@@ -23,19 +23,18 @@ The model divides plant phenology into **dormancy and growing seasons**, represe
 
 ## 📌 Table of Contents
 
-- [Features](#features)
-- [Introduction](#introduction)
-- [Model Description](#model-description)
+- [Highlights](#highlights)
+- [Description](#Description)
 - [Installation](#installation)
 - [Getting Started](#getting-started)
 - [Support](#support)
 - [Contributing](#contributing)
 - [License](#license)
 - [Coming soon](#comingsoon)
-- [Detailed Explanation](#detailed-explanation)
+- [How It Works](#how-it-works)
 ---
 
-## Features
+## Highlights
 
 - 🌿 SWELL simulates NDVI and EVI using photothermal phenological cues  
 - 🧠 Process-based approach to deciduous vegetation dynamics  
@@ -46,7 +45,7 @@ The model divides plant phenology into **dormancy and growing seasons**, represe
   
 ---
 
-## Introduction
+## Description
 
 Vegetation phenology is essential for understanding how ecosystems respond to climate change. Remote sensing provides large-scale phenological insights — but traditional curve-fitting methods often lack physiological relevance.
 
@@ -70,8 +69,6 @@ Validated on European beech (*Fagus sylvatica*) using MODIS data (2012–2021), 
 
 ---
 
-## Model Description
-
 SWELL uses mathematical functions to simulate phenological phases:
 
 ### 🌙 Dormancy Season
@@ -86,7 +83,7 @@ SWELL uses mathematical functions to simulate phenological phases:
 - **Greendown**: Plateau or slight decrease.  
 - **Decline**: Sharp NDVI drop during senescence.
 
-### NDVI Simulation
+### 🌿 NDVI Simulation
 
 NDVI is modeled daily, combining understory and overstory vegetation signals in a biologically interpretable framework.
 
@@ -229,14 +226,27 @@ To contribute:
 - Submit a pull request with a clear description
 
 ## License
-This project is licensed under the [Creative Commons Attribution 3.0 International (CC BY 3.0)](LICENSE).
-You are free to share and adapt the material for research purpose as long as you provide proper attribution.
+This project is licensed under the **Creative Commons Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0)** license.
+
+You are free to:
+- **Share** — copy and redistribute the material in any medium or format
+- **Adapt** — remix, transform, and build upon the material
+
+Under the following terms:
+- **Attribution** — You must give appropriate credit.
+- **NonCommercial** — You may not use the material for commercial purposes.
+
+🔗 [View the full license](https://creativecommons.org/licenses/by-nc/3.0/)
 
 ## Coming Soon
 
 - Cross-platform runner support (macOS/Linux)
     
-## Detailed explanation
+## How it works
+
+This section provides a detailed look at the internal mechanics of the SWELL model, including the mathematical and physiological functions used to simulate NDVI/EVI.
+
+> 🧠 Recommended for advanced users and researchers interested in model structure and ecophysiological logic.
 
 These are the functions used by SWELL to simulate the plant response to air temperature and photoperiod in different phenological phases.
 <figure>
