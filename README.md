@@ -32,7 +32,7 @@ The model divides plant phenology into **dormancy and growing seasons**, represe
 - [Contributing](#contributing)
 - [License](#license)
 - [Coming soon](#comingsoon)
-
+- [Detailed Explanation](#detailed-explanation)
 ---
 
 ## Features
@@ -214,8 +214,29 @@ val <- swellValidation(
 # Output: val → Simulated NDVI with uncertainty bands (percentiles)
 ```
 
+## Support
 
-## Model description
+Need help?
+
+- Open an issue: https://github.com/GeoModelLab/SWELL/issues
+- Contact the maintainer via email (see DESCRIPTION file)
+
+## Contributing
+We welcome contributions! 
+To contribute:
+- Fork this repository
+- Create a feature branch
+- Submit a pull request with a clear description
+
+## License
+This project is licensed under the [Creative Commons Attribution 3.0 International (CC BY 3.0)](LICENSE).
+You are free to share and adapt the material for research purpose as long as you provide proper attribution.
+
+## Coming Soon
+
+- Cross-platform runner support (macOS/Linux)
+    
+## Detailed explanation
 
 These are the functions used by SWELL to simulate the plant response to air temperature and photoperiod in different phenological phases.
 <figure>
@@ -414,26 +435,4 @@ $$
 
 where _NDVI<sub>GR*</sub>_ (day<sup>-1</sup>) is a pixel-specific parameter corresponding to the maximum _NDVI<sub>swell</sub>_ increase during the growth phase. After reaching the seasonal peak, _NDVI<sub>swell</sub>_ decreases during the greendown phenophase (NDVIr,GD, equation 18), and is further reduced during the decline phase (NDVIr,DE, equation 19). 
 
-## Support
-
-Need help?
-
-- Open an issue: https://github.com/GeoModelLab/SWELL/issues
-- Contact the maintainer via email (see DESCRIPTION file)
-
-## Contributing
-We welcome contributions! 
-To contribute:
-- Fork this repository
-- Create a feature branch
-- Submit a pull request with a clear description
-
-## License
-This project is licensed under the [Creative Commons Attribution 3.0 International (CC BY 3.0)](LICENSE).
-You are free to share and adapt the material for research purpose as long as you provide proper attribution.
-
-## Coming Soon
-
-- Cross-platform runner support (macOS/Linux)
-    
 
