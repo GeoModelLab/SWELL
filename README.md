@@ -13,7 +13,7 @@
 
 ## 📖 Overview
 
-**SWELL** is a model for simulating the daily vegetation index dynamics of remote sensing pixels in **deciduous forest ecosystems**, based on **photoperiod and temperature-driven physiological cues**.
+**SWELL** is a phenology model for simulating the daily vegetation index dynamics of remote sensing pixels in **deciduous forest ecosystems**, based on **photoperiod and temperature-driven physiological cues**.
 
 The model divides plant phenology into **dormancy and growing seasons**, representing phenophase transitions through ecophysiological functions to offer a biologically meaningful alternative to traditional statistical NDVI fitting techniques.
 
@@ -236,7 +236,7 @@ Under the following terms:
 
 ## ⚙️ How it works
 
-This section provides a detailed look at the internal mechanics of the SWELL model, including the mathematical and physiological functions used to simulate /EVI.
+This section provides a detailed look at the internal mechanics of the SWELL model, including the mathematical and physiological functions used to simulate NDVI/EVI.
 
 > 🧠 Recommended for advanced users and researchers interested in model structure and ecophysiological logic.
 
