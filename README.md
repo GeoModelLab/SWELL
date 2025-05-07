@@ -211,7 +211,7 @@ val <- swellValidation(
 ```
 ---
 
-🙋 Support
+## 🙋 Support
 
 Need help?
 
