@@ -13,11 +13,11 @@
 
 ## 📖 Overview
 
-**SWELL** is a hybrid **R + C# model** for simulating the daily NDVI (Normalized Difference Vegetation Index) dynamics of remote sensing pixels in **deciduous forest ecosystems**, based on **photoperiod and temperature-driven physiological cues**.
+**SWELL** is a model for simulating the daily vegetation index dynamics of remote sensing pixels in **deciduous forest ecosystems**, based on **photoperiod and temperature-driven physiological cues**.
 
-The model divides plant phenology into **dormancy and growing seasons**, mimicking transitions such as chilling accumulation, leaf unfolding, peak growth, and senescence. It offers a biologically meaningful alternative to traditional statistical NDVI fitting techniques.
+The model divides plant phenology into **dormancy and growing seasons**, representing phenophase transitions through ecophysiological functions to offer a biologically meaningful alternative to traditional statistical NDVI fitting techniques.
 
-> 🪟 **Note:** SWELL uses compiled **C# routines**, which are invoked from R. It is currently available only on **Windows**.
+> 🪟 **Note:** SWELL uses compiled **C# routines**, which are invoked from R. It is currently available only on **Windows** but cross-platform capabilities are under development.
 
 ---
 
@@ -37,26 +37,29 @@ The model divides plant phenology into **dormancy and growing seasons**, mimicki
 
 ## Features
 
-- 🌿 Simulates NDVI using photothermal phenological cues  
+- 🌿 SWELL simulates NDVI and EVI using photothermal phenological cues  
 - 🧠 Process-based approach to deciduous vegetation dynamics  
-- 📡 Accurate reproduction of satellite NDVI signals  
-- 🔬 Analysis of phenophase timing and duration  
+- 📡 Accurate reproduction of satellite NDVI and EVI data through automatic calibration  
+- 🔬 Analysis of phenophase timing, duration and shift across environment 
 - ⚙️ Hybrid architecture: **R interface + C# computation core**  
-- 🪟 **Windows-only**
-
+- 🪟 **Windows-only** (MacOS and Linux coming soon)
+  
 ---
 
 ## Introduction
 
-Vegetation phenology is essential for understanding how ecosystems respond to climate change. Remote sensing, particularly NDVI, provides large-scale phenological insights — but traditional curve-fitting methods often lack physiological relevance.
+Vegetation phenology is essential for understanding how ecosystems respond to climate change. Remote sensing provides large-scale phenological insights — but traditional curve-fitting methods often lack physiological relevance.
 
-**SWELL** addresses this gap with a process-based approach that simulates NDVI as a function of:
+**SWELL** addresses this gap with a process-based approach that simulates NDVI and EVI as a function of:
 
 - **Photoperiod**
 - **Air temperature**
 - **Species-specific photothermal thresholds**
 
-Validated on European beech (*Fagus sylvatica*) using MODIS data (2012–2021), SWELL showed strong performance across diverse ecoregions and seasons, matching or exceeding statistical fitting benchmarks.
+Validated on European beech (*Fagus sylvatica*) using MODIS data (2012–2021), SWELL showed strong performance across diverse ecoregions and seasons, matching or exceeding statistical fitting benchmarks. 
+
+📄 **See the preprint of the SWELL presentation paper**:  
+[Simulated Waves of Energy, Light and Life (SSRN, 2024)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5078831)
 
 <figure>
   <p align="center">
