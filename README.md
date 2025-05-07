@@ -85,7 +85,8 @@ SWELL uses mathematical functions to simulate phenological phases:
 
 NDVI or EVI are modeled daily, combining understory and overstory vegetation signals in a biologically interpretable framework.
 
-> 📘 Full details and equations are provided in the [Model Description](#model-description) section of this repo.
+> 📘 Full details and equations are provided in the [⚙️ How It Works](#how-it-works) section of this readme.
+
 
 ## 🛠️ Installation
 
