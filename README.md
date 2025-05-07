@@ -391,7 +391,7 @@ $$
 
 When _PC<sub>DE</sub>_ = 100%, the growing season ends, and the dormancy season restarts.
 
-###  simulation
+### NDVI simulation
 SWELL simulates the pixel-level  dynamic (_NDVI<sub>swell</sub>_, unitless) by integrating a daily NDVI rate (day<sup>-1</sup>) within a lower (_NDVI<sub>min</sub>_, unitless) and upper (_NDVI<sub>min</sub>_ + _NDVI<sub>amp</sub>_, unitless) limit:
 
 $$
