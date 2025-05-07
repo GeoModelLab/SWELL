@@ -23,18 +23,16 @@ The model divides plant phenology into **dormancy and growing seasons**, represe
 
 ## 📌 Table of Contents
 
-- [Highlights](#highlights)
-- [Description](#Description)
-- [Installation](#installation)
-- [Getting Started](#getting-started)
-- [Support](#support)
-- [Contributing](#contributing)
-- [License](#license)
-- [Coming soon](#comingsoon)
-- [How It Works](#how-it-works)
+- [✨ Highlights](#highlights)
+- [📝 Description](#description)
+- [🛠️ Installation](#installation)
+- [🚀 Getting Started](#getting-started)
+- [🙋 Support](#support)
+- [📄 License](#license)
+- [⚙️ How It Works](#how-it-works)
 ---
 
-## Highlights
+## ✨ Highlights
 
 - 🌿 SWELL simulates NDVI and EVI using photothermal phenological cues  
 - 🧠 Process-based approach to deciduous vegetation dynamics  
@@ -45,7 +43,7 @@ The model divides plant phenology into **dormancy and growing seasons**, represe
   
 ---
 
-## Description
+## 📄 Description
 
 Vegetation phenology is essential for understanding how ecosystems respond to climate change. Remote sensing provides large-scale phenological insights — but traditional curve-fitting methods often lack physiological relevance.
 
@@ -79,17 +77,17 @@ SWELL uses mathematical functions to simulate phenological phases:
 
 ### ☀️ Growing Season
 
-- **Growth**: Rapid NDVI rise from leaf-out to seasonal peak.  
+- **Growth**: Rapid NDVI/EVI rise from leaf-out to seasonal peak.  
 - **Greendown**: Plateau or slight decrease.  
-- **Decline**: Sharp NDVI drop during senescence.
+- **Decline**: Sharp NDVI/EVI drop during senescence.
 
-### 🌿 NDVI Simulation
+### 🌿 NDVI/EVI Simulation
 
-NDVI is modeled daily, combining understory and overstory vegetation signals in a biologically interpretable framework.
+NDVI or EVI are modeled daily, combining understory and overstory vegetation signals in a biologically interpretable framework.
 
 > 📘 Full details and equations are provided in the [Model Description](#model-description) section of this repo.
 
----
+## 🛠️ Installation
 
 > ⚠️ **Platform notice:**  
 > SWELL currently runs **only on Windows** due to its use of compiled C# executables.  
@@ -119,7 +117,7 @@ The C# source code for the SWELL computational engine is included in the reposit
 
     📦 The R functions handle all the configuration and execution automatically by calling this backend executable.
 
-## Getting Started
+🚀 Getting Started
 
 The SWELL model consists of three main processes: **calibration**, **batch calibration**, **validation**, and **batch validation**. All are accessed via R and rely on configuration passed to a compiled C# executable.
 
@@ -133,7 +131,7 @@ Performs **calibration** of the SWELL model using NDVI or EVI time series and we
 ```r
 result <- swellCalibration(
   weather_data = your_weather_df,
-  vegetation_data = your_ndvi_df,
+  vegetation_data = your_ndvi_or_evi_df,
   vegetationIndex = "NDVI",
   SWELLparameters = parameter_list,
   species = "beech",
@@ -156,7 +154,7 @@ Performs batch calibration. Ideal for automated pipelines or high-performance co
 ```r
 swellCalibrationBatch(
   weather_data = your_weather_df,
-  vegetation_data = your_ndvi_df,
+  vegetation_data = your_ndvi_or_evi_df,
   vegetationIndex = "EVI",
   SWELLparameters = parameter_list,
   species = "beech",
@@ -180,7 +178,7 @@ Usage:
 ```r
 val <- swellValidation(
   weather_data = your_weather_df,
-  vegetation_data = your_ndvi_df,
+  vegetation_data = your_ndvi_or_evi_df,
   vegetationIndex = "NDVI",
   SWELLparameters = parameter_list,
   SWELLparametersCalibrated = param_group_df,
@@ -190,7 +188,7 @@ val <- swellValidation(
   validationReplicates = 10
 )
 
-# Output: val → Simulated NDVI with uncertainty bands (percentiles)
+# Output: val → Simulated NDVI/EVI with uncertainty bands (percentiles)
 ```
 🖥️ 4. swellValidationBatch()
 
@@ -198,7 +196,7 @@ Runs batch validation, ideal for integration with automated systems. Results are
 ```r
 val <- swellValidation(
   weather_data = your_weather_df,
-  vegetation_data = your_ndvi_df,
+  vegetation_data = your_ndvi_or_evi_df,
   vegetationIndex = "NDVI",
   SWELLparameters = parameter_list,
   SWELLparametersCalibrated = param_group_df,
@@ -208,22 +206,15 @@ val <- swellValidation(
   validationReplicates = 10
 )
 
-# Output: val → Simulated NDVI with uncertainty bands (percentiles)
+# Output: val → Simulated NDVI/EVI with uncertainty bands (percentiles)
 ```
 
-## Support
+🙋 Support
 
 Need help?
 
 - Open an issue: https://github.com/GeoModelLab/SWELL/issues
 - Contact the maintainer via email (see DESCRIPTION file)
-
-## Contributing
-We welcome contributions! 
-To contribute:
-- Fork this repository
-- Create a feature branch
-- Submit a pull request with a clear description
 
 ## License
 This project is licensed under the **Creative Commons Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0)** license.
@@ -244,7 +235,7 @@ Under the following terms:
     
 ## How it works
 
-This section provides a detailed look at the internal mechanics of the SWELL model, including the mathematical and physiological functions used to simulate NDVI/EVI.
+This section provides a detailed look at the internal mechanics of the SWELL model, including the mathematical and physiological functions used to simulate /EVI.
 
 > 🧠 Recommended for advanced users and researchers interested in model structure and ecophysiological logic.
 
@@ -407,8 +398,8 @@ $$
 
 When _PC<sub>DE</sub>_ = 100%, the growing season ends, and the dormancy season restarts.
 
-### NDVI simulation
-SWELL simulates the pixel-level NDVI dynamic (_NDVI<sub>swell</sub>_, unitless) by integrating a daily NDVI rate (day<sup>-1</sup>) within a lower (_NDVI<sub>min</sub>_, unitless) and upper (_NDVI<sub>min</sub>_ + _NDVI<sub>amp</sub>_, unitless) limit:
+###  simulation
+SWELL simulates the pixel-level  dynamic (_NDVI<sub>swell</sub>_, unitless) by integrating a daily NDVI rate (day<sup>-1</sup>) within a lower (_NDVI<sub>min</sub>_, unitless) and upper (_NDVI<sub>min</sub>_ + _NDVI<sub>amp</sub>_, unitless) limit:
 
 $$
 NDVI_{\text{swell}} = \begin{cases}
