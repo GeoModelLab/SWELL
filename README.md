@@ -213,7 +213,7 @@ Need help?
 - Open an issue: https://github.com/GeoModelLab/SWELL/issues
 - Contact the maintainer via email (see DESCRIPTION file)
 
-## License
+## 📄 License
 This project is licensed under the **Creative Commons Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0)** license.
 
 You are free to:
@@ -226,11 +226,7 @@ Under the following terms:
 
 🔗 [View the full license](https://creativecommons.org/licenses/by-nc/3.0/)
 
-## Coming Soon
-
-- Cross-platform runner support (macOS/Linux)
-    
-## How it works
+## ⚙️ How it works
 
 This section provides a detailed look at the internal mechanics of the SWELL model, including the mathematical and physiological functions used to simulate /EVI.
 
