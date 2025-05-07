@@ -99,10 +99,36 @@ NDVI is modeled daily, combining understory and overstory vegetation signals in 
 3. 
 git clone https://github.com/yourusername/swell.git
 
+## 🚀 Getting Started
 
-## Model description
+The SWELL model consists of three main processes: **calibration**, **batch calibration**, **validation**, and **batch validation**. All are accessed via R and rely on configuration passed to a compiled C# executable.
 
-Mathematical functions specific to the different phenophases are used to reproduce the effect of temperature and photoperiod on tree phenology. 
+---
+
+### 📊 1. `swellCalibration()`
+
+Performs **calibration** of the SWELL model using NDVI or EVI time series and weather data via a **multi-start simplex algorithm**. Returns all outputs in R as structured data frames.
+
+**Usage:**
+```r
+result <- swellCalibration(
+  weather_data = your_weather_df,
+  vegetation_data = your_ndvi_df,
+  vegetationIndex = "NDVI",
+  SWELLparameters = parameter_list,
+  species = "beech",
+  start_year = 2012,
+  end_year = 2021,
+  simplexes = 3,
+  iterations = 1000
+)
+
+# Output structure:
+# result$calibration_results     → Daily NDVI simulations and rates
+# result$parameters_pixels       → Calibrated parameters by pixel
+# result$parameters_group        → Mean ± SD grouped by vegetation Group
+```
+
 
 <figure>
 <p align="center">
