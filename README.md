@@ -114,7 +114,7 @@ The C# source code for the SWELL computational engine is included in the reposit
 
     📦 The R functions handle all the configuration and execution automatically by calling this backend executable.
 
-🚀 Getting Started
+## 🚀 Getting Started
 
 The SWELL model consists of three main processes: **calibration**, **batch calibration**, **validation**, and **batch validation**. All are accessed via R and rely on configuration passed to a compiled C# executable.
 
