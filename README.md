@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/images/logo.png" alt="SWELL logo" width="200"/>
+  <img src="docs/images/logo_new.png" alt="SWELL logo" width="200"/>
 </p>
 
 # SWELL - Simulated Waves of Energy, Light and Life
@@ -17,11 +17,11 @@
 
 The model divides plant phenology into **dormancy and growing seasons**, representing phenophase transitions through ecophysiological functions to offer a biologically meaningful alternative to traditional statistical NDVI fitting techniques.
 
-> 🪟 **Note:** SWELL uses compiled **C# routines**, which are invoked from R. It is currently available only on **Windows** but cross-platform capabilities are under development.
+> **Note:** SWELL uses compiled **C# routines**, which are invoked from R. It is currently available only on **Windows** but cross-platform capabilities are under development.
 
 ---
 
-## 📌 Table of Contents
+## Table of Contents
 
 - [✨ Highlights](#highlights)
 - [📝 Description](#description)
@@ -55,8 +55,7 @@ Vegetation phenology is essential for understanding how ecosystems respond to cl
 
 Validated on European beech (*Fagus sylvatica*) using MODIS data (2012–2021), SWELL showed strong performance across diverse ecoregions and seasons, matching or exceeding statistical fitting benchmarks. 
 
-📄 **See the preprint of the SWELL presentation paper**:  
-[Simulated Waves of Energy, Light and Life (SSRN, 2024)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5078831)
+📄 **See the preprint of the SWELL presentation paper**: [Simulated Waves of Energy, Light and Life (SSRN, 2024)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5078831)
 
 <figure>
   <p align="center">
@@ -64,8 +63,6 @@ Validated on European beech (*Fagus sylvatica*) using MODIS data (2012–2021), 
   </p>
   <figcaption align="center"><em>Schematic of simulated NDVI curve across seasonal phases</em></figcaption>
 </figure>
-
----
 
 SWELL uses mathematical functions to simulate phenological phases:
 
@@ -82,7 +79,6 @@ SWELL uses mathematical functions to simulate phenological phases:
 - **Decline**: Sharp NDVI/EVI drop during senescence.
 
 ### 🌿 NDVI/EVI Simulation
-
 NDVI or EVI are modeled daily, combining understory and overstory vegetation signals in a biologically interpretable framework.
 
 > 📘 Full details and equations are provided in the [⚙️ How It Works](#how-it-works) section of this readme.
@@ -124,7 +120,7 @@ The SWELL model consists of three main processes: **calibration**, **batch calib
 
 ---
 
-### 📊 1. `swellCalibration()`
+### 1. `swellCalibration()`
 
 Performs **calibration** of the SWELL model using NDVI or EVI time series and weather data via a **multi-start simplex algorithm**. Returns all outputs in R as structured data frames.
 
@@ -147,7 +143,7 @@ result <- swellCalibration(
 # result$parameters_pixels       → Calibrated parameters by pixel
 # result$parameters_group        → Mean ± SD grouped by vegetation Group
 ```
-### 📁 2. `swellCalibrationBatch()`
+### 2. `swellCalibrationBatch()`
 
 Performs batch calibration. Ideal for automated pipelines or high-performance computing setups. Saves CSV outputs to disk (no in-memory R return).
 
@@ -171,7 +167,7 @@ swellCalibrationBatch(
     parameters_group.csv – Calibrated mean ± SD per group
     results_by_pixel.csv – Time series of NDVI simulation
 
-✅ 3. swellValidation()
+### 3. swellValidation()
 
 Performs model validation using calibrated parameters and weather/NDVI input. Returns simulation results as an R data frame.
 
@@ -191,7 +187,7 @@ val <- swellValidation(
 
 # Output: val → Simulated NDVI/EVI with uncertainty bands (percentiles)
 ```
-🖥️ 4. swellValidationBatch()
+### 4. swellValidationBatch()
 
 Runs batch validation, ideal for integration with automated systems. Results are saved to disk.
 ```r
