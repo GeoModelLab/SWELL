@@ -30,6 +30,7 @@ The model divides plant phenology into **dormancy and growing seasons**, represe
 - [🙋 Support](#support)
 - [📄 License](#license)
 - [⚙️ How It Works](#how-it-works)
+  
 ---
 
 ## ✨ Highlights
@@ -83,6 +84,7 @@ NDVI or EVI are modeled daily, combining understory and overstory vegetation sig
 
 > 📘 Full details and equations are provided in the [⚙️ How It Works](#how-it-works) section of this readme.
 
+---
 
 ## 🛠️ Installation
 
@@ -113,6 +115,8 @@ Or use the RStudio help viewer by placing your cursor inside the function and pr
 The C# source code for the SWELL computational engine is included in the repository under the /exec or /src directory. A precompiled Windows .exe is also bundled under inst/extdata/Windows/.
 
     📦 The R functions handle all the configuration and execution automatically by calling this backend executable.
+
+---
 
 ## 🚀 Getting Started
 
@@ -205,6 +209,7 @@ val <- swellValidation(
 
 # Output: val → Simulated NDVI/EVI with uncertainty bands (percentiles)
 ```
+---
 
 🙋 Support
 
@@ -213,6 +218,7 @@ Need help?
 - Open an issue: https://github.com/GeoModelLab/SWELL/issues
 - Contact the maintainer via email (see DESCRIPTION file)
 
+---
 ## 📄 License
 This project is licensed under the **Creative Commons Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0)** license.
 
@@ -225,6 +231,8 @@ Under the following terms:
 - **NonCommercial** — You may not use the material for commercial purposes.
 
 🔗 [View the full license](https://creativecommons.org/licenses/by-nc/3.0/)
+
+---
 
 ## ⚙️ How it works
 
