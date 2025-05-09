@@ -23,17 +23,17 @@ The model divides plant phenology into **dormancy and growing seasons**, represe
 
 ## Table of Contents
 
-- [✨ Highlights](#highlights)
-- [📝 Description](#description)
-- [🛠️ Installation](#installation)
-- [🚀 Getting Started](#getting-started)
-- [🙋 Support](#support)
-- [📄 License](#license)
-- [⚙️ How It Works](#how-it-works)
+- [Highlights](#highlights)
+- [Description](#description)
+- [Installation](#installation)
+- [Getting Started](#getting-started)
+- [Support](#support)
+- [License](#license)
+- [How It Works](#how-it-works)
   
 ---
 
-## ✨ Highlights 
+## Highlights 
 
 - 🌿 SWELL simulates NDVI and EVI using photothermal phenological cues  
 - 🧠 Process-based approach to deciduous vegetation dynamics  
@@ -44,7 +44,7 @@ The model divides plant phenology into **dormancy and growing seasons**, represe
   
 ---
 
-## 📄 Description
+## Description
 
 Vegetation phenology is essential for understanding how ecosystems respond to climate change. Remote sensing provides large-scale phenological insights — but traditional curve-fitting methods often lack physiological relevance.
 
@@ -86,7 +86,7 @@ NDVI or EVI are modeled daily, combining understory and overstory vegetation sig
 
 ---
 
-## 🛠️ Installation
+## Installation
 
 > ⚠️ **Platform notice:**  
 > SWELL currently runs **only on Windows** due to its use of compiled C# executables.  
@@ -136,7 +136,7 @@ The C# source code for the SWELL computational engine is included in the reposit
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 The SWELL model consists of two main processes: **calibration** and **validation**. For each process, two functions are available in the R package to allow users executing SWELL on a dataframe with multiple pixels or to perform batch executions for heavy simulation jobs. 
 
@@ -230,7 +230,7 @@ val <- swellValidation(
 ```
 ---
 
-## 🙋 Support
+## Support
 
 Need help?
 
@@ -253,7 +253,7 @@ Under the following terms:
 
 ---
 
-## ⚙️ How it works
+## How it works
 
 This section provides a detailed look at the internal mechanics of the SWELL model, including the mathematical and physiological functions used to simulate NDVI/EVI.
 
