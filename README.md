@@ -33,7 +33,7 @@ The model divides plant phenology into **dormancy and growing seasons**, represe
   
 ---
 
-## Highlights ✨
+## ✨ Highlights 
 
 - 🌿 SWELL simulates NDVI and EVI using photothermal phenological cues  
 - 🧠 Process-based approach to deciduous vegetation dynamics  
@@ -209,6 +209,7 @@ val <- swellValidation(
 
 # Output: val → Simulated NDVI/EVI with uncertainty bands (percentiles)
 ```
+
 ### 4. swellValidationBatch()
 
 Runs batch validation, ideal for integration with automated systems. Results are saved to disk.
