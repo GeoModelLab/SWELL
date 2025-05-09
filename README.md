@@ -33,7 +33,7 @@ The model divides plant phenology into **dormancy and growing seasons**, represe
   
 ---
 
-## ✨ Highlights
+## Highlights ✨
 
 - 🌿 SWELL simulates NDVI and EVI using photothermal phenological cues  
 - 🧠 Process-based approach to deciduous vegetation dynamics  
