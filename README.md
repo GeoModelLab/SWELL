@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/images/logo_new.png" alt="SWELL logo" width="200"/>
+  <img src="docs/images/swell_logo_def.png" alt="SWELL logo" width="200"/>
 </p>
 
 # SWELL - Simulated Waves of Energy, Light and Life
