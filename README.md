@@ -97,22 +97,40 @@ NDVI or EVI are modeled daily, combining understory and overstory vegetation sig
 Make sure **R (version ≥ 4.0)** is installed:  
 🔗 [https://cran.r-project.org/](https://cran.r-project.org/)
 
-### 2. Clone the Repository
+### 2. Install Required R Packages
 
-Clone this repository locally using:
+Before installing SWELL, make sure the following R packages are installed:
 
-```bash
-git clone https://github.com/GeoModelLab/SWELL.git
+```r
+install.packages(c("devtools", "data.table", "jsonlite"))
 ```
 
+### 3. Install SWELL from GitHub
+
+You can install the SWELL package directly using devtools:
+
+```r
+devtools::install_github("GeoModelLab/SWELL")
+```
+
+This will:
+
+    Download the SWELL R package
+
+    Compile and install it locally
+
+    Include the precompiled C# executable required for model execution (Windows only)
+
+### Access Documentation    
 All core functions (swellCalibration, swellValidation, etc.) include Roxygen-style documentation. You can access help directly from R:
+
 ```r
 ?swellCalibration
 ?swellValidation
 ```
 Or use the RStudio help viewer by placing your cursor inside the function and pressing F1.
 
-The C# source code for the SWELL computational engine is included in the repository under the /exec or /src directory. A precompiled Windows .exe is also bundled under inst/extdata/Windows/.
+The C# source code for the SWELL computational engine is included in the repository under the /src directory. A precompiled Windows .exe is also bundled under inst/extdata/Windows/.
 
     📦 The R functions handle all the configuration and execution automatically by calling this backend executable.
 
