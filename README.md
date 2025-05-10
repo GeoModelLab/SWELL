@@ -17,7 +17,7 @@
 
 The model divides plant phenology into **dormancy and growing seasons**, representing phenophase transitions through ecophysiological functions to offer a biologically meaningful alternative to traditional statistical NDVI fitting techniques.
 
-> **Note:** SWELL uses compiled **C# routines**, which are invoked from R. It is currently available only on **Windows** but cross-platform capabilities are under development.
+> **Note:** SWELL is released as an **R package** using **C# routines**, which are invoked from R. It is currently available only on **Windows** but cross-platform capabilities are under development.
 
 ---
 
