@@ -620,7 +620,6 @@ swellCalibrationBatch <- function(weather_data, vegetation_data,
 #' )
 #' }
 #' @export
-
 swellValidation <- function(weather_data, vegetation_data, vegetationIndex = "EVI",
                             SWELLparameters,
                             SWELLparametersCalibrated, species = 'beech',
@@ -725,7 +724,7 @@ swellValidation <- function(weather_data, vegetation_data, vegetationIndex = "EV
   ndvi_file <- file.path(config_folder, "ndvi_data.csv")
   parameters_file <- file.path(config_folder, "parameters.csv")
 
-  write.csv(SWELLparametersCalibrated |> select(1,3:4,7,8),
+  write.csv(SWELLparametersCalibrated,
             file.path(config_folder, "parametersCalibrated.csv"),
             row.names = FALSE, quote = FALSE)
   parametersCalib <- file.path(config_folder, "parametersCalibrated.csv")
@@ -1054,7 +1053,7 @@ swellValidationBatch <- function(weather_data, vegetation_data, vegetationIndex 
   ndvi_file <- file.path(config_folder, "ndvi_data.csv")
   parameters_file <- file.path(config_folder, "parameters.csv")
   
-  write.csv(SWELLparametersCalibrated |> select(1,3:4,7,8),
+  write.csv(SWELLparametersCalibrated,
             file.path(config_folder, "parametersCalibrated.csv"),
             row.names = FALSE, quote = FALSE)
   parametersCalib <- file.path(config_folder, "parametersCalibrated.csv")
