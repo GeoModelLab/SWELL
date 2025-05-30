@@ -61,16 +61,16 @@ namespace source.data
 
         #region variables related to NDVI dynamics        
         // Get or set the simulated NDVI.
-        public float ndvi { get; set; }
+        public float vi { get; set; }
         
         // Get or set the simulated daily rate of change of the NDVI.
-        public float ndviRate { get; set; }
+        public float viRate { get; set; }
         
         // Get or set the reference NDVI used for model calibration/evaluation.
-        public float ndviReference { get; set; }
+        public float viReference { get; set; }
 
-        public float ndviAtGrowth { get; set; }
-        public float ndviAtSenescence { get; set; }
+        public float viAtGrowth { get; set; }
+        public float viAtSenescence { get; set; }
   
         #endregion
 

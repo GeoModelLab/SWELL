@@ -9,8 +9,8 @@ namespace source.functions
         float startDormancy = 0;
         public void ndviNormalized(input input, parameters parameters, output output, output outputT1)
         {
-            outputT1.ndviAtGrowth = output.ndviAtGrowth;
-            outputT1.ndviAtSenescence = output.ndviAtSenescence;
+            outputT1.viAtGrowth = output.viAtGrowth;
+            outputT1.viAtSenescence = output.viAtSenescence;
             //internal variable 
             float rateNDVInormalized = 0;
             if (outputT1.phenoCode == 2)
@@ -19,11 +19,13 @@ namespace source.functions
                 if(startDormancy == 0)
                 {
                     startDormancy = 1;
-                    outputT1.ndviAtSenescence = output.ndvi / 100;
-                    output.ndviAtSenescence = outputT1.ndviAtSenescence;
-                    if (output.ndviAtSenescence < parameters.parVegetationIndex.minimumVI)
+                    outputT1.viAtSenescence = output.vi / 100;
+                    output.viAtSenescence = outputT1.viAtSenescence;
+
+                    if (output.viAtSenescence <= parameters.parVegetationIndex.minimumVI)
                     {
-                        output.ndviAtSenescence = parameters.parVegetationIndex.minimumVI + .01F;
+                        outputT1.viAtSenescence = parameters.parVegetationIndex.minimumVI + .01F;
+                        output.viAtSenescence = outputT1.viAtSenescence;
                     }
                 }
                 
@@ -47,13 +49,20 @@ namespace source.functions
                     //compute endodormancy contribution
                     endodormancyContribution = parameters.parVegetationIndex.nVIEndodormancy * tratio;
 
-                    float VItomin = (output.ndvi / 100 - parameters.parVegetationIndex.minimumVI) /
-                       (output.ndviAtSenescence - parameters.parVegetationIndex.minimumVI);
+                    float VItomin = (output.vi / 100 - parameters.parVegetationIndex.minimumVI) /
+                       (output.viAtSenescence - parameters.parVegetationIndex.minimumVI);
+                    //ceiling at 1 otherwise unrealistic vi decreases
+                    if (VItomin > 1) { VItomin = 1; }
 
                     endodormancyContribution *= VItomin;
                     if (endodormancyContribution > 0)
                     {
                         endodormancyContribution = 0;
+                    }
+
+                    if (endodormancyContribution < -1000)
+                    {
+
                     }
                 }
                 else
@@ -73,16 +82,20 @@ namespace source.functions
                         tratio = 0;
                         float gddEco = utils.forcingUnitFunction(input, parameters.parGrowth.minimumTemperature - tshift,
                          parameters.parGrowth.optimumTemperature, parameters.parGrowth.maximumTemperature);
-                      
-                        float VItomin = (output.ndvi / 100 - parameters.parVegetationIndex.minimumVI) /
-                       (output.ndviAtSenescence - parameters.parVegetationIndex.minimumVI);
 
-                        ecodormancyContribution = gddEco * parameters.parVegetationIndex.nVIEcodormancy * VItomin;
+                        float VItoMax = (output.vi / 100 - parameters.parVegetationIndex.minimumVI) /
+                  (parameters.parVegetationIndex.maximumVI - parameters.parVegetationIndex.minimumVI);
+                        if (VItoMax > 1) VItoMax = 1;
+
+
+                        ecodormancyContribution = gddEco * parameters.parVegetationIndex.nVIEcodormancy * (1 - VItoMax);
                     }
                 }
 
                 //derive the rate of NDVI normalized for dormancy
-                rateNDVInormalized = (ecodormancyContribution + endodormancyContribution);               
+                rateNDVInormalized = (ecodormancyContribution + endodormancyContribution);             
+                
+              
             }
             //growth
             else if (outputT1.phenoCode == 3)
@@ -93,26 +106,26 @@ namespace source.functions
                 //derive the contribution of growth to rate of NDVI
                 rateNDVInormalized = growthNDVInormalized * 100 * outputT1.growth.growthRate;
 
-                if (outputT1.ndviAtGrowth == 0)
+                if (outputT1.viAtGrowth == 0)
                 {
-                    outputT1.ndviAtGrowth = output.ndvi / 100;
-                    output.ndviAtGrowth = outputT1.ndviAtGrowth;
+                    outputT1.viAtGrowth = output.vi / 100;
+                    output.viAtGrowth = outputT1.viAtGrowth;
                 }
 
-                if (outputT1.ndviAtGrowth >= parameters.parVegetationIndex.maximumVI)
+                if (outputT1.viAtGrowth >= parameters.parVegetationIndex.maximumVI)
                 {
-                    outputT1.ndviAtGrowth = parameters.parVegetationIndex.maximumVI - 0.01F;
+                    outputT1.viAtGrowth = parameters.parVegetationIndex.maximumVI - 0.01F;
                 }
-                float EVItoMax = (output.ndvi / 100 - outputT1.ndviAtGrowth) / 
-                    (parameters.parVegetationIndex.maximumVI - outputT1.ndviAtGrowth);
-                if (EVItoMax > 1) EVItoMax = 1;
-                rateNDVInormalized = growthNDVInormalized * (1 - outputT1.greenDownPercentage/100) * (1 - EVItoMax);
+                float VItoMax = (output.vi / 100 - outputT1.viAtGrowth) / 
+                    (parameters.parVegetationIndex.maximumVI - outputT1.viAtGrowth);
+                if (VItoMax > 1) VItoMax = 1;
+                rateNDVInormalized = growthNDVInormalized * (1 - outputT1.greenDownPercentage/100) * (1 - VItoMax);
 
             }
             //greendown
             else if (outputT1.phenoCode == 4)
             {
-                outputT1.ndviAtGrowth = 0;
+                outputT1.viAtGrowth = 0;
                 //derive the rate of NDVI normalized for greendown
                 float greenDownNDVInormalized = parameters.parVegetationIndex.nVIGreendown;
 
@@ -143,27 +156,25 @@ namespace source.functions
                 rateNDVInormalized = declineNDVInormalized;
             }
 
-            output.ndviRate = rateNDVInormalized;
+            //update rate
+            output.viRate = rateNDVInormalized;
 
-            //update states
-            outputT1.ndvi = output.ndvi + output.ndviRate;
+            //update state
+            outputT1.vi = output.vi + output.viRate;
 
 
             //NDVI thresholds between minimum and maximumVI
-            if (outputT1.ndvi / 100 < 0)
+            if (outputT1.vi / 100 < parameters.parVegetationIndex.minimumVI)
             {
-                outputT1.ndvi = 0;
+                outputT1.vi = parameters.parVegetationIndex.minimumVI*100;
             }
             //NDVI thresholds between minimum and maximumVI
-            if (outputT1.ndvi / 100 > 1)
+            if (outputT1.vi / 100 > 1)
             {
-                outputT1.ndvi = 1;// parameters.parVegetationIndex.maximumVI * 100;
+                outputT1.vi =  1;
             }
 
-            if (outputT1.ndvi == 0)
-            {
-                outputT1.ndvi = parameters.parVegetationIndex.minimumVI / 100;
-            }
+        
 
         }
 

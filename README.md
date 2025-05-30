@@ -1,49 +1,265 @@
+<p align="center">
+  <img src="docs/images/swell_sunset.png" alt="SWELL logo" width="200"/>
+</p>
+
 # SWELL - Simulated Waves of Energy, Light and Life
+
+[![License: CC BY-NC 3.0](https://img.shields.io/badge/License-CC%20BY--NC%203.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/3.0/)
+[![Platform](https://img.shields.io/badge/platform-Windows--only-blue)](https://microsoft.com)  
+[![Language](https://img.shields.io/badge/language-R%20%7C%20C%23-purple)](https://cran.r-project.org/)  
+![Status](https://img.shields.io/badge/status-active-brightgreen)
+
+---
+
+## 📖 Overview
+
+**SWELL** is a phenology model for simulating the daily vegetation index dynamics of remote sensing pixels in **deciduous forest ecosystems**, based on **photoperiod and temperature-driven physiological cues**.
+
+The model divides plant phenology into **dormancy and growing seasons**, representing phenophase transitions through ecophysiological functions to offer a biologically meaningful alternative to traditional statistical NDVI fitting techniques.
+
+> **Note:** SWELL is released as an **R package** using **C# routines**, which are invoked from R. It is currently available only on **Windows** but cross-platform capabilities are under development.
+
+---
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Model Description](#model-description)
-  - [Dormancy Season](#dormancy-season)
-    1. [Dormancy induction](#dormancy-induction)
-    2. [Endodormancy](#endodormancy)
-    3. [Ecodormancy](#ecodormancy)
-  - [Growing Season](#growing-season)
-    1. [Growth](#growth)
-    2. [Greendown](#greendown)
-    3. [Decline](#decline)
-  - [NDVI Simulation](#ndvi-simulation)
+- [Highlights](#highlights)
+- [Description](#description)
 - [Installation](#installation)
+- [Getting Started](#getting-started)
 - [Support](#support)
-- [Contributing](#contributing)
 - [License](#license)
+- [How It Works](#how-it-works)
+  
+---
 
+## Highlights 
 
+- 🌿 SWELL simulates NDVI and EVI using photothermal phenological cues  
+- 🧠 Process-based approach to deciduous vegetation dynamics  
+- 📡 Accurate reproduction of satellite NDVI and EVI data through automatic calibration  
+- 🔬 Analysis of phenophase timing, duration and shift across environment 
+- ⚙️ Hybrid architecture: **R interface + C# computation core**  
+- 🪟 **Windows-only** (MacOS and Linux coming soon)
+  
+---
 
-## Introduction
-SWELL is a process-based based model simulating the daily NDVI dynamic of a remote sensing pixel in a deciduous forested area using photoperiod and temperature as cues and tree photothermal requirements as parameters. 
+## Description
+
+Vegetation phenology is essential for understanding how ecosystems respond to climate change. Remote sensing provides large-scale phenological insights — but traditional curve-fitting methods often lack physiological relevance.
+
+**SWELL** addresses this gap with a process-based approach that simulates NDVI and EVI as a function of:
+
+- **Photoperiod**
+- **Air temperature**
+- **Species-specific photothermal thresholds**
+
+Validated on European beech (*Fagus sylvatica*) using MODIS data (2012–2021), SWELL showed strong performance across diverse ecoregions and seasons, matching or exceeding statistical fitting benchmarks. 
+
+📄 **See the preprint of the SWELL presentation paper**: [Simulated Waves of Energy, Light and Life (SSRN, 2024)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5078831)
 
 <figure>
-<p align="center">
-  <img src="./docs/images/swell_schema.png"  width="600">
+  <p align="center">
+    <img src="./docs/images/swell_schema.png" width="600">
   </p>
-   <figcaption align="center"><em>Schematic representation of the daily NDVI dynamic simulated by SWELL</em></figcaption>
+  <figcaption align="center"><em>Schematic of simulated NDVI curve across seasonal phases</em></figcaption>
 </figure>
 
-The modeling core reproduces plant phenology composed of dormancy and growing seasons: after being induced, the dormancy season unfolds through endo and ecodormancy, which completes at bud break. Deciduous trees have no leaves in this season. Therefore, pixel-level NDVI dynamics refer to the understory and are simulated as dependent on thermal cues. After ecodormancy completion, temperature and photoperiod are used as input to phenophase-specific functions to reproduce a steep NDVI growth until the peak of the season (growth phenophase), a slight NDVI decrease until a downturn point (greendown phenophase), followed by a sharp NDVI decline due to leaves senescence and fall (decline phenophase), while dormancy is induced again.
+SWELL uses mathematical functions to simulate phenological phases:
 
+### 🌙 Dormancy Season
 
-You can calibrate swell to reproduce the NDVI of a generic tree species in a forested area. To do this, make sure to prepare:
-- the file [pixelsCalibration.csv](https://gitlab.com/simone.bregaglio/swell/-/blob/main/swell_model/files/parameters/pixelsCalibrationParameters.csv) containing the reference NDVI data. [Description]() 
-- the file [pixelsCalibrationParameters.csv](https://gitlab.com/simone.bregaglio/swell/-/blob/main/swell_model/files/parameters/pixelsCalibrationParameters.csv) containing the physiological parameters for the tree species and the settings for swell calibration [Description]() 
-- the daily input weather files containing geographical information and air maximum and minimum temperature [Description]()
+- **Dormancy Induction**: Triggered by cold, short days.  
+- **Endodormancy**: Simulated through chilling unit accumulation.  
+- **Ecodormancy**: Promoted by warming temperatures and longer photoperiods.
 
-The [Getting started](#getting-started) section provides a detailed description of these resources, and the 
+### ☀️ Growing Season
 
-## Model description
+- **Growth**: Rapid NDVI/EVI rise from leaf-out to seasonal peak.  
+- **Greendown**: Plateau or slight decrease.  
+- **Decline**: Sharp NDVI/EVI drop during senescence.
 
-Mathematical functions specific to the different phenophases are used to reproduce the effect of temperature and photoperiod on tree phenology. 
+### 🌿 NDVI/EVI Simulation
+NDVI or EVI are modeled daily, combining understory and overstory vegetation signals in a biologically interpretable framework.
 
+> 📘 Full details and equations are provided in the [⚙️ How It Works](#how-it-works) section of this readme.
+
+---
+
+## Installation
+
+> ⚠️ **Platform notice:**  
+> SWELL currently runs **only on Windows** due to its use of compiled C# executables.  
+> Cross-platform support (macOS/Linux) is under active development.
+
+### 1. Install R
+
+Make sure **R (version ≥ 4.0)** is installed:  
+🔗 [https://cran.r-project.org/](https://cran.r-project.org/)
+
+### 2. Install Required R Packages
+
+Before installing SWELL, make sure the following R packages are installed:
+
+```r
+install.packages(c("devtools", "data.table", "jsonlite"))
+```
+
+### 3. Install SWELL from GitHub
+
+You can install the SWELL package directly using devtools:
+
+```r
+devtools::install_github("GeoModelLab/SWELL")
+```
+
+This will:
+
+    Download the SWELL R package
+
+    Compile and install it locally
+
+    Include the precompiled C# executable required for model execution (Windows only)
+
+### Access Documentation    
+All core functions (swellCalibration, swellValidation, etc.) include Roxygen-style documentation. You can access help directly from R:
+
+```r
+?swellCalibration
+?swellValidation
+```
+Or use the RStudio help viewer by placing your cursor inside the function and pressing F1.
+
+The C# source code for the SWELL computational engine is included in the repository under the /src directory. A precompiled Windows .exe is also bundled under inst/extdata/Windows/.
+
+    📦 The R functions handle all the configuration and execution automatically by calling this backend executable.
+
+---
+
+## Getting Started
+
+The SWELL model consists of two main processes: **calibration** and **validation**. For each process, two functions are available in the R package to allow users executing SWELL on a dataframe with multiple pixels or to perform batch executions for heavy simulation jobs. 
+
+---
+
+### 1. `swellCalibration()`
+
+Performs **calibration** of the SWELL model using NDVI or EVI time series and weather data via a **multi-start simplex algorithm**. Returns all outputs in R as structured data frames.
+
+**Usage:**
+```r
+result <- swellCalibration(
+  weather_data = your_weather_df,
+  vegetation_data = your_ndvi_or_evi_df,
+  vegetationIndex = "NDVI",
+  SWELLparameters = parameter_list,
+  species = "beech",
+  start_year = 2012,
+  end_year = 2021,
+  simplexes = 3,
+  iterations = 1000
+)
+
+# Output structure:
+# result$calibration_results     → Daily NDVI simulations and rates
+# result$parameters_pixels       → Calibrated parameters by pixel
+# result$parameters_group        → Mean ± SD grouped by vegetation Group
+```
+### 2. `swellCalibrationBatch()`
+
+Performs batch calibration. Ideal for automated pipelines or high-performance computing setups. Saves CSV outputs to disk (no in-memory R return).
+
+**Usage:**
+```r
+swellCalibrationBatch(
+  weather_data = your_weather_df,
+  vegetation_data = your_ndvi_or_evi_df,
+  vegetationIndex = "EVI",
+  SWELLparameters = parameter_list,
+  species = "beech",
+  start_year = 2012,
+  end_year = 2021,
+  simplexes = 5,
+  iterations = 500,
+  outPath = "path/to/output/"
+)
+```
+📂 Output files:
+
+    parameters_group.csv – Calibrated mean ± SD per group
+    results_by_pixel.csv – Time series of NDVI simulation
+
+### 3. swellValidation()
+
+Performs model validation using calibrated parameters and weather/NDVI input. Returns simulation results as an R data frame.
+
+Usage:
+```r
+val <- swellValidation(
+  weather_data = your_weather_df,
+  vegetation_data = your_ndvi_or_evi_df,
+  vegetationIndex = "NDVI",
+  SWELLparameters = parameter_list,
+  SWELLparametersCalibrated = param_group_df,
+  species = "beech",
+  start_year = 2012,
+  end_year = 2021,
+  validationReplicates = 10
+)
+
+# Output: val → Simulated NDVI/EVI with uncertainty bands (percentiles)
+```
+
+### 4. swellValidationBatch()
+
+Runs batch validation, ideal for integration with automated systems. Results are saved to disk.
+```r
+val <- swellValidation(
+  weather_data = your_weather_df,
+  vegetation_data = your_ndvi_or_evi_df,
+  vegetationIndex = "NDVI",
+  SWELLparameters = parameter_list,
+  SWELLparametersCalibrated = param_group_df,
+  species = "beech",
+  start_year = 2012,
+  end_year = 2021,
+  validationReplicates = 10
+)
+
+# Output: val → Simulated NDVI/EVI with uncertainty bands (percentiles)
+```
+---
+
+## Support
+
+Need help?
+
+- Open an issue: https://github.com/GeoModelLab/SWELL/issues
+- Contact the maintainer via email (see DESCRIPTION file)
+
+---
+## License
+This project is licensed under the **Creative Commons Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0)** license.
+
+You are free to:
+- **Share** — copy and redistribute the material in any medium or format
+- **Adapt** — remix, transform, and build upon the material
+
+Under the following terms:
+- **Attribution** — You must give appropriate credit.
+- **NonCommercial** — You may not use the material for commercial purposes.
+
+🔗 [View the full license](https://creativecommons.org/licenses/by-nc/3.0/)
+
+---
+
+## How it works
+
+This section provides a detailed look at the internal mechanics of the SWELL model, including the mathematical and physiological functions used to simulate NDVI/EVI.
+
+> 🧠 Recommended for advanced users and researchers interested in model structure and ecophysiological logic.
+
+These are the functions used by SWELL to simulate the plant response to air temperature and photoperiod in different phenological phases.
 <figure>
 <p align="center">
   <img src="./docs/images/all_functions.png" width="700">
@@ -75,8 +291,6 @@ PU_{\mathrm{DI}} = \begin{cases}
   \frac{1}{1 + e^{10/(P_{\mathrm{DI\_l}} - P_{\mathrm{DI\_nl}}) \cdot (D_l - P_{\mathrm{DI\_mid}})}} & \text{elsewhere}
 \end{cases} \tag{4}
 $$
-
-
 
 where _P<sub>DI\_mid</sub>_ (hours) is the midpoint of the logistic function increasing from _P<sub>DI\_l</sub>_ (hours) to _P<sub>DI\_nl</sub>_ (hours), i.e., the limiting and non-limiting day length for dormancy induction, respectively; _Dl_ (hours) is the day length.
 
@@ -205,7 +419,7 @@ $$
 When _PC<sub>DE</sub>_ = 100%, the growing season ends, and the dormancy season restarts.
 
 ### NDVI simulation
-SWELL simulates the pixel-level NDVI dynamic (_NDVI<sub>swell</sub>_, unitless) by integrating a daily NDVI rate (day<sup>-1</sup>) within a lower (_NDVI<sub>min</sub>_, unitless) and upper (_NDVI<sub>min</sub>_ + _NDVI<sub>amp</sub>_, unitless) limit:
+SWELL simulates the pixel-level  dynamic (_NDVI<sub>swell</sub>_, unitless) by integrating a daily NDVI rate (day<sup>-1</sup>) within a lower (_NDVI<sub>min</sub>_, unitless) and upper (_NDVI<sub>min</sub>_ + _NDVI<sub>amp</sub>_, unitless) limit:
 
 $$
 NDVI_{\text{swell}} = \begin{cases}
@@ -232,7 +446,7 @@ NDVI_{D\uparrow} = \begin{cases}
 \end{cases}\tag{17}
 $$
 
-where _NDVI<sub>D*</sub>_ (unitless) and _NDVI<sub>D*</sub>_ (unitless) are pixel-specific parameters representing the minimum NDVI decrease and the maximum NDVI increase during the dormancy season; _T<sub>shift</sub>_ (°C) represents the pixel-specific sensitivity of the understory vegetation to thermal cues; _TU<sub>under</sub> (day<sup>-1</sup>_) is the understory thermal unit, computed substituting _T<sub>min</sub>_ with _T<sub>min</sub>_ + _T<sub>shift</sub>_ (°C) in the equation for  [forcing](#growth-and-greendown) accumulation; _Dl<sub>y</sub>_ (hours) is the day length of the previous day.
+where _NDVI<sub>D*</sub>_ (unitless) and _NDVI<sub>D*</sub>_ (unitless) are pixel-specific parameters representing the minimum NDVI decrease and the maximum NDVI increase during the dormancy season; _T<sub>shift</sub>_ (°C) represents the pixel-specific sensitivity of the understory vegetation to thermal cues; _TU<sub>under</sub> (day<sup>-1</sup>_) is the understory thermal unit, computed substituting _T<sub>min</sub>_ with _T<sub>min</sub>_ + _T<sub>shift</sub>_ (°C) in the equation for  [forcing](#growth-and-greendown) accumulation; _Dl<sub>y</sub>_ (hours) is the day length of the previous day. On the first dormancy day, the NDVI at senescence is initialized, ensuring it doesn't fall below the minimum allowed value (_NDVI<sub>min</sub>_). When average temperature drops below T_min + T_shift, the endodormancy contribution is calculated using a scaled temperature deficit, modulated by the normalized distance to NDVImin. When day length is increasing and temperatures exceed the thermal threshold, the ecodormancy contribution is computed using thermal forcing units and scaled by the proximity of current NDVI to its maximum (_NDVI<sub>max</sub>_). The final daily _NDVI<sub>r</sub> during dormancy thus combines both endodormancy and ecodormancy contribution.
 
 During the growth phenophase, the daily NDVI rate (_NDVI<sub>GR</sub>_, day<sup>-1</sup>) refers to the dominant plant species and increases as a function of _TU<sub>GR</sub>_ (day<sup>-1</sup>) and _PC<sub>GR</sub>_ (%), i.e., the percentage completion of the growth phenophase.
 
@@ -243,14 +457,3 @@ $$
 where _NDVI<sub>GR*</sub>_ (day<sup>-1</sup>) is a pixel-specific parameter corresponding to the maximum _NDVI<sub>swell</sub>_ increase during the growth phase. After reaching the seasonal peak, _NDVI<sub>swell</sub>_ decreases during the greendown phenophase (NDVIr,GD, equation 18), and is further reduced during the decline phase (NDVIr,DE, equation 19). 
 
 
-## Installation
-TO BE COMPLETED.
-
-## Support
-TO BE COMPLETED.
-
-## Contributing
-TO BE COMPLETED.
-
-## License
-This project is licensed under the [GNU General Public License version 3.0 or later](LICENSE).

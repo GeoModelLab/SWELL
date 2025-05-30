@@ -3,7 +3,7 @@
         "calibration": "true",
         "species": "beech",
         "startYear": "2011",
-        "endYear": "2022",
+        "endYear": "2014",
         "simplexes": "3",
         "iterations": "10000",
         "validationReplicates": "3",

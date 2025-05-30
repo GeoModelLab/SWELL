@@ -12,7 +12,7 @@ namespace runner
         {
             Dictionary<DateTime, input> date_input = new Dictionary<DateTime, input>();
             StreamReader streamReader = new StreamReader(fileName);
-
+           
             float latitude = 0;
             ///get latitude
             //for (int i = 0; i < 13; i++)
