@@ -362,18 +362,18 @@ else
                     string[] line = sr.ReadLine().Split(',', '"');
                     if (allPixelsToValidate[pixel].ecoName == line[0])
                     {
-                        string sd = line[4];
-                        if (line[4] == "NA")
+                        string sd = line[6];
+                        if (line[6] == "NA")
                         {
-                            sd = (float.Parse(line[4]) * 0.05F).ToString();
+                            sd = (float.Parse(line[6]) * 0.05F).ToString();
                         }
 
                         float randomSample = 0;
                         if (parametersDistribution == "uniform")
                         {
                             //uniform distribution from median +- one standard deviation
-                            ContinuousUniform uniformDistribution = new ContinuousUniform(float.Parse(line[3]) - Math.Abs(double.Parse(sd)),
-                                float.Parse(line[3]) + Math.Abs(double.Parse(sd)));
+                            ContinuousUniform uniformDistribution = new ContinuousUniform(float.Parse(line[5]) - Math.Abs(double.Parse(sd)),
+                                float.Parse(line[5]) + Math.Abs(double.Parse(sd)));
                             //sample one parset
                             randomSample = (float)uniformDistribution.Sample();
                         }
@@ -483,6 +483,7 @@ else
         #endregion
 
         #endregion
+
 
         //increase the number of pixel
         currentPixelNumber++;

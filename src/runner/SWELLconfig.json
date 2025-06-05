@@ -1,22 +1,22 @@
 {
-    "settings": {
-        "calibration": "true",
-        "species": "beech",
-        "startYear": "2011",
-        "endYear": "2023",
-        "simplexes": "3",
-        "iterations": "10000",
-        "validationReplicates": "3",
-        "parametersDistributions": "uniform",
-        "weatherDirectory": "C:\\Users\\simoneugomaria.brega\\Dropbox\\data\\e-obs\\data",
-        "referenceDataFile": "..\\..\\..\\files\\referenceData\\pixelsCalibrationEVI.csv",
-        "parametersDataFile": "..\\..\\..\\files\\parametersData\\photothermalRequirements.csv",
-        "parametersValidationFile": "C:\\Users\\simoneugomaria.brega\\OneDrive - CREA\\Documenti\\git\\SWELL\\tests\\manual\\parametersValidationFile.csv",
-        "startPixel": "0",
-        "numberPixels": "5000",
-        "vegetationIndex": "EVI",
-        "outputCalibrationDir": "C:\\Users\\simoneugomaria.brega\\AppData\\Local\\R\\win-library\\4.4\\SWELL\\extdata\\Windows\\outputsCalibration",
-        "outputValidationDir": "C:\\Users\\simoneugomaria.brega\\Dropbox\\IO\\SWELL\\inst\\extdata\\Windows\\outputsValidation",
-        "outputParametersDir": "C:\\Users\\simoneugomaria.brega\\AppData\\Local\\R\\win-library\\4.4\\SWELL\\extdata\\Windows\\outputsParameters"
-    }
+  "settings": {
+    "calibration": "false",
+    "species": "beech",
+    "startYear": "1950",
+    "endYear": "2023",
+    "simplexes": "3",
+    "iterations": "10000",
+    "validationReplicates": "50",
+    "parametersDistributions": "uniform",
+    "weatherDirectory": "C:\\Users\\simone\\projects\\e-obs_extract\\weather\\1950_1954",
+    "referenceDataFile": "..\\..\\..\\files\\referenceData\\pixelsCalibrationEVI.csv",
+    "parametersDataFile": "..\\..\\..\\files\\parametersData\\photothermalRequirements.csv",
+    "parametersValidationFile": "C:\\Users\\simone\\projects\\swell\\SWELL\\tests\\manual\\parametersValidationFile.csv",
+    "startPixel": "0",
+    "numberPixels": "5000",
+    "vegetationIndex": "EVI",
+    "outputCalibrationDir": "C:\\Users\\geomodellab\\AppData\\Local\\R\\win-library\\4.4\\SWELL\\extdata\\Windows\\outputsCalibration",
+    "outputValidationDir": "C:\\Users\\geomodellab\\AppData\\Local\\R\\win-library\\4.4\\SWELL\\extdata\\Windows\\outputsValidation",
+    "outputParametersDir": "C:\\Users\\geomodellab\\AppData\\Local\\R\\win-library\\4.4\\SWELL\\extdata\\Windows\\outputsParameters"
+  }
 }
